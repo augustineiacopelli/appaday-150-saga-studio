@@ -14,3 +14,48 @@
 .proj-left { margin-top: 16px; }
 .proj-left .section-h { margin: 0 0 6px; }
 /* === STUDIO:PROJECTS CSS END === */
+/* === STUDIO:PIPELINE CSS BEGIN === */
+/* The pipeline header: five stage buttons that scroll sideways on a phone, then the stage's own Final control and the unresolved badge. */
+.stage-bar { display: flex; flex-direction: column; flex-wrap: nowrap; gap: 6px; }
+.stage-steps { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.stage-steps::-webkit-scrollbar { display: none; }
+.stage-btn { flex: 1 0 auto; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 10px; white-space: nowrap; }
+.stage-btn .stage-n { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--panel); border: 1px solid var(--line2); font-size: .8rem; font-weight: 800; flex: none; }
+.stage-btn .stage-name { font-weight: 700; }
+.stage-btn .stage-st { pointer-events: none; }
+.stage-btn[aria-current="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.stage-btn[data-status="locked"] { color: var(--muted); border-style: dashed; cursor: not-allowed; }
+.stage-btn[data-status="stale"] { border-color: var(--warn); }
+.stage-act { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
+.stage-note { flex: 1 1 220px; min-width: 0; color: var(--ink2); font-size: .92rem; overflow-wrap: anywhere; }
+.stage-act .btn[hidden] { display: none; }
+.stage-act .btn[aria-disabled="true"] { opacity: .6; cursor: not-allowed; }
+.vbadge .vlabel { font-weight: 700; }
+.game-req { display: grid; gap: 8px; margin: 12px 0; }
+.game-row { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 6px 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg2); }
+/* === STUDIO:PIPELINE CSS END === */
+/* === STUDIO:UNRESOLVED CSS BEGIN === */
+/* The unresolved dock sits beside the workspace on a wide screen and under it on a phone. It is not modal: work goes on around it. */
+.workrow { flex: 1; min-height: 0; display: flex; min-width: 0; }
+.workrow > .ws { flex: 1 1 auto; min-width: 0; }
+.dock { flex: 0 0 min(380px, 38vw); min-width: 0; display: flex; flex-direction: column; border-left: 1px solid var(--line2); background: var(--panel); }
+.dock[hidden] { display: none; }
+.dock-head { display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 14px; border-bottom: 1px solid var(--line); }
+.dock-title { flex: 1; min-width: 0; margin: 0; font-family: var(--font-display); font-size: 1.05rem; letter-spacing: .04em; }
+.dock-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 12px 14px; }
+.dock-body .vsummary { display: flex; flex-wrap: wrap; gap: 6px; }
+.ugroup { margin-top: 12px; }
+.ugroup .section-h { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 6px; }
+.uitem { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.uitem .chip { flex: none; margin-top: 2px; }
+.uitem .umsg { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: .95rem; }
+.uitem .ujump { flex: none; min-height: 44px; min-width: 44px; }
+.unote { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0; }
+.unote span { flex: 1 1 200px; min-width: 0; }
+.uowed { margin-top: 14px; }
+.uowed summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 700; }
+@media (max-width: 899px) {
+  .workrow { flex-direction: column; }
+  .dock { flex: 0 0 min(52dvh, 420px); border-left: 0; border-top: 1px solid var(--line2); }
+}
+/* === STUDIO:UNRESOLVED CSS END === */

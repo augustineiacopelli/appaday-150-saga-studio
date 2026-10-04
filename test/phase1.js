@@ -47,7 +47,7 @@ const STAGE_DAY = { charter: '146', art: '147', world: '148', story: '149' };
     while (cursor < tags.length && tags[cursor].indexOf('Studio.end(') < 0) listed.push(day + ':' + tags[cursor++]);
     if (tags[cursor++] !== "Studio.end('" + s + "');") okBrackets = false;
   });
-  check('each stage\'s scripts sit between its own Studio.begin and Studio.end, and the store, the projects module and studio-boot load last', okBrackets && tags.slice(cursor).join() === 'core/idb.js,core/projects.js,core/studio-boot.js', { cursor, total: tags.length });
+  check('each stage\'s scripts sit between its own Studio.begin and Studio.end, and the store, the projects module, the pipeline, the unresolved drawer and studio-boot load last', okBrackets && tags.slice(cursor).join() === 'core/idb.js,core/projects.js,core/pipeline.js,core/unresolved.js,core/studio-boot.js', { cursor, total: tags.length });
   const want = [];
   stages.forEach((s) => manifest.files.filter((f) => f.path.indexOf('forge/' + STAGE_DAY[s] + '/') === 0 && /\.js$/.test(f.path)).forEach((f) => want.push(STAGE_DAY[s] + ':' + f.path)));
   const vendor = { '146': ['charter', 'codex', 'rules', 'arena', 'sim'].map((n) => 'forge/146/ws-' + n + '.js') };

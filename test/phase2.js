@@ -73,7 +73,7 @@ const studio = (opts) => bootReady(Object.assign({ native: false, evalEngines: t
     own.every(([f, t]) => !/[^\x00-\x7f]/.test(t) && !/=>|\blet\s|\bconst\s|\bclass\s|`/.test(t.replace(/\/\/.*$/gm, '')) && !/ctx\.roundRect|ctx\.ellipse|window\.confirm|[^.\w]\.remove\(\)/.test(t)),
     own.filter(([f, t]) => /[^\x00-\x7f]/.test(t) || /=>|\blet\s|\bconst\s|\bclass\s|`/.test(t.replace(/\/\/.*$/gm, ''))).map(([f]) => f));
   const html = read(path.join(ROOT, 'index.html'));
-  check('index.html loads the store and the projects module after every forge, before the boot', /Studio\.end\('story'\);<\/script>\s*<script src="core\/idb\.js"><\/script>\s*<script src="core\/projects\.js"><\/script>\s*<script src="core\/studio-boot\.js"><\/script>/.test(html));
+  check('index.html loads the store and the projects module after every forge, before the boot', /Studio\.end\('story'\);<\/script>\s*<script src="core\/idb\.js"><\/script>\s*<script src="core\/projects\.js"><\/script>\s*<script src="core\/pipeline\.js"><\/script>\s*<script src="core\/unresolved\.js"><\/script>\s*<script src="core\/studio-boot\.js"><\/script>/.test(html));
 
   // ---------------------------------------------------------------- 1. boot and the store
   const factory = new FI.IDBFactory();
@@ -229,13 +229,13 @@ const studio = (opts) => bootReady(Object.assign({ native: false, evalEngines: t
   const names = {};
   const exp = {};
   for (const stage of ['charter', 'art', 'world']) {
-    S.show(stage); await wait(30);
+    S.projects.importText(F.demo149); S.show(stage); await wait(30);
     try { const o = K.buildExport('draft', { engines: false }); exp[stage] = o; names[stage] = o.files.map((f) => f.name.replace(/^.*?-(bundle|manifest|art-manifest|world-manifest|story-manifest)\.json$/, '$1')).join(','); } catch (e) { names[stage] = 'ERROR ' + e.message; }
   }
   check('Kit.buildExport passes to the stage on screen: Charter writes the Day 146 files, Art its manifest, World its manifest', /bundle,/.test(names.charter) && /(^|,)manifest/.test(names.charter) && /art-manifest/.test(names.art) && /world-manifest/.test(names.world) && !/ERROR/.test(names.charter + names.art + names.world), names);
   const src = JSON.parse(F.demo149), outB = fin ? JSON.parse(fin.files[0].text) : null;
   check('the export leaves forges 146, 147 and 148 as the fixture had them and opens story (Kit.bundle.open), exactly as Day 149 writes it', !!outB && ['146', '147', '148'].every((d) => canon(outB.kit.forges[d]) === canon(src.kit.forges[d])) && outB.kit.opened.indexOf('story') >= 0, outB && outB.kit.forges);
-  S.show('story'); await wait(30);
+  S.projects.importText(F.demo149); S.show('story'); await wait(30);
   check('Kit.openExport opens the stage\'s own export dialog (Day 149\'s, with its game kit option)', (() => { K.openExport(); const t = win.document.querySelector('.dialog') ? win.document.querySelector('.dialog').textContent : ''; K.ui.closeTop(); return /Export forge 149/.test(t); })());
   S.show('world'); await wait(30);
   check('and from the World stage it opens Day 148\'s', (() => { K.openExport(); const t = win.document.querySelector('.dialog') ? win.document.querySelector('.dialog').textContent : ''; K.ui.closeTop(); return /Export forge 148/.test(t); })());

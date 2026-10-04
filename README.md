@@ -7,7 +7,7 @@ Portfolio: https://augustineiacopelli.github.io/appaday/
 
 ## Status
 
-Phases 0 to 2 of 7 are complete: the vendored forges and fixtures, the load sandwich, and now one store, one import and one project list. The gated pipeline header arrives in Phase 3. See build-log.txt for the full record.
+Phases 0 to 3 of 7 are complete: the vendored forges and fixtures, the load sandwich, one store, one import and one project list, and now the gated five stage pipeline with the unresolved references drawer. The player shell arrives in Phase 4. See build-log.txt for the full record.
 
 ## Layout
 
@@ -63,3 +63,7 @@ node phase2.js                       # the Studio's Phase 2 acceptance
 node phase1.js                       # still 63 of 63 (native mode)
 node run-forge-suites.js             # the forges' own suites, inside this page (native mode)
 ```
+
+## Phase 3: the pipeline and the unresolved panel
+
+The shell header shows five stages: Charter and Rules, Art and Audio, World, Story, Game. A stage unlocks when the stage before it is marked Final and its readiness function still returns true against the bundle in memory. A locked stage refuses a click with the reason, and a project opens at the furthest stage that is not locked. Mark stage Final runs the stage's own checks and its own Final export logic (opening its namespace and stamping the hash) and discards the files, so nothing is downloaded and nothing is reimported. Stale badges come only from the stamps the forges already keep: the Charter version, a predecessor that is no longer Final, and Day 149's world stamp. The unresolved drawer (core/unresolved.js) calls Kit.validate plus each reached stage's checks, groups findings by namespace, lists FORWARD references apart as owed (they never block until the owing stage opens), and every Jump switches stage first. The drawer stays open across reloads. Tests: test/phase3.js, 72 checks.

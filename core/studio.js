@@ -45,14 +45,15 @@
     storeGet: Kit.store.get, storeSet: Kit.store.set, storeDel: Kit.store.del,
     importText: Kit.bundle.importText, buildExport: Kit.buildExport, openExport: Kit.openExport,
     engineSource: Kit.engine && Kit.engine.source,
-    validateRegister: Kit.validate.register, codexRegister: Kit.codex.register, jumpRegister: Kit.jump.register
+    validateRegister: Kit.validate.register, codexRegister: Kit.codex.register, jumpRegister: Kit.jump.register,
+    debounce: U.debounce
   };
   Studio.base = BASE;
   function restoreStoreKit() {
     Kit.store.get = BASE.storeGet; Kit.store.set = BASE.storeSet; Kit.store.del = BASE.storeDel;
     Kit.bundle.importText = BASE.importText; Kit.buildExport = BASE.buildExport; Kit.openExport = BASE.openExport;
   }
-  function restoreKit() { Kit.mount = BASE.mount; Kit.on = BASE.on; restoreStoreKit(); }
+  function restoreKit() { Kit.mount = BASE.mount; Kit.on = BASE.on; U.debounce = BASE.debounce; restoreStoreKit(); }
   // Native mode (Phase 1): while a stage is on screen, its own store, import gate and export functions are put back, so a
   // forge behaves exactly as it does on its own page and its own phase tests can drive it. They were captured clean, each
   // over the real Kit (never over another forge's), so nothing chains. Phase 2 turns native mode off: the shipped page runs
@@ -148,6 +149,13 @@
       gated.studioInner = fn;
       if (evt === 'load') st.onLoad.push(fn); else if (evt === 'change') st.onChange.push(fn);
       return BASE.on(evt, gated);
+    };
+    // Debounced work (the size and coverage meters, repaints): a forge queues it from a change handler that was live, and it fires
+    // 200 to 300 ms later, by which time the person may have opened another project. The forge's own function reads whatever
+    // bundle is current and fills its namespace as it goes, so a stale timer would give a Day 146 only bundle an art namespace.
+    // Every debounce a forge makes while it loads is therefore gated: when it fires, it runs only if the stage is still live.
+    U.debounce = function (fn, ms) {
+      return BASE.debounce(function () { if (Studio.live(stageId)) return fn.apply(this, arguments); }, ms);
     };
     // Validators: kept by name, run only while the stage is live for the bundle being checked.
     Kit.validate.register = function (name, fn) {

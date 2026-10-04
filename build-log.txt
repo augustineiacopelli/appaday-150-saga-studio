@@ -123,3 +123,21 @@ SESSION 2 / PHASE 2 (2026-10-04, Sonnet): ONE STORE, ONE IMPORT, ONE PROJECT LIS
     without the download, stale badges from the forges' stamps, and the unresolved drawer (Kit.validate plus each opened
     stage's checks, FORWARD versus BROKEN, Kit.jump retargeted to switch stage first). Studio.projects.placement is the
     furthest Final; Studio.store and Studio.projects are the one source of truth for project state.
+
+SESSION 3 / PHASE 3: the pipeline and the unresolved panel
+  Files: core/pipeline.js (stage order, locks, stale, Mark stage Final, Kit.jump retarget, header, Game stage), core/unresolved.js
+    (collect, summary, dock, badge), plus patches to studio.js, studio-boot.js, studio.css and index.html (the dock beside #ws).
+  DECISION: stage N unlocks iff stage N-1 is Final and its readiness is true. The forge tabs keep their own canEnter gates as a second layer.
+  DECISION: Mark stage Final calls the forge's own saved buildExport('final') and throws the files away. Refusals use the forge's own sentence.
+  DECISION: stale is derived only from existing stamps (Charter version, predecessor Final, Day 149 world stamp). No new mechanism.
+  DECISION: the drawer is "clear" only when the story checks have actually run on the story as it is now (summary().empty).
+  FINDING: a forge's delayed U.debounce timer (the 147 coverage meter) could fire after a project switch and fill art on the new bundle,
+    giving a Charter only project 159 coverage warnings. Studio.begin now wraps U.debounce so a timer fires only while its stage is live.
+  FINDING: the saved dock state lives in the project store, which is not ready when the dock installs, so Studio.unresolved.restore() is
+    called at the end of startProject.
+  KNOWN GAP: an Art stage that is stale against World edits has no stamp to show it (147 keeps none for world). Documented, not patched.
+  Tests: phase3.js 72 of 72, phase1.js 63 of 63, phase2.js 63 of 63 (three expectations updated: script order, and draft exports now
+    re import between stages because a draft downgrades that forge's Final and so locks the next stage), forge suites 2039 of 2040
+    (the known 147 phase5 difference), vendor.js --check clean.
+  NEXT: Phase 4, the player shell.
+

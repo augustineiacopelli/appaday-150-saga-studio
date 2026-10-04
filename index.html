@@ -40,7 +40,10 @@
   <nav class="stage-bar" id="stages" aria-label="Stages"></nav>
   <div class="store-banner" id="storeBanner" role="alert" hidden><span>This browser refused to save the draft because storage is full. Export the bundle now so no work is lost.</span><button class="btn btn-primary" id="btnBannerExport" type="button">Export now</button></div>
   <nav class="tabs" id="tabs" role="tablist" aria-label="Workspaces"></nav>
-  <main class="ws" id="ws" tabindex="-1"></main>
+  <div class="workrow" id="workrow">
+    <main class="ws" id="ws" tabindex="-1"></main>
+    <aside class="dock" id="unresolved" aria-label="Unresolved references" hidden></aside>
+  </div>
   <footer class="app-foot">
     <span>Saga Studio &middot; AppADay 150</span>
     <a class="backlink" href="https://augustineiacopelli.github.io/appaday/">augustineiacopelli.github.io/appaday</a>
@@ -121,6 +124,8 @@
 <script>Studio.end('story');</script>
 <script src="core/idb.js"></script>
 <script src="core/projects.js"></script>
+<script src="core/pipeline.js"></script>
+<script src="core/unresolved.js"></script>
 <script src="core/studio-boot.js"></script>
 </body>
 </html>

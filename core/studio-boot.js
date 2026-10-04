@@ -13,7 +13,7 @@
   }
   Studio.watchTabs();
   // One store, one importer, one export dispatcher: swapped in once, after every forge has loaded.
-  if (!Studio.native) { Studio.store.install(); Studio.projects.install(); }
+  if (!Studio.native) { Studio.store.install(); Studio.projects.install(); Studio.pipeline.install(); }
   Kit.theme.apply();
   try { window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function () { if (Kit.theme.get() === 'system') Kit.theme.apply(); }); } catch (e) {}
   wire('btnSettings', 'gear', null, function () { Kit.settings.open(); });
@@ -31,9 +31,11 @@
   wire('btnExport', 'export', 'Export', function () { Kit.openExport(); });
   var fi = document.getElementById('fileImport');
   if (fi) fi.addEventListener('change', function (e) { Kit.importPicked(e.target.files && e.target.files[0]); });
-  // The Phase 1 stage bar: one button per stage, no gating yet.
+  // The stage bar. Shipped, it is the pipeline header (core/pipeline.js): five stages, locked until the one before is Final.
+  // In native mode (the forges' own phase suites) it stays the Phase 1 bar, one ungated button per forge.
   var bar = document.getElementById('stages');
-  if (bar) {
+  if (bar && !Studio.native) Studio.pipeline.mountHeader(bar);
+  else if (bar) {
     Studio.STAGES.forEach(function (s) {
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'btn'; b.setAttribute('data-stage-btn', s.id);
@@ -43,12 +45,17 @@
     });
   }
   Studio.show = function (stageId, tab) {
+    // A stage that is locked lands on the furthest stage that is not (a project opens where it stands; a bundle whose upstream
+    // was edited out from under it opens at the last stage that still holds). The stage bar refuses with a reason instead.
+    if (!Studio.native && Studio.pipeline) { var land = Studio.pipeline.landing(stageId); if (land !== stageId) { stageId = land; tab = null; } }
     if (!Studio.enter(stageId)) return false;
     var want = tab || (stageId === 'charter' ? 'charter' : 'start');
     var ok = Kit.go(stageId + '.' + want, { silent: true });
-    if (bar) Array.prototype.forEach.call(bar.children, function (b) { b.setAttribute('aria-current', b.getAttribute('data-stage-btn') === Studio.stage ? 'true' : 'false'); });
+    if (bar) Array.prototype.forEach.call(bar.querySelectorAll('[data-stage-btn]'), function (b) { b.setAttribute('aria-current', b.getAttribute('data-stage-btn') === Studio.stage ? 'true' : 'false'); });
+    if (!Studio.native && Studio.pipeline) Studio.pipeline.paint();
     return ok;
   };
+  if (!Studio.native) Studio.unresolved.install();
   document.addEventListener('keydown', function (e) {
     if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === 's' || e.key === 'S')) {
       e.preventDefault();
@@ -87,6 +94,9 @@
       var st = Studio.stages[stage], api = st.api;
       Studio.preselect(stage);
       var b = Kit.bundle.restoreDraft() || Kit.bundle.create('Untitled Saga');
+      // The stage the project stood at may be locked now (the Charter was relocked, a Final was downgraded): open the last one that holds.
+      var land = Studio.pipeline.landing(stage, b);
+      if (land !== stage) { stage = land; st = Studio.stages[stage]; api = st.api; tab = null; fromTab = null; Studio.preselect(stage); }
       if (api && api.ensure) { var changed = api.ensure(b); if (api.registerCodex) changed = api.registerCodex(b) || changed; if (changed) Kit.bundle.touch(st.ns + '-ensure'); }
       Studio.enter(stage);
       var local = tab && fromTab === stage ? tab.slice(tab.indexOf('.') + 1) : null;
@@ -94,6 +104,7 @@
       else Studio.show(stage, local);
       if (api && api.paintMeter) api.paintMeter();
       if (api && api.paintCoverage) api.paintCoverage();
+      if (Studio.unresolved && Studio.unresolved.restore) Studio.unresolved.restore();
     });
     return Studio.booted;
   };
