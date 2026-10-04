@@ -64,3 +64,5 @@ SESSION 0 / PHASE 0 (2026-10-04, Opus): REPO, VENDORING, FIXTURES. COMPLETE.
   index.html is a placeholder card for Pages until Phase 1 replaces it with the Studio shell.
   NEXT: Phase 1, the load sandwich (core/studio.js, per stage WS objects, Kit.mount prefixing, CSS scoping by
     body[data-stage]), tested by running the four forges' own phase tests inside the stacked page.
+
+Phase 1: load sandwich built (studio.js, studio-boot.js, scoped CSS, engine text elements). phase1.js 63 of 63; forge suites 2039 of 2040 (known: 147 phase5 ENGINE_BATTLE global, by design). Boot-time debounced meter paints from a stage can still fire up to 300 ms after leaving it.

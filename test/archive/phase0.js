@@ -17,7 +17,7 @@ const path = require('path');
 const vm = require('vm');
 const crypto = require('crypto');
 const { execFileSync } = require('child_process');
-const { boot } = require('./boot');
+const { boot } = require('./boot-phase0');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(__dirname, 'out');

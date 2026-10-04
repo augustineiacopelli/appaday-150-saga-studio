@@ -34,3 +34,15 @@ node phase0.js             # Phase 0 acceptance
 ```
 
 Never edit anything in core/, engines/, or forge/ by hand. Change the owning forge, then run node vendor.js.
+
+## Phase 1: the load sandwich
+
+index.html loads every forge into one page with no build step. Each forge's own scripts sit between `Studio.begin('x')` and `Studio.end('x')`. While a forge loads, core/studio.js swaps the Kit store, import and export functions, `Kit.mount`, `Kit.on`, the registries and `window.WS` for recording proxies, and restores the real ones when it ends. Tab ids are filed under the stage (art.world, world.world), CSS is scoped to `body[data-stage]`, and the stage on screen gets its own recorded Kit functions, handlers, validators, record types and ID prefixes back (native mode). Nothing visible ships yet.
+
+```
+cd test && npm install
+node phase1.js                       # the Studio's own acceptance (63 checks)
+node run-forge-suites.js             # every phase test of Days 147 to 149, unchanged, driven inside this page
+```
+
+Result: 2039 of 2040 forge checks pass. The one difference is Day 147's phase 5 check that the battle engine declares no global: on its own page Day 146 is absent, here Day 146's Arena legitimately defines ENGINE_BATTLE. test/archive/phase0.js is the retired Phase 0 acceptance (it checked the old built-page vendoring).

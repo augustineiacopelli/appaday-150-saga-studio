@@ -15,7 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { boot } = require('./boot');
+const { boot } = require('./boot-phase0');
 
 const OUT = path.join(__dirname, 'out');
 const APP146 = require('../day146');

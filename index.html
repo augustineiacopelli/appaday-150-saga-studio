@@ -4,55 +4,121 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Saga Studio | AppADay 150</title>
-<meta name="description" content="Saga Studio: the four Saga forges in one pipeline, from charter to a playable, exportable game. AppADay 150, in progress.">
+<meta name="description" content="Saga Studio: one workspace that takes a Saga from Charter to a playable game. AppADay 150.">
 <meta name="theme-color" content="#10121a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;700&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
-<style>
-:root { --bg: #10121a; --bg2: #181b27; --ink: #ece6d6; --muted: #a9a394; --gold: #d8b25a; --line: #2c3142; }
-* { box-sizing: border-box; }
-body { margin: 0; min-height: 100dvh; display: flex; flex-direction: column; background: radial-gradient(ellipse at top, #1d2133 0%, var(--bg) 60%); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 1.05rem; line-height: 1.55; }
-header, footer { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--line); }
-footer { border-top: 1px solid var(--line); border-bottom: 0; color: var(--muted); font-size: 0.92rem; }
-h1 { margin: 0; font-family: 'Cinzel', serif; font-size: clamp(1.1rem, 4vw, 1.5rem); letter-spacing: 0.06em; }
-.num { color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.85rem; margin-left: 8px; }
-a { color: var(--gold); min-height: 44px; display: inline-flex; align-items: center; }
-main { flex: 1; display: grid; place-items: center; padding: 24px 16px; }
-.card { width: min(560px, 100%); background: var(--bg2); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
-.card h2 { margin: 0 0 8px; font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.15rem; }
-.card p { margin: 0 0 12px; color: var(--muted); }
-ol { margin: 12px 0 0; padding-left: 22px; }
-li { margin: 4px 0; }
-li.done { color: var(--ink); }
-li.done::marker { color: var(--gold); }
-li:not(.done) { color: var(--muted); }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="core/kit.css">
+<link rel="stylesheet" href="core/studio.css">
 </head>
 <body>
-<header>
-  <h1>Saga Studio<span class="num">App 150</span></h1>
-  <a href="https://augustineiacopelli.github.io/appaday/">&larr; AppADay</a>
-</header>
-<main>
-  <section class="card" aria-label="Build status">
-    <h2>The forge is being raised</h2>
-    <p>Saga Studio joins the four Saga forges into one pipeline, from charter and rules to art, world, and story, then plays and exports the finished game.</p>
-    <ol>
-      <li class="done">Repository, vendored forges, Final fixtures</li>
-      <li>One page that holds all four forges</li>
-      <li>One store, one import, one project list</li>
-      <li>The pipeline and the unresolved panel</li>
-      <li>The player</li>
-      <li>Test play from any stage</li>
-      <li>Export the game</li>
-      <li>Tests, layout, ship</li>
-    </ol>
-  </section>
-</main>
-<footer>
-  <span>Saga Studio &middot; AppADay 150</span>
-  <a href="https://augustineiacopelli.github.io/appaday/">augustineiacopelli.github.io/appaday</a>
-</footer>
+<div class="app" id="app">
+  <header class="app-head">
+    <div class="brand">
+      <h1 class="brand-title">Saga Studio</h1>
+      <span class="brand-num">App 150</span>
+    </div>
+    <a class="backlink" href="https://augustineiacopelli.github.io/appaday/" title="Back to the AppADay portfolio">&larr; AppADay</a>
+    <button class="btn btn-ghost btn-icon" id="btnSound" type="button" aria-label="Sound" aria-pressed="false" title="Sound" hidden></button>
+    <button class="btn btn-ghost btn-icon" id="btnTheme" type="button" aria-label="Toggle night and parchment theme" title="Toggle theme"></button>
+    <button class="btn btn-ghost btn-icon" id="btnSettings" type="button" aria-label="Settings" title="Settings"></button>
+  </header>
+  <div class="topbar" role="toolbar" aria-label="Project">
+    <button class="btn btn-ghost proj-title" id="btnTitle" type="button" title="Rename project"><span class="t">Untitled Saga</span></button>
+    <button class="btn size-btn" id="btnSize" type="button" aria-label="Bundle size"></button>
+    <button class="btn size-btn cov-btn" id="btnCoverage" type="button" aria-label="Coverage" hidden></button>
+    <button class="btn vbadge" id="btnValidation" type="button" title="Open validation panel" aria-label="Validation status"></button>
+    <div class="top-actions">
+      <button class="btn" id="btnSave" type="button" title="Save draft (Ctrl+S)"></button>
+      <button class="btn" id="btnSlots" type="button" title="Project slots"></button>
+      <button class="btn" id="btnImport" type="button" title="Import a bundle"></button>
+      <button class="btn" id="btnExport" type="button" title="Export the bundle"></button>
+    </div>
+    <input type="file" id="fileImport" accept=".json,application/json" hidden>
+  </div>
+  <nav class="stage-bar" id="stages" aria-label="Stages"></nav>
+  <div class="store-banner" id="storeBanner" role="alert" hidden><span>This browser refused to save the draft because storage is full. Export the bundle now so no work is lost.</span><button class="btn btn-primary" id="btnBannerExport" type="button">Export now</button></div>
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Workspaces"></nav>
+  <main class="ws" id="ws" tabindex="-1"></main>
+  <footer class="app-foot">
+    <span>Saga Studio &middot; AppADay 150</span>
+    <a class="backlink" href="https://augustineiacopelli.github.io/appaday/">augustineiacopelli.github.io/appaday</a>
+  </footer>
+</div>
+<div id="overlays"></div>
+<div class="toast-root" id="toasts" aria-live="polite" role="status"></div>
+<script src="engines/engine-render.js"></script>
+<script src="engines/engine-audio.js"></script>
+<script src="engines/engine-world.js"></script>
+<script src="engines/engine-battle.js"></script>
+<script src="engines/engine-story.js"></script>
+<script src="core/engine-text.js"></script>
+<script src="core/styles.js"></script>
+<script src="core/kit.js"></script>
+<script src="core/studio.js"></script>
+<script>Studio.begin('charter');</script>
+<script src="forge/146/ws-charter.js"></script>
+<script src="forge/146/ws-codex.js"></script>
+<script src="forge/146/ws-rules.js"></script>
+<script src="forge/146/ws-arena.js"></script>
+<script src="forge/146/ws-sim.js"></script>
+<script>Studio.end('charter');</script>
+<script>Studio.begin('art');</script>
+<script src="forge/147/art-store.js"></script>
+<script src="forge/147/art-contract.js"></script>
+<script src="forge/147/art-palette.js"></script>
+<script src="forge/147/ws-palette.js"></script>
+<script src="forge/147/art-sprites.js"></script>
+<script src="forge/147/art-pixed.js"></script>
+<script src="forge/147/ws-sprites.js"></script>
+<script src="forge/147/ws-interface.js"></script>
+<script src="forge/147/art-motion.js"></script>
+<script src="forge/147/ws-motion.js"></script>
+<script src="forge/147/art-tiles.js"></script>
+<script src="forge/147/ws-world.js"></script>
+<script src="forge/147/ws-playtest.js"></script>
+<script src="forge/147/art-ui.js"></script>
+<script src="forge/147/art-battle.js"></script>
+<script src="forge/147/ws-battle.js"></script>
+<script src="forge/147/art-audio.js"></script>
+<script src="forge/147/ws-sound.js"></script>
+<script src="forge/147/art-links.js"></script>
+<script src="forge/147/art-ai.js"></script>
+<script src="forge/147/art-coverage.js"></script>
+<script src="forge/147/ws-art147.js"></script>
+<script>Studio.end('art');</script>
+<script>Studio.begin('world');</script>
+<script src="forge/148/world-store.js"></script>
+<script src="forge/148/world-generate.js"></script>
+<script src="forge/148/world-checks.js"></script>
+<script src="forge/148/world-bake.js"></script>
+<script src="forge/148/world-viewer.js"></script>
+<script src="forge/148/world-audio.js"></script>
+<script src="forge/148/ws-world.js"></script>
+<script src="forge/148/ws-sites.js"></script>
+<script src="forge/148/ws-encounters.js"></script>
+<script src="forge/148/ws-validation.js"></script>
+<script src="forge/148/ws-world148.js"></script>
+<script>Studio.end('world');</script>
+<script>Studio.begin('story');</script>
+<script src="forge/149/story-store.js"></script>
+<script src="forge/149/story-scaffold.js"></script>
+<script src="forge/149/story-quests.js"></script>
+<script src="forge/149/story-dialogue.js"></script>
+<script src="forge/149/story-events.js"></script>
+<script src="forge/149/story-endings.js"></script>
+<script src="forge/149/story-checks.js"></script>
+<script src="forge/149/story-day150.js"></script>
+<script src="forge/149/ws-flags.js"></script>
+<script src="forge/149/ws-cond.js"></script>
+<script src="forge/149/ws-quests.js"></script>
+<script src="forge/149/ws-dialogue.js"></script>
+<script src="forge/149/ws-events.js"></script>
+<script src="forge/149/ws-endings.js"></script>
+<script src="forge/149/ws-validation.js"></script>
+<script src="forge/149/ws-story149.js"></script>
+<script>Studio.end('story');</script>
+<script src="core/studio-boot.js"></script>
 </body>
 </html>

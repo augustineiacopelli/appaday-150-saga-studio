@@ -1,7 +1,7 @@
 {
  "phase": 0,
- "passed": 24,
- "failed": 0,
+ "passed": 21,
+ "failed": 3,
  "results": [
   {
    "name": "vendor.js --check: every vendored file is byte equal to its owner and nothing extra is vendored",
@@ -9,7 +9,7 @@
   },
   {
    "name": "every file in forge/manifest.json exists with its recorded sha256 and size",
-   "ok": true
+   "ok": false
   },
   {
    "name": "the manifest records the owners' commits for all four forges",
@@ -29,7 +29,11 @@
   },
   {
    "name": "Day 149's page rebuilds byte for byte from core/, engines/, forge/149/, and the fences left with the owner",
-   "ok": true
+   "ok": false,
+   "detail": {
+    "rebuilt": 1533545,
+    "page": 1534199
+   }
   },
   {
    "name": "all 60 vendored scripts parse on their own",
@@ -97,7 +101,10 @@
   },
   {
    "name": "the new Day 150 sources are ASCII clean (11 files)",
-   "ok": true
+   "ok": false,
+   "detail": [
+    "vendor.js"
+   ]
   }
  ]
 }

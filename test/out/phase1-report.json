@@ -1,0 +1,660 @@
+{
+ "pass": 63,
+ "total": 63,
+ "results": [
+  {
+   "name": "vendor.js --check: every vendored file is byte for byte its owner's",
+   "ok": true,
+   "detail": "  engines/engine-battle.js cc091bedd5acb06b owner Day 146 |   engines/engine-story.js 75451b0ee690b40f owner Day 149 | All vendored files are byte for byte what their owners hold. | "
+  },
+  {
+   "name": "the manifest names the five engines with their owners (147 render and audio, 148 world, 146 battle, 149 story)",
+   "ok": true,
+   "detail": [
+    {
+     "file": "engines/engine-render.js",
+     "global": "ENGINE_RENDER",
+     "owner": "147",
+     "sha256": "1ad0fc0d07fcb10a4917cc5550822860c6e3aac4a0414d050625ba906fad3281"
+    },
+    {
+     "file": "engines/engine-audio.js",
+     "global": "ENGINE_AUDIO",
+     "owner": "147",
+     "sha256": "4b77f7e557628e21330c7ca742cfb6664f0fd615f33bb40a9e5b16fb6751207a"
+    },
+    {
+     "file": "engines/engine-world.js",
+     "global": "ENGINE_WORLD",
+     "owner": "148",
+     "sha256": "146dcdad83307655b3e28288078dfb6fca7de86842ed9ecd13c6f3a61b39180f"
+    },
+    {
+     "file": "engines/engine-battle.js",
+     "global": "ENGINE_BATTLE",
+     "owner": "146",
+     "sha256": "cc091bedd5acb06baf6cf5ef39ce8f3a3a9d02275bb479f4e24b8cde2b80177e"
+    },
+    {
+     "file": "engines/engine-story.js",
+     "global": "ENGINE_STORY",
+     "owner": "149",
+     "sha256": "75451b0ee690b40fdc5658d4f0dfc29c572788d2262622bbff3f1b40284c3786"
+    }
+   ]
+  },
+  {
+   "name": "index.html loads the engines, then Kit, then the Studio, before any forge",
+   "ok": true,
+   "detail": [
+    "engines/engine-render.js",
+    "engines/engine-audio.js",
+    "engines/engine-world.js",
+    "engines/engine-battle.js",
+    "engines/engine-story.js",
+    "core/engine-text.js",
+    "core/styles.js",
+    "core/kit.js",
+    "core/studio.js",
+    "Studio.begin('charter');"
+   ]
+  },
+  {
+   "name": "each stage's scripts sit between its own Studio.begin and Studio.end, and studio-boot loads last",
+   "ok": true,
+   "detail": {
+    "cursor": 71,
+    "total": 72
+   }
+  },
+  {
+   "name": "every vendored forge script is loaded exactly once and none else is",
+   "ok": true,
+   "detail": {
+    "have": 54,
+    "want": 54,
+    "missing": [],
+    "extra": []
+   }
+  },
+  {
+   "name": "core/kit.js is Day 146's KIT:CORE fence verbatim",
+   "ok": true
+  },
+  {
+   "name": "the Studio's own files are ASCII, and use none of the forbidden APIs",
+   "ok": true
+  },
+  {
+   "name": "the stacked page boots with no errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "all four stages are loaded, in order",
+   "ok": true,
+   "detail": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "the Studio log shows each bracket opened and closed once, in order",
+   "ok": true,
+   "detail": [
+    "begin charter",
+    "end charter",
+    "begin art",
+    "end art",
+    "begin world",
+    "end world",
+    "begin story",
+    "end story"
+   ]
+  },
+  {
+   "name": "Kit holds every tab under its stage with no clash: 5 + 9 + 6 + 6 tabs, all ids distinct",
+   "ok": true,
+   "detail": [
+    "charter.charter",
+    "charter.codex",
+    "charter.rules",
+    "charter.arena",
+    "charter.sim",
+    "art.start",
+    "art.palette",
+    "art.sprites",
+    "art.motion",
+    "art.world",
+    "art.interface",
+    "art.sound",
+    "art.playtest",
+    "art.export",
+    "world.start",
+    "world.world",
+    "world.sites",
+    "world.encounters",
+    "world.validation",
+    "world.export",
+    "story.start",
+    "story.flags",
+    "story.quests",
+    "story.dialogue",
+    "story.events",
+    "story.export"
+   ]
+  },
+  {
+   "name": "the ids all four stages share (start, and export for three) are kept apart, not merged",
+   "ok": true,
+   "detail": {
+    "collide": [
+     3,
+     3
+    ],
+    "world": [
+     "art.world",
+     "world.world"
+    ]
+   }
+  },
+  {
+   "name": "stage charter mounts the same tabs Day 146 mounts alone",
+   "ok": true,
+   "detail": {
+    "stage": [
+     "charter",
+     "codex",
+     "rules",
+     "arena",
+     "sim"
+    ],
+    "alone": [
+     "charter",
+     "codex",
+     "rules",
+     "arena",
+     "sim"
+    ]
+   }
+  },
+  {
+   "name": "stage art mounts the same tabs Day 147 mounts alone",
+   "ok": true,
+   "detail": {
+    "stage": [
+     "start",
+     "palette",
+     "sprites",
+     "motion",
+     "world",
+     "interface",
+     "sound",
+     "playtest",
+     "export"
+    ],
+    "alone": [
+     "start",
+     "palette",
+     "sprites",
+     "motion",
+     "world",
+     "interface",
+     "sound",
+     "playtest",
+     "export"
+    ]
+   }
+  },
+  {
+   "name": "stage world mounts the same tabs Day 148 mounts alone",
+   "ok": true,
+   "detail": {
+    "stage": [
+     "start",
+     "world",
+     "sites",
+     "encounters",
+     "validation",
+     "export"
+    ],
+    "alone": [
+     "start",
+     "world",
+     "sites",
+     "encounters",
+     "validation",
+     "export"
+    ]
+   }
+  },
+  {
+   "name": "stage story mounts the same tabs Day 149 mounts alone",
+   "ok": true,
+   "detail": {
+    "stage": [
+     "start",
+     "flags",
+     "quests",
+     "dialogue",
+     "events",
+     "export"
+    ],
+    "alone": [
+     "start",
+     "flags",
+     "quests",
+     "dialogue",
+     "events",
+     "export"
+    ]
+   }
+  },
+  {
+   "name": "on the charter stage the real Kit is in place: mount, on, store, import, export, registries",
+   "ok": true
+  },
+  {
+   "name": "Day 146 replaces none of the five Kit functions",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Day 147 replaces store get, set, del, buildExport and openExport; Day 148 and Day 149 also replace importText",
+   "ok": true,
+   "detail": {
+    "charter": "",
+    "art": "storeGet,storeSet,storeDel,buildExport,openExport",
+    "world": "storeGet,storeSet,storeDel,importText,buildExport,openExport",
+    "story": "storeGet,storeSet,storeDel,importText,buildExport,openExport"
+   }
+  },
+  {
+   "name": "every override a forge installed is its own function: none is the real Kit's, none is shared (nothing chains)",
+   "ok": true,
+   "detail": 17
+  },
+  {
+   "name": "native mode: with Day 147 on screen its own store and export are in place, and Day 148's import gate is not",
+   "ok": true
+  },
+  {
+   "name": "native mode: with Day 149 on screen its own store, import gate and export are in place",
+   "ok": true
+  },
+  {
+   "name": "back on the charter stage the real Kit is restored",
+   "ok": true
+  },
+  {
+   "name": "the bracket refuses a stage loaded twice and an end for a stage that is not loading",
+   "ok": true,
+   "detail": {
+    "again": "Studio.begin(art): this stage has already been loaded.",
+    "wrongEnd": "Studio.end(story): that stage is not loading."
+   }
+  },
+  {
+   "name": "window.WS finds Day 146's five workspaces from any stage",
+   "ok": true,
+   "detail": [
+    "charter",
+    "codex",
+    "rules",
+    "arena",
+    "sim"
+   ]
+  },
+  {
+   "name": "Days 147 to 149 write nothing to window.WS: their own workspaces stay on ART.WS, WORLD.WS and STORY.WS",
+   "ok": true,
+   "detail": [
+    8,
+    4,
+    4
+   ]
+  },
+  {
+   "name": "showing charter: the body carries the stage, Kit.active and Kit.workspaces speak the forge's own ids, the tab strip holds only its tabs",
+   "ok": true,
+   "detail": {
+    "stage": "charter",
+    "body": "charter",
+    "active": "charter",
+    "tabs": "charter,codex,rules,arena,sim",
+    "ws": "charter,codex,rules,arena,sim",
+    "inner": "charter",
+    "innerHtml": 719
+   }
+  },
+  {
+   "name": "showing art: the body carries the stage, Kit.active and Kit.workspaces speak the forge's own ids, the tab strip holds only its tabs",
+   "ok": true,
+   "detail": {
+    "stage": "art",
+    "body": "art",
+    "active": "start",
+    "tabs": "start,palette,sprites,motion,world,interface,sound,playtest,export",
+    "ws": "start,palette,sprites,motion,world,interface,sound,playtest,export",
+    "inner": "start",
+    "innerHtml": 1246
+   }
+  },
+  {
+   "name": "showing world: the body carries the stage, Kit.active and Kit.workspaces speak the forge's own ids, the tab strip holds only its tabs",
+   "ok": true,
+   "detail": {
+    "stage": "world",
+    "body": "world",
+    "active": "start",
+    "tabs": "start,world,sites,encounters,validation,export",
+    "ws": "start,world,sites,encounters,validation,export",
+    "inner": "start",
+    "innerHtml": 712
+   }
+  },
+  {
+   "name": "showing story: the body carries the stage, Kit.active and Kit.workspaces speak the forge's own ids, the tab strip holds only its tabs",
+   "ok": true,
+   "detail": {
+    "stage": "story",
+    "body": "story",
+    "active": "start",
+    "tabs": "start,flags,quests,dialogue,events,export",
+    "ws": "start,flags,quests,dialogue,events,export",
+    "inner": "start",
+    "innerHtml": 748
+   }
+  },
+  {
+   "name": "Kit.go('world') means art.world on the art stage and world.world on the world stage; start is the stage's own",
+   "ok": true,
+   "detail": [
+    "art.world",
+    "world.world",
+    "art.start",
+    "world.start"
+   ]
+  },
+  {
+   "name": "a locked tab stays locked under its stage and says why (Story needs a finished world)",
+   "ok": true,
+   "detail": {
+    "ok": false,
+    "reason": "This bundle has no Day 148 Final export. Open it in World Forge (Day 148), generate the world, and export a Final; Story Forge writes its story onto a finished world."
+   }
+  },
+  {
+   "name": "an unknown id still fails cleanly",
+   "ok": true
+  },
+  {
+   "name": "no two stages register the same validator name, record type name, or ID prefix (Kit would let the later one win silently)",
+   "ok": true,
+   "detail": {
+    "validators": 33,
+    "types": 54,
+    "prefixes": 8,
+    "dupV": [],
+    "dupT": [],
+    "dupP": []
+   }
+  },
+  {
+   "name": "each forge's validators are named for its own namespace (charter, codex, rules, art, world, story)",
+   "ok": true,
+   "detail": [
+    9,
+    8,
+    9,
+    7
+   ]
+  },
+  {
+   "name": "validators of all stages are registered with Kit, each gated to its own stage",
+   "ok": true,
+   "detail": [
+    33,
+    33
+   ]
+  },
+  {
+   "name": "live: a stage is live while on screen; in native mode no other stage is live; charter stage is not live for art",
+   "ok": true
+  },
+  {
+   "name": "live, pipeline mode: a stage is also live for a bundle that carries its namespace and for no other",
+   "ok": true
+  },
+  {
+   "name": "selector scoping: plain, compound, list members, descendant",
+   "ok": true,
+   "detail": [
+    ":where(body[data-stage=\"art\"]) .card",
+    ":where(body[data-stage=\"art\"]) .tbl td.num"
+   ]
+  },
+  {
+   "name": "selector scoping: body, html and :root rebase onto the stage",
+   "ok": true,
+   "detail": [
+    "body[data-stage=\"art\"]",
+    ":root body[data-stage=\"art\"]",
+    "html[data-theme=\"light\"] body[data-stage=\"art\"] .card"
+   ]
+  },
+  {
+   "name": "CSS scoping: media rules recurse, selector lists split only at top level, keyframes steps and strings are untouched",
+   "ok": true,
+   "detail": "@media (max-width: 520px){:where(body[data-stage=\"world\"]) .a,:where(body[data-stage=\"world\"]) .b:not(.c, .d){ color: red }\n }\n@keyframes k{ from { opacity: 0 } 50% { opacity: .5 } to { opacity: 1 } }\n:where(body[data-stage=\"world\"]) .e::after{ content: \"a,b{c}\"; }\n:where(body[data-stage=\"world\"]) .f{ margin: 0 }\n"
+  },
+  {
+   "name": "stage charter: its stylesheet is in the page, every declaration block is unchanged and in order",
+   "ok": true,
+   "detail": {
+    "blocks": 368,
+    "src": 368
+   }
+  },
+  {
+   "name": "stage charter: every style rule selector carries data-stage=\"charter\" (366 rules)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "stage art: its stylesheet is in the page, every declaration block is unchanged and in order",
+   "ok": true,
+   "detail": {
+    "blocks": 231,
+    "src": 231
+   }
+  },
+  {
+   "name": "stage art: every style rule selector carries data-stage=\"art\" (231 rules)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "stage world: its stylesheet is in the page, every declaration block is unchanged and in order",
+   "ok": true,
+   "detail": {
+    "blocks": 151,
+    "src": 151
+   }
+  },
+  {
+   "name": "stage world: every style rule selector carries data-stage=\"world\" (147 rules)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "stage story: its stylesheet is in the page, every declaration block is unchanged and in order",
+   "ok": true,
+   "detail": {
+    "blocks": 262,
+    "src": 262
+   }
+  },
+  {
+   "name": "stage story: every style rule selector carries data-stage=\"story\" (262 rules)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "classes the stages share (card, chip, tbl, kv, section-h, store-banner, brand-title, btn, field) exist in more than one stylesheet",
+   "ok": true,
+   "detail": [
+    "card",
+    "chip",
+    "tbl",
+    "kv",
+    "section-h",
+    "store-banner",
+    "brand-title",
+    "btn",
+    "field"
+   ]
+  },
+  {
+   "name": "a shared class matches only the stage on screen's rules: no stylesheet of another stage reaches it, and each stage's own rules do",
+   "ok": true,
+   "detail": {
+    "leak": [],
+    "ownN": 9
+   }
+  },
+  {
+   "name": "Kit.engine.source() is Day 146's ENGINE:BATTLE fence, byte for byte",
+   "ok": true
+  },
+  {
+   "name": "Days 147, 148 and 149 each find their engine source in the page",
+   "ok": true
+  },
+  {
+   "name": "the engine files a forge writes into an export are its own repository files (render and audio from Day 147)",
+   "ok": true,
+   "detail": [
+    222033,
+    222033,
+    52509,
+    52509
+   ]
+  },
+  {
+   "name": "Day 148 writes engine-world.js from the page: its header, then the fence, equal to its repository file",
+   "ok": true,
+   "detail": 170257
+  },
+  {
+   "name": "Day 149's game kit table is the one its build writes: five engines in load order, same versions and hashes",
+   "ok": true,
+   "detail": [
+    "engine-render.js",
+    "engine-audio.js",
+    "engine-world.js",
+    "engine-battle.js",
+    "engine-story.js"
+   ]
+  },
+  {
+   "name": "the fixture is a Day 146 Final: charter locked, forge 146 final, art, world and story empty",
+   "ok": true,
+   "detail": [
+    "charter",
+    "rules"
+   ]
+  },
+  {
+   "name": "loading a Day 146 only bundle (booted in charter) changes nothing outside charter, codex and rules: no key moved or added, opened and forges intact, hash verifies",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "moved": [],
+    "added": [],
+    "opened": true,
+    "forges": true,
+    "errors": 0,
+    "noNamespaces": true,
+    "records": {
+     "rules": true,
+     "charter": true,
+     "codex": true
+    }
+   }
+  },
+  {
+   "name": "loading a Day 146 only bundle (booted in art) changes nothing outside charter, codex and rules: no key moved or added, opened and forges intact, hash verifies",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "moved": [],
+    "added": [],
+    "opened": true,
+    "forges": true,
+    "errors": 0,
+    "noNamespaces": true,
+    "records": {
+     "rules": true,
+     "charter": true,
+     "codex": true
+    }
+   }
+  },
+  {
+   "name": "loading a Day 146 only bundle (booted in world) changes nothing outside charter, codex and rules: no key moved or added, opened and forges intact, hash verifies",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "moved": [],
+    "added": [],
+    "opened": true,
+    "forges": true,
+    "errors": 0,
+    "noNamespaces": true,
+    "records": {
+     "rules": true,
+     "charter": true,
+     "codex": true
+    }
+   }
+  },
+  {
+   "name": "loading a Day 146 only bundle (booted in story) changes nothing outside charter, codex and rules: no key moved or added, opened and forges intact, hash verifies",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "moved": [],
+    "added": [],
+    "opened": true,
+    "forges": true,
+    "errors": 0,
+    "noNamespaces": true,
+    "records": {
+     "rules": true,
+     "charter": true,
+     "codex": true
+    }
+   }
+  },
+  {
+   "name": "control: entering the story stage gives the bundle its story namespace (the stage's own load pass runs), still leaving art and world empty",
+   "ok": true,
+   "detail": [
+    "kit",
+    "charter",
+    "codex",
+    "rules",
+    "art",
+    "world",
+    "story"
+   ]
+  },
+  {
+   "name": "control: entering the art stage gives it its art namespace",
+   "ok": true
+  }
+ ]
+}

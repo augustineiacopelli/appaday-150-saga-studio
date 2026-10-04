@@ -1,0 +1,9 @@
+/* === STUDIO:SHELL CSS BEGIN === */
+/* The Studio's own shell. The stage bar is a Phase 1 scaffold; Phase 3 replaces it with the gated pipeline header. */
+.stage-bar { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 16px; border-bottom: 1px solid var(--line2); background: var(--bg2); }
+.stage-bar .btn { min-height: 44px; }
+.stage-bar .btn[aria-current="true"] { border-color: var(--accent); }
+.store-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 16px; background: color-mix(in srgb, var(--danger) 16%, var(--bg2)); border-bottom: 1px solid var(--danger); color: var(--ink); font-weight: 700; }
+.store-banner[hidden] { display: none; }
+.store-banner span { flex: 1 1 240px; min-width: 0; }
+/* === STUDIO:SHELL CSS END === */

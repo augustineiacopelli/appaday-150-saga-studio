@@ -1,0 +1,80 @@
+// === STUDIO:BOOT BEGIN ===
+// The Studio's own boot, in the place of each forge's app-boot.js. Wires the shell, restores or creates the project, and
+// enters a stage. Phase 1 keeps Kit's own draft storage; Phase 2 replaces it with one project list.
+(function () {
+  'use strict';
+  var Kit = window.Kit, Studio = window.Studio;
+  function wire(id, icon, label, fn) {
+    var b = document.getElementById(id);
+    if (!b) return;
+    if (icon) b.innerHTML = Kit.icon(icon) + (label ? '<span class="lbl">' + label + '</span>' : '');
+    b.addEventListener('click', fn);
+  }
+  Studio.watchTabs();
+  Kit.theme.apply();
+  try { window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function () { if (Kit.theme.get() === 'system') Kit.theme.apply(); }); } catch (e) {}
+  wire('btnSettings', 'gear', null, function () { Kit.settings.open(); });
+  var th = document.getElementById('btnTheme');
+  if (th) th.addEventListener('click', Kit.theme.toggle);
+  wire('btnTitle', null, null, Kit.renameProject);
+  wire('btnValidation', null, null, Kit.openValidation);
+  // The size and coverage chips belong to the stage on screen: each click goes to that forge's own opener.
+  function stageApi(name) { var st = Studio.stages[Studio.stage], a = st && st.api; return a && typeof a[name] === 'function' ? a[name] : null; }
+  wire('btnSize', null, null, function () { var f = stageApi('openSize'); if (f) f(); });
+  wire('btnCoverage', null, null, function () { var f = stageApi('openCoverage'); if (f) f(); });
+  wire('btnSave', 'save', 'Save', function () { if (Kit.bundle.save()) Kit.ui.toast('Draft saved in this browser.', 'ok'); });
+  wire('btnSlots', 'slots', 'Slots', Kit.openSlots);
+  wire('btnImport', 'import', 'Import', function () { var f = document.getElementById('fileImport'); f.value = ''; f.click(); });
+  wire('btnExport', 'export', 'Export', Kit.openExport);
+  var fi = document.getElementById('fileImport');
+  if (fi) fi.addEventListener('change', function (e) { Kit.importPicked(e.target.files && e.target.files[0]); });
+  // The Phase 1 stage bar: one button per stage, no gating yet.
+  var bar = document.getElementById('stages');
+  if (bar) {
+    Studio.STAGES.forEach(function (s) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'btn'; b.setAttribute('data-stage-btn', s.id);
+      b.textContent = s.label;
+      b.addEventListener('click', function () { Studio.show(s.id); });
+      bar.appendChild(b);
+    });
+  }
+  Studio.show = function (stageId, tab) {
+    if (!Studio.enter(stageId)) return false;
+    var want = tab || (stageId === 'charter' ? 'charter' : 'start');
+    var ok = Kit.go(stageId + '.' + want, { silent: true });
+    if (bar) Array.prototype.forEach.call(bar.children, function (b) { b.setAttribute('aria-current', b.getAttribute('data-stage-btn') === Studio.stage ? 'true' : 'false'); });
+    return ok;
+  };
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === 's' || e.key === 'S')) {
+      e.preventDefault();
+      if (Kit.bundle.save()) Kit.ui.toast('Draft saved in this browser.', 'ok');
+    } else if (e.key === 'Escape' && Kit.ui.overlayCount() && !Kit.ui.busy.active()) { e.preventDefault(); Kit.ui.closeTop(); }
+  });
+  // Starting a stage mirrors what the forge's own app-boot does: wait for its storage mirror (Days 147 to 149 may keep the
+  // draft in IndexedDB), restore or create the bundle, run the forge's ensure pass, open the saved tab, paint its meters.
+  // window.STUDIO_START names the stage to start in (tests set it); otherwise the saved tab decides, then the charter.
+  Studio.startStage = function (stageId) {
+    var st = Studio.stages[stageId];
+    Studio.enter(stageId);
+    var api = st.api, ready = api && api.storage && api.storage.ready ? api.storage.ready() : Promise.resolve();
+    Studio.booted = Promise.resolve(ready).then(function () {
+      var b = Kit.bundle.restoreDraft() || Kit.bundle.create('Untitled Saga');
+      if (api && api.ensure) { var changed = api.ensure(b); if (api.registerCodex) changed = api.registerCodex(b) || changed; if (changed) Kit.bundle.touch(st.ns + '-ensure'); }
+      var tab = Kit.uiState.get().tab;
+      var local = tab && tab.indexOf('.') > 0 && tab.slice(0, tab.indexOf('.')) === stageId ? tab.slice(tab.indexOf('.') + 1) : null;
+      if (!(local && Kit.go(stageId + '.' + local, { silent: true }))) Studio.show(stageId);
+      else Studio.show(stageId, local);
+      if (api && api.paintMeter) api.paintMeter();
+      if (api && api.paintCoverage) api.paintCoverage();
+    });
+    return Studio.booted;
+  };
+  var ui = Kit.uiState.get(), tab = ui && ui.tab, first = window.STUDIO_START || (tab && tab.indexOf('.') > 0 ? tab.slice(0, tab.indexOf('.')) : 'charter');
+  if (!Studio.stages[first] || !Studio.stages[first].loaded) first = 'charter';
+  Studio.startStage(first);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') Kit.bundle.suspend.save(); });
+  window.addEventListener('pagehide', function () { Kit.bundle.suspend.save(); });
+})();
+// === STUDIO:BOOT END ===
