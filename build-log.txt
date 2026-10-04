@@ -200,3 +200,35 @@ SESSION 4 / PHASE 4: the player shell (Opus)
   NEXT: Phase 5, Test Play from anywhere: the Game stage and a Test Play button open player/player.html in a full screen iframe
     and post {type: 'saga:play', bundle, save}; a start at chapter N replays the golden path through host.play first. The player
     already answers saga:play (with an optional save) and posts saga:ready and saga:started.
+
+
+SESSION 5 / PHASE 5: Test Play from anywhere (Opus)
+  Files: core/testplay.js (new), test/phase5.js (new), and patches to player/player.js (1.1.0), core/pipeline.js (the Game panel
+    carries the picker), core/studio-boot.js (install), core/studio.css (the frame), index.html (one script), test/phase1.js and
+    test/phase2.js (their script order expectations now include core/testplay.js). Nothing in kit.js, kit.css, engines/, or forge/.
+  The frame: player/player.html in a full screen iframe above the Studio, the very page Build game packages. The player posts
+    saga:ready from its chooser; the Studio answers {type: 'saga:play', bundle, test}; the player posts saga:started (with its
+    state), saga:error, and saga:battle. Restart re posts; Change start reopens the picker over the frame; Close and Escape close.
+  DECISION, where the golden path comes from: STORY.day150(b).golden.steps, the Day 150 contract block Day 149 itself builds
+    from its proven walk, called with the Story stage live (the way Mark stage Final runs a forge) and cached per bundle hash.
+    It matches the fixture manifests byte for byte. A story the checks have not proven has no golden path, and the picker says so.
+  DECISION, the replay: Studio.testplay.replayTo plays host.newGame then host.play move by move, answering every choice and battle
+    from the path exactly as host.replay does, and stops at the first quiet state whose chapter is the one asked for. Stopping
+    between plays is always quiet because the host runs the forced events inside each play. The state crosses to the frame as
+    ENGINE_STORY.save.toSave, the same form a real save takes, and the player reads it with fromSave.
+  DECISION, where the player stands: a chapter start uses the last changeMap the replay saw after that chapter's chapterStart
+    began, else the chapter's start town entrance; a map start uses the site entrance, else where another map's exit arrives,
+    else the free cell nearest the middle; the overworld uses the front of the chapter's start town. mapEnter and autoruns then
+    run as on any arrival.
+  DECISION, battles: the replay goes to the troop's chapter, so partyMembers builds that chapter's party (gear tier, materia),
+    then the fight starts at once with escape allowed. The outcome is posted to the Studio and the story state is not touched.
+  DECISION, saves: a test play keeps its saves under saga150test:<slug>:<slot>, apart from real saves of the game.
+  FINDING: Kit's dialogs (z 50) opened beneath the frame (z 60), so Change start could not be clicked. body.tp-open lifts .overlay
+    to 70. Escape is caught in the capture phase and left to Kit while a Kit dialog is open, so it closes the picker only.
+  Fixtures: every chapter of both fixtures replays in under 50 ms (the first call walks the story once, about 0.7 s). Neither
+    fixture's chapterStart moves the party, so every chapter start lands at its start town.
+  Tests: phase5.js 63 of 63 in headless Chromium; phase1 63 of 63, phase2 63 of 63, phase3 72 of 72, phase4 50 of 50,
+    forge suites 2039 of 2040 (the known Day 147 phase5 difference), vendor.js --check clean.
+  NEXT: Phase 6, Build game: the single HTML file (player.css, the five engines in contract order, player.js, the bundle as an
+    application/json script with </ escaped and non ASCII as \uXXXX) and the zip (JSZip from cdnjs, falling back to files), both
+    gated on every stage Final and an empty unresolved drawer, both rechecking engine sha256.

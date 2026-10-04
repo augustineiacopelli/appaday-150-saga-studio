@@ -1,5 +1,5 @@
 {
- "when": "2026-10-04T20:46:34.752Z",
+ "when": "2026-10-04T21:49:33.985Z",
  "passed": 50,
  "failed": 0,
  "results": [
@@ -206,7 +206,7 @@
  ],
  "runs": {
   "demo": {
-   "wallMs": 27438,
+   "wallMs": 21488,
    "gameMs": 279125,
    "played": [
     "chapterStart:evt_evt_open_chp_the_lowlands_auem_7aom",
@@ -230,7 +230,7 @@
    ]
   },
   "four": {
-   "wallMs": 309145,
+   "wallMs": 221996,
    "gameMs": 906180,
    "played": [
     "chapterStart:evt_evt_open_chp_the_lowlands_auem_7aom",

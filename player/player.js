@@ -1,4 +1,4 @@
-/* Saga Studio player, version 1.0.0 (AppADay 150, Phase 4).
+/* Saga Studio player, version 1.1.0 (AppADay 150, Phase 4; Phase 5 adds test play starts).
  * The game shell. Kit free: it loads with nothing but the five engines (ENGINE_RENDER, ENGINE_AUDIO, ENGINE_WORLD,
  * ENGINE_BATTLE, ENGINE_STORY) and a Final bundle, per Day 149's day150 contract. Declares one global, SagaPlayer.
  * No network, no API key, no forge storage. Five modules, each ported from the forge that proved it:
@@ -20,7 +20,7 @@ var SagaPlayer = (function () {
   'use strict';
   var ER = ENGINE_RENDER, EA = ENGINE_AUDIO, EW = ENGINE_WORLD, EB = ENGINE_BATTLE, ES = ENGINE_STORY;
   var EU = ER.ui, ET = ER.tiles, H = ES.host;
-  var VERSION = '1.0.0';
+  var VERSION = '1.1.0';
   // Day 149's OUTCOMES (STORY.day150c): ENGINE_BATTLE's four outcomes to the story's three. A timeout is a loss.
   var OUTCOMES = { win: 'win', lose: 'lose', flee: 'escape', timeout: 'lose' };
   var PARTY_MAX = 4, STEP_MS = 190, SLOTS = ['1', '2', '3'], PORTFOLIO = 'https://augustineiacopelli.github.io/appaday/';
@@ -978,7 +978,8 @@ var SagaPlayer = (function () {
   }
 
   // ---------------------------------------------------------------- saves
-  function saveKey(slot) { return 'saga150:' + G.slug + ':' + slot; }
+  // A test play from Saga Studio keeps its saves apart (saga150test:), so testing never overwrites a real save of the game.
+  function saveKey(slot) { return (G.test ? 'saga150test:' : 'saga150:') + G.slug + ':' + slot; }
   function snapshot() {
     syncShell();
     var story = ES.save.toSave(P.st, G.game.idx);
@@ -1727,12 +1728,91 @@ var SagaPlayer = (function () {
   }
   function faceTo(a, b) { return b.x > a.x ? 'right' : b.x < a.x ? 'left' : b.y > a.y ? 'down' : 'up'; }
 
+  // ---------------------------------------------------------------- test play (Saga Studio, Phase 5)
+  // Saga Studio sends {type: 'saga:play', bundle, test: spec}. spec.kind is new, chapter, map, or battle. For the last three
+  // the Studio has already replayed the golden path through ENGINE_STORY.host.play to the chapter asked for, and spec.story
+  // is that state as ENGINE_STORY.save.toSave wrote it, so the player starts from a state the walk proved. Where to stand:
+  // spec.map and spec.at when given (the last changeMap the replay saw, or the map asked for), else the chapter's start town.
+  function siteEnterOf(mapId) { var l = (WD.owRec && WD.owRec.sites) || []; for (var i = 0; i < l.length; i++) if (l[i].enter && l[i].enter.map === mapId) return l[i]; return null; }
+  function firstFree(m) {
+    var held = heldKeys(), cx = Math.floor(m.w / 2), cy = Math.floor(m.h / 2), best = null, bd = 1e9;
+    for (var y = 0; y < m.h; y++) for (var x = 0; x < m.w; x++) { var d = Math.abs(x - cx) + Math.abs(y - cy); if (d < bd && passable(m, x, y, held)) { bd = d; best = [x, y]; } }
+    return best;
+  }
+  // A standable cell on a map: the site's own entrance, else where another map's exit lands, else the free cell nearest the middle.
+  function entryFor(mapId) {
+    var r = worldRec(mapId);
+    if (!r) return null;
+    if (r.kind === 'overworld') return null;
+    var s = siteEnterOf(mapId);
+    if (s) return { map: mapId, at: s.enter.at.slice(), dir: 'up' };
+    var ms = worldList('map_');
+    for (var i = 0; i < ms.length; i++) {
+      var ex = Array.isArray(ms[i].exits) ? ms[i].exits : [];
+      for (var j = 0; j < ex.length; j++) if (ex[j] && ex[j].to && ex[j].to.map === mapId && Array.isArray(ex[j].to.at)) return { map: mapId, at: ex[j].to.at.slice(), dir: 'down' };
+    }
+    var m = mapData(mapId), at = m ? firstFree(m) : null;
+    return at ? { map: mapId, at: at, dir: 'down' } : null;
+  }
+  function chapterSite(chId) {
+    var l = (WD.owRec && WD.owRec.sites) || [], mine = l.filter(function (s) { return s.chapter === chId; });
+    return mine.filter(function (s) { return s.role === 'start'; })[0] || mine.filter(function (s) { return s.kind === 'twn'; })[0] || mine[0] || null;
+  }
+  function chapterOpening(chId) {
+    var s = chapterSite(chId);
+    if (s && s.enter && mapData(s.enter.map)) return { map: s.enter.map, at: s.enter.at.slice(), dir: 'up' };
+    if (s && Array.isArray(s.front)) return { map: WD.owRec.id, at: s.front.slice(), dir: 'down' };
+    return { map: WD.owRec.id, at: (WD.owRec.start || [0, 0]).slice(), dir: 'down' };
+  }
+  function placeFor(t) {
+    var r = t.map ? worldRec(t.map) : null;
+    if (r && r.kind === 'overworld') {
+      if (Array.isArray(t.at)) return { map: r.id, at: t.at.slice(), dir: 'down' };
+      var s = chapterSite(t.chapter);
+      return { map: r.id, at: s && Array.isArray(s.front) ? s.front.slice() : (WD.owRec.start || [0, 0]).slice(), dir: 'down' };
+    }
+    if (r && Array.isArray(t.at) && mapData(r.id)) return { map: r.id, at: t.at.slice(), dir: t.dir && DIRS[t.dir] ? t.dir : 'down' };
+    if (r) { var e = entryFor(r.id); if (e && mapData(e.map)) return e; }
+    return chapterOpening(t.chapter);
+  }
+  // Returns null when the test started, else the reason it could not.
+  function testStart(t) {
+    G.test = t;
+    if (t.kind === 'new') { newGame(); return null; }
+    if (!isObj(t.story)) return 'The Studio sent no story state for this test.';
+    var st;
+    try { st = ES.save.fromSave(t.story, G.game.idx); } catch (e) { return 'The test state could not be read: ' + e.message; }
+    var sh = freshShell(), at = placeFor(t);
+    if (!at || !mapData(at.map) && at.map !== WD.owRec.id) return 'There is no place to stand for this test.';
+    sh.map = at.map; sh.x = at.at[0]; sh.y = at.at[1]; sh.dir = at.dir || 'down';
+    P.st = st; P.shell = sh; P.actors = {}; P.statusMemo = null; P.storyMusic = null; P.enterPending = null; P.played = []; P.faults = []; P.lastAuto = null; BT = null; IX = null;
+    makeWalker();
+    closeOverlay();
+    TXT.cur = null; FX.fade = 1; FX.fadeFrom = 1; FX.fadeTo = 0; FX.fadeMs = 500; FX.fadeT = 0; FX.after = null;
+    P.mode = 'field';
+    banner(t.label || placeName(curMap()));
+    if (t.kind === 'battle') {
+      if (!rulesRec(t.trp)) return 'Troop ' + t.trp + ' is not in this game.';
+      startBattle({ trp: t.trp, canEscape: true, canLose: true, source: 'test', zone: null, done: function (out) {
+        P.mode = 'field';
+        toast('Test battle: ' + (out === 'win' ? 'won' : out === 'flee' ? 'fled' : 'lost') + '.');
+        tell({ type: 'saga:battle', trp: t.trp, outcome: OUTCOMES[out] || out });
+      } });
+      return null;
+    }
+    playMusic(locationMusic(), true);
+    P.enterPending = sh.map;
+    afterQuiet();
+    return null;
+  }
+  function tell(msg) { if (window.parent && window.parent !== window) try { window.parent.postMessage(msg, '*'); } catch (x) { /* ok */ } }
+
   // ---------------------------------------------------------------- boot
   var READY = { resolve: null }, ready = new Promise(function (r) { READY.resolve = r; });
   function start(b, opts) {
     opts = opts || {};
     var why = unplayable(b);
-    if (why) { veil('<strong>This game cannot start</strong><span>' + esc(why) + '</span>'); return false; }
+    if (why) { veil('<strong>This game cannot start</strong><span>' + esc(why) + '</span>'); tell({ type: 'saga:error', message: why }); return false; }
     veil('<div class="sg-spin" aria-hidden="true"></div><strong>' + esc((b.charter.sections && b.charter.sections.premise && b.charter.sections.premise.title) || 'Saga') + '</strong><span>Raising the world from its seed&hellip;</span>');
     setTimeout(function () {
       try {
@@ -1744,13 +1824,17 @@ var SagaPlayer = (function () {
         P.st = ES.state.create(G.game.idx, {});
         makeWalker();
         unveil();
-        if (opts.save) { var e = restore(opts.save); if (e) { toast(e); title(); } }
+        G.test = null;
+        var terr = null;
+        if (isObj(opts.test)) { terr = testStart(opts.test); if (terr) { toast(terr); title(); } }
+        else if (opts.save) { var e = restore(opts.save); if (e) { toast(e); title(); } }
         else title();
         if (G.warnings.length && window.console) G.warnings.forEach(function (w) { console.warn('[saga] ' + w); });
         READY.resolve(api);
-        if (window.parent && window.parent !== window) try { window.parent.postMessage({ type: 'saga:started', title: G.title }, '*'); } catch (x) { /* ok */ }
+        tell({ type: 'saga:started', title: G.title, test: isObj(opts.test) ? opts.test.kind : null, error: terr, state: api.debug.state() });
       } catch (err) {
         veil('<strong>This game could not start</strong><span>' + esc(err && err.message || String(err)) + '</span>');
+        tell({ type: 'saga:error', message: err && err.message || String(err) });
         if (window.console) console.error(err);
       }
     }, 30);
@@ -1780,7 +1864,7 @@ var SagaPlayer = (function () {
     window.addEventListener('message', function (e) {
       var d = e.data;
       if (!isObj(d) || d.type !== 'saga:play' || !isObj(d.bundle)) return;
-      start(d.bundle, { save: isObj(d.save) ? d.save : null });
+      start(d.bundle, { save: isObj(d.save) ? d.save : null, test: isObj(d.test) ? d.test : null });
     });
     schedule();
     UI.cv.width = 256; UI.cv.height = 224; UI.ctx = UI.cv.getContext('2d'); G.W = 256; G.H = 224; layout();
@@ -1798,7 +1882,7 @@ var SagaPlayer = (function () {
       return;
     }
     chooser();
-    if (window.parent && window.parent !== window) try { window.parent.postMessage({ type: 'saga:ready' }, '*'); } catch (x) { /* ok */ }
+    tell({ type: 'saga:ready' });
   }
 
   // ---------------------------------------------------------------- the public face (and what the tests drive)
@@ -1859,6 +1943,8 @@ var SagaPlayer = (function () {
       world: function () { return { ms: WD.ms, maps: keys(WD.maps).length, overworld: WD.owRec && WD.owRec.id, start: WD.owRec && WD.owRec.start, warnings: G.warnings.slice() }; },
       mapInfo: function (id) { var m = mapData(id); return m ? { id: m.id, kind: m.kind, w: m.w, h: m.h, exits: copy(m.exits), features: copy(m.features) } : null; },
       held: function () { return heldKeys(); },
+      test: function () { return G.test ? { kind: G.test.kind, chapter: G.test.chapter || null, map: G.test.map || null, trp: G.test.trp || null } : null; },
+      saveKey: function (slot) { return saveKey(slot); },
       sizes: function () { var r = UI.stage.getBoundingClientRect(); return { stage: [r.width, r.height], pad: UI.root.classList.contains('has-pad'), scale: UI.scale }; }
     }
   };

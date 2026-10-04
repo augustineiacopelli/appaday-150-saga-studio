@@ -59,3 +59,31 @@
   .dock { flex: 0 0 min(52dvh, 420px); border-left: 0; border-top: 1px solid var(--line2); }
 }
 /* === STUDIO:UNRESOLVED CSS END === */
+/* === STUDIO:TESTPLAY CSS BEGIN === */
+/* Test Play: the player in a full screen frame above the Studio, with one slim bar on top. The page behind does not scroll. */
+body.tp-open { overflow: hidden; }
+/* Kit's dialogs (Change start, a confirm) open above the frame while it is up; toasts already sit higher. */
+body.tp-open .overlay { z-index: 70; }
+.tp-ov { position: fixed; inset: 0; z-index: 60; display: flex; flex-direction: column; background: #07070c; }
+.tp-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 6px 12px; padding-top: max(6px, env(safe-area-inset-top)); background: var(--bg2); border-bottom: 1px solid var(--line2); color: var(--ink); }
+.tp-title { display: flex; align-items: center; gap: 6px; margin: 0; font-family: var(--font-display); font-size: 1.05rem; letter-spacing: .04em; }
+.tp-title .ico, .tp-go .ico, #btnTestPlay .ico { width: 18px; height: 18px; }
+.tp-note { flex: 1 1 200px; min-width: 0; font-size: .9rem; color: var(--ink2); overflow-wrap: anywhere; }
+.tp-note[data-kind="error"] { color: var(--danger); font-weight: 700; }
+.tp-note[data-kind="warn"] { color: var(--warn); }
+.tp-bar .btn { min-height: 44px; }
+.tp-frame { flex: 1 1 auto; min-height: 0; width: 100%; border: 0; display: block; background: #07070c; }
+.tp-panel { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line); }
+.tp-picker { display: grid; gap: 10px; max-width: 520px; }
+.tp-picker .field[hidden] { display: none; }
+.tp-picker select { min-height: 44px; width: 100%; }
+.tp-hint { margin: 0; font-size: .92rem; }
+.tp-go { justify-self: start; min-height: 44px; }
+@media (max-width: 599px) {
+  .tp-bar { padding: 4px 8px; gap: 6px; }
+  .tp-title { display: none; }
+  .tp-bar .btn { flex: 1 1 auto; padding-left: 8px; padding-right: 8px; }
+  .tp-note { order: 9; flex-basis: 100%; font-size: .85rem; }
+  .tp-go { justify-self: stretch; }
+}
+/* === STUDIO:TESTPLAY CSS END === */

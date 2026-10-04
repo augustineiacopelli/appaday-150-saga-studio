@@ -1,0 +1,260 @@
+{
+ "phase": 5,
+ "at": "2026-10-04T22:00:36.661Z",
+ "passed": 63,
+ "total": 63,
+ "results": [
+  {
+   "name": "core/testplay.js, studio.css and player.js are pure ASCII",
+   "ok": true
+  },
+  {
+   "name": "core/testplay.js and player.js parse",
+   "ok": true
+  },
+  {
+   "name": "core/testplay.js is plain ES5 (no arrows, let, const, classes, template strings), like the rest of core/",
+   "ok": true
+  },
+  {
+   "name": "core/testplay.js uses no forbidden API (roundRect, ellipse, confirm, bare remove, eval)",
+   "ok": true
+  },
+  {
+   "name": "core/testplay.js makes no network call and holds no key",
+   "ok": true
+  },
+  {
+   "name": "the player is still Kit free with its one development fetch",
+   "ok": true
+  },
+  {
+   "name": "index.html loads unresolved, testplay, then studio-boot",
+   "ok": true
+  },
+  {
+   "name": "the frame loads player/player.html, the page Build game packages",
+   "ok": true
+  },
+  {
+   "name": "vendor.js --check: no vendored file changed",
+   "ok": true
+  },
+  {
+   "name": "a project whose Story stage is locked cannot Test Play: the button is hidden on its stage",
+   "ok": true
+  },
+  {
+   "name": "and opening says why and opens nothing",
+   "ok": true
+  },
+  {
+   "name": "Test Play shows on the Story and Game stages only",
+   "ok": true
+  },
+  {
+   "name": "a new game: the frame said ready, then took the bundle and the spec by postMessage, then started",
+   "ok": true
+  },
+  {
+   "name": "the frame is player/player.html with the five engines in contract order",
+   "ok": true
+  },
+  {
+   "name": "the opening lands on the contract opening hash (four continents)",
+   "ok": true
+  },
+  {
+   "name": "the frame knows it is a test (kind new)",
+   "ok": true
+  },
+  {
+   "name": "demo chapter 1 (The Lowlands): starts in that chapter at its start town",
+   "ok": true
+  },
+  {
+   "name": "demo chapter 1: on exactly the state the golden path replay reached, with no fault",
+   "ok": true
+  },
+  {
+   "name": "demo chapter 2 (The Far Shore): starts in that chapter at its start town",
+   "ok": true
+  },
+  {
+   "name": "demo chapter 2: on exactly the state the golden path replay reached, with no fault",
+   "ok": true
+  },
+  {
+   "name": "four chapter 1 (The Lowlands): starts in that chapter at its start town",
+   "ok": true
+  },
+  {
+   "name": "four chapter 1: on exactly the state the golden path replay reached, with no fault",
+   "ok": true
+  },
+  {
+   "name": "four chapter 2 (The Marches): starts in that chapter at its start town",
+   "ok": true
+  },
+  {
+   "name": "four chapter 2: on exactly the state the golden path replay reached, with no fault",
+   "ok": true
+  },
+  {
+   "name": "four chapter 3 (The Far Shore): starts in that chapter at its start town",
+   "ok": true
+  },
+  {
+   "name": "four chapter 3: on exactly the state the golden path replay reached, with no fault",
+   "ok": true
+  },
+  {
+   "name": "four chapter 4 (The Frost Reach): starts in that chapter at its start town",
+   "ok": true
+  },
+  {
+   "name": "four chapter 4: on exactly the state the golden path replay reached, with no fault",
+   "ok": true
+  },
+  {
+   "name": "four chapter 5 (The Sunken Coast): starts in that chapter at its start town",
+   "ok": true
+  },
+  {
+   "name": "four chapter 5: on exactly the state the golden path replay reached, with no fault",
+   "ok": true
+  },
+  {
+   "name": "four chapter 6 (The Last Light): starts in that chapter at its start town",
+   "ok": true
+  },
+  {
+   "name": "four chapter 6: on exactly the state the golden path replay reached, with no fault",
+   "ok": true
+  },
+  {
+   "name": "demo: from the last chapter's start, the rest of the golden path (3 steps) walks to the golden ending",
+   "ok": true
+  },
+  {
+   "name": "demo: and no fault on the way",
+   "ok": true
+  },
+  {
+   "name": "four: from the last chapter's start, the rest of the golden path (3 steps) walks to the golden ending",
+   "ok": true
+  },
+  {
+   "name": "four: and no fault on the way",
+   "ok": true
+  },
+  {
+   "name": "map start (town, The Far Shore: Start town): the player stands on that map in its chapter",
+   "ok": true
+  },
+  {
+   "name": "map start (deep, The Lowlands: Boss dungeon, floor 2): the player stands on that map in its chapter",
+   "ok": true
+  },
+  {
+   "name": "map start (ow, Overworld): the player stands on that map in its chapter",
+   "ok": true
+  },
+  {
+   "name": "battle start (Frost Wolf): the fight begins at once, in the troop's chapter",
+   "ok": true
+  },
+  {
+   "name": "with the chapter's party, geared for it",
+   "ok": true
+  },
+  {
+   "name": "the outcome is reported to the Studio",
+   "ok": true
+  },
+  {
+   "name": "and the story state is untouched by the fight",
+   "ok": true
+  },
+  {
+   "name": "test saves live under saga150test:, never the game's own saga150: keys",
+   "ok": true
+  },
+  {
+   "name": "Restart posts the same start again",
+   "ok": true
+  },
+  {
+   "name": "Change start opens the start picker over the frame",
+   "ok": true
+  },
+  {
+   "name": "the picker shows only the field its kind needs",
+   "ok": true
+  },
+  {
+   "name": "choosing a chapter there restarts the test in it",
+   "ok": true
+  },
+  {
+   "name": "Escape in the start picker closes the picker only, and the test keeps playing",
+   "ok": true
+  },
+  {
+   "name": "Close removes the frame and gives the page back",
+   "ok": true
+  },
+  {
+   "name": "Escape closes it too",
+   "ok": true
+  },
+  {
+   "name": "the Game stage panel has its own picker, and it starts a test",
+   "ok": true
+  },
+  {
+   "name": "no page errors in the Studio",
+   "ok": true
+  },
+  {
+   "name": "layout 390: the overlay fills the screen and the frame fills all but the bar",
+   "ok": true
+  },
+  {
+   "name": "layout 390: the bar's buttons are at least 44 px tall",
+   "ok": true
+  },
+  {
+   "name": "layout 390: no sideways page scroll",
+   "ok": true
+  },
+  {
+   "name": "layout 390: the player inside the frame shows the touch controller on the phone only",
+   "ok": true
+  },
+  {
+   "name": "layout 390: no page errors",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: the overlay fills the screen and the frame fills all but the bar",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: the bar's buttons are at least 44 px tall",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: no sideways page scroll",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: the player inside the frame shows the touch controller on the phone only",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: no page errors",
+   "ok": true
+  }
+ ]
+}

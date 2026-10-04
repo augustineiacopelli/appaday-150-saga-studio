@@ -7,14 +7,14 @@ Portfolio: https://augustineiacopelli.github.io/appaday/
 
 ## Status
 
-Phases 0 to 4 of 7 are complete: the vendored forges and fixtures, the load sandwich, one store, one import and one project list, the gated five stage pipeline with the unresolved references drawer, and now the player shell that plays a finished game from its bundle alone. Test Play from the Studio arrives in Phase 5. See build-log.txt for the full record.
+Phases 0 to 5 of 7 are complete: the vendored forges and fixtures, the load sandwich, one store, one import and one project list, the gated five stage pipeline with the unresolved references drawer, the player shell that plays a finished game from its bundle alone, and now Test Play from the Story and Game stages, from the title or from any chapter, map or battle. Build game (the standalone export) arrives in Phase 6. See build-log.txt for the full record.
 
 ## Layout
 
 | Path | What it holds |
 | --- | --- |
 | player/ | The game itself: player.html, player.js, player.css. Kit free; loads with the five engines and a bundle only |
-| core/ | KIT:CORE and its CSS (cut once from Day 146), and the Studio's own files: studio.js (the sandwich), idb.js (the store), projects.js (the importer and project list), studio-boot.js |
+| core/ | KIT:CORE and its CSS (cut once from Day 146), and the Studio's own files: studio.js (the sandwich), idb.js (the store), projects.js (the importer and project list), pipeline.js and unresolved.js (the stages and the drawer), testplay.js (Test Play), studio-boot.js |
 | engines/ | The five game engines (render, audio, world, battle, story) in load order |
 | forge/146 to forge/149 | One file per forge fence, copied byte for byte from each forge's shipped page |
 | forge/manifest.json | Every vendored file with its sha256, size, load order, and the owners' commits |
@@ -34,7 +34,7 @@ node make-demo.js          # rebuild the Day 149 Final fixtures (byte identical 
 node phase0.js             # Phase 0 acceptance
 ```
 
-Never edit anything in core/, engines/, or forge/ by hand. Change the owning forge, then run node vendor.js.
+Never edit core/kit.js, core/kit.css, engines/, or forge/ by hand. Change the owning forge, then run node vendor.js.
 
 ## Phase 1: the load sandwich
 
@@ -83,3 +83,25 @@ node phase4.js        # 50 checks in headless Chromium (Playwright): static rule
 ```
 
 test/player-bot.js is the bot those runs use: it walks with the player's own route planner, fetches small keys, answers choices, and lets battles run on auto.
+
+## Phase 5: Test Play from anywhere
+
+The Story and Game stages carry a Test Play button, and the Game stage has the same start picker in its panel. Test Play opens player/player.html, the page Build game will package, in a full screen frame above the Studio and posts it `{type: 'saga:play', bundle, test}` with the bundle in memory, so what is tested is what ships. Four starts:
+
+| Start | What happens |
+| --- | --- |
+| New game | The title's New Game: the opening and all |
+| Start of a chapter | The Studio replays Day 149's golden path (STORY.day150's golden.steps, the path the story checks proved) through ENGINE_STORY.host.play, every choice and battle answered as the path answered it, and stops the moment the chapter is the one asked for. The player lands where that chapter's opening put the party (the last changeMap after the chapter began), else at the chapter's start town, on exactly the state the replay reached |
+| On a map | The same replay to the map's chapter, then the player stands at the map's entrance (the site entrance, else where another map's exit arrives) |
+| A battle | The same replay to the troop's chapter, so the party is that chapter's with its gear tier and materia, then the fight starts at once. The outcome comes back to the Studio's bar; the story state is untouched |
+
+Restart posts the same start again, Change start reopens the picker over the frame, and Close or Escape gives the Studio back. Saves made in a test go under `saga150test:` so testing never overwrites a real save of the game. Only chapters on the golden path can be started directly; the picker says why when the story checks have not proven a path yet. A project whose Story stage is locked cannot Test Play.
+
+```
+cd test
+node phase5.js        # 63 checks in headless Chromium: static rules, the button on Story and Game only and refused when locked,
+                      # a new game to the contract opening hash, every chapter of both fixtures on the exact replayed state,
+                      # the rest of the golden path walked to the golden ending from the last chapter's start, map and battle
+                      # starts, test saves kept apart, Restart, Change start, Close, Escape, the Game picker, layout at 390 and 1280
+```
+

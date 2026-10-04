@@ -56,6 +56,7 @@
     return ok;
   };
   if (!Studio.native) Studio.unresolved.install();
+  if (!Studio.native && Studio.testplay) Studio.testplay.install();
   document.addEventListener('keydown', function (e) {
     if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === 's' || e.key === 'S')) {
       e.preventDefault();
