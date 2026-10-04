@@ -1,0 +1,66 @@
+=== BUILD LOG: APPADAY 150 SAGA STUDIO ===
+Each session reads this log first and appends to it last. The Planning session's eight phase plan (Phases 0 to 7) is the
+  plan of record; Days 146 to 149 keep their own logs (146 in its index.html, 147 to 149 in src/build-log.txt).
+
+SESSION 0 / PHASE 0 (2026-10-04, Opus): REPO, VENDORING, FIXTURES. COMPLETE.
+  Repo layout: core/ (kit.js, kit.css), engines/ (the five game engines), forge/<day>/ (one file per vendored fence) with
+    forge/manifest.json, vendor.js (developer tool, no build step for the shipped page), day146.js to day149.js locate
+    sibling clones (never committed; app146.html, app147/, app148/, or app149/ at the repo root also work), test/ under
+    jsdom (npm install in test/ once; jsdom and fake-indexeddb).
+  DECISION: vendor from each forge's built index.html, not from src/. The page is what each forge shipped, with its
+    build.js substitutions already applied (147's spliced ENGINE:RENDER sections, 149's ENGINE_FILES table, the demo
+    JSON). Every page fence is still checked against the owner's src/ file where one exists, with a /*NAME*/null
+    placeholder matched as a gap, so a forge left unbuilt after a src edit stops vendor.js. Results: 147 30 equal and 1
+    with no src (ART:SHELL CSS lives inline in 147's build.js); 148 17 equal; 149 22 equal, 1 filled (WS:STORY149's
+    engine table), 1 tail; 146 has no src (its page is its source).
+  vendor.js splits each page's style block and inline script into fences and refuses any line outside a fence, then
+    proves the fences rejoin to the region exactly. node vendor.js cuts, writes, and verifies (it clears forge/ and
+    engines/ first so a removed fence cannot linger); node vendor.js --check verifies only and also refuses stray files.
+  FINDING: Day 149's src/story-shell.css carries four rules after its STORY:SHELL CSS END line (the Phase 8 Day 150 panel:
+    .s9-d150, .s9-d150-out, .s9-kit-note, .msg-ok). They ship in 149's page between fences. Vendored as fence
+    'STORY:SHELL TAIL CSS', file forge/149/story-shell-tail.css; it must load right after story-shell.css.
+  Not vendored into forge/, with where each lives instead: KIT:CORE and KIT:CORE CSS (core/, cut once from 146, checked
+    verbatim in 147, 148, 149), ENGINE:BATTLE, RENDER, AUDIO, WORLD, STORY (engines/), APP:BOOT (each forge's; the Studio
+    shell replaces it), ART:DEMO, WORLD:DEMO, STORY:DEMO (demo fixtures).
+  Vendored counts (css, js), page order kept in the manifest's order field: 146 5, 5 (WS:CHARTER, CODEX, RULES, ARENA,
+    SIM); 147 9, 22; 148 6, 11; 149 8, 16. Bytes: forges 1,835,203; engines 645,980; core 161,298; total 2,642,481.
+  Owners at vendoring: 146 2f826a5, 147 47882f6, 148 8166c4e, 149 2b7c590 (full hashes in forge/manifest.json).
+  Engines (copied from Day 149's root, each checked against its owner's root file and page fence; all version 1.0.0):
+    engine-render.js 147 sha256 1ad0fc0d07fcb10a, engine-audio.js 147 4b77f7e557628e21, engine-world.js 148
+    146dcdad83307655, engine-battle.js 146 cc091bedd5acb06b, engine-story.js 149 75451b0ee690b40f. Load order render,
+    audio, world, battle, story. None contains </script or <!--; vendor.js asserts that permanently, so Phase 6 inlines
+    them byte for byte. The fixtures' day150 contract carries these same five sha256 values.
+  PHASE 1 NOTES (found while vendoring):
+    Demo globals. The skipped demo fences declare window.ART_DEMO, WORLD_DEMO, STORY_DEMO. ws-art147 reads ART_DEMO
+      (load demo, fixtures list, selfTest on its dev tab), ws-world148 reads WORLD_DEMO.FIXTURES (dev tab), ws-story149
+      reads STORY_DEMO.FIXTURES (dev tab). All are reached only from start or dev tab renders and clicks. The Studio either
+      provides the three globals backed by its own fixtures or keeps those tabs out of the stage router.
+    Shell ids the vendored code reaches for by id (forge/manifest.json, ids): 147 btnCoverage btnSize btnSound fileImport
+      storeBanner; 148 btnSize fileImport storeBanner site-preview w8-inspect; 149 btnSize evPlay fileImport storeBanner
+      ws; 146 only ids it renders itself (ar*, sim*). The Studio shell must supply btnSize, btnSound, btnCoverage,
+      storeBanner, fileImport, and ws, beside the KIT:CORE shell (app, tabs, overlays, toasts, btnTheme, btnSettings,
+      btnTitle, btnValidation, btnSave, btnSlots, btnImport, btnExport).
+    Page weight. About 2.6 MB of script and style loads before anything renders. Load each stage's forge files on first
+      entry to that stage if Phase 1's sandwich allows it; otherwise accept it for a creator tool and keep the exported
+      game (engines plus player plus bundle) as the lean artifact.
+  Fixtures (test/make-demo.js): Day 149's own page imports its own Day 148 Finals (demo148, four148), scaffolds quests,
+    dialogue, flags, endings, events in that order (as 149's Phase 8 suite does), checks readiness and the world check,
+    then Kit.buildExport('final', { engines: true }). The page runs on a clock pinned to 2026-10-04T12:00:00Z, so a
+    rebuild is byte identical (the only run to run differences were kit.updatedAt, forges 149 exportedAt, and the hash).
+    These are the first true Day 149 Finals on disk.
+      demo149-bundle.json 615,029 bytes, 2 chapters, 720 minutes, golden path 6 steps to end_end_1_delivered_vlh4,
+        2 endings in the contract; demo149-manifest.json.
+      four149-bundle.json 1,055,641 bytes, 6 chapters, 780 minutes, golden path 14 steps to end_end_1_delivered_vlh4;
+        four149-manifest.json.
+      Both: forges 146, 147, 148, 149 final; opened charter rules art world story; nothing unresolved; reopen in Days
+      146, 147, 148, 149 with matching hash, 0 errors, 0 broken (146 and 148 each report one warning, as before).
+      fixtures-report.json holds the details.
+  Tests: test/phase0.js, 24 of 24 pass. vendor --check; manifest sha256 and size; each forge's page rebuilds byte for byte
+    from core/, engines/, forge/<day>/ and the fences left with the owner; all 60 vendored scripts parse alone (the Studio
+    loads each by its own script tag); 29 stylesheets balanced; the five engines load bare and declare exactly five
+    globals; core/kit.js boots alone; both fixtures verify, match the engine sha256 values, replay the golden path in a
+    bare context to the manifest's ending and hash, and reopen cleanly in all four forges; new sources ASCII clean. A
+    deliberately edited vendored file fails three checks, then passes again once restored.
+  index.html is a placeholder card for Pages until Phase 1 replaces it with the Studio shell.
+  NEXT: Phase 1, the load sandwich (core/studio.js, per stage WS objects, Kit.mount prefixing, CSS scoping by
+    body[data-stage]), tested by running the four forges' own phase tests inside the stacked page.

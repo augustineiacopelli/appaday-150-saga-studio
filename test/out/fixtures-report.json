@@ -1,0 +1,230 @@
+{
+ "demo": {
+  "exported": [
+   "demo-saga-bundle.json",
+   "demo-saga-story-manifest.json",
+   "engine-story.js"
+  ],
+  "bytes": 615029,
+  "hash": "72eb58bf396f524e",
+  "bundleHashMatches": true,
+  "forges": "146:final 147:final 148:final 149:final",
+  "opened": "charter rules art world story",
+  "chapters": 2,
+  "minutes": 720,
+  "unresolved": 0,
+  "loadOrder": [
+   "engine-render.js",
+   "engine-audio.js",
+   "engine-world.js",
+   "engine-battle.js",
+   "engine-story.js"
+  ],
+  "day150": {
+   "keys": [
+    "api",
+    "battle",
+    "bossRule",
+    "bosses",
+    "contract",
+    "effects",
+    "endings",
+    "engines",
+    "golden",
+    "hashRule",
+    "loadOrder",
+    "musicRoles",
+    "newGame",
+    "opening",
+    "proof",
+    "saves",
+    "shell",
+    "start",
+    "summary",
+    "triggers"
+   ],
+   "golden": {
+    "steps": 6,
+    "ending": "end_end_1_delivered_vlh4",
+    "hash": "9437d264bf31da0d"
+   },
+   "endings": 2,
+   "engines": [
+    "engine-render.js 1ad0fc0d07fc",
+    "engine-audio.js 4b77f7e55762",
+    "engine-world.js 146dcdad8330",
+    "engine-battle.js cc091bedd5ac",
+    "engine-story.js 75451b0ee690"
+   ]
+  },
+  "engineStoryMatchesVendored": true,
+  "reopened": {
+   "146": {
+    "matches": true,
+    "summary": {
+     "errors": 0,
+     "broken": 0,
+     "forward": 0,
+     "warnings": 1
+    },
+    "errors": 0,
+    "broken": 0,
+    "forward": 0,
+    "pageErrors": 0
+   },
+   "147": {
+    "matches": true,
+    "summary": {
+     "errors": 0,
+     "broken": 0,
+     "forward": 0,
+     "warnings": 0
+    },
+    "errors": 0,
+    "broken": 0,
+    "forward": 0,
+    "pageErrors": 0
+   },
+   "148": {
+    "matches": true,
+    "summary": {
+     "errors": 0,
+     "broken": 0,
+     "forward": 0,
+     "warnings": 1
+    },
+    "errors": 0,
+    "broken": 0,
+    "forward": 0,
+    "pageErrors": 0
+   },
+   "149": {
+    "matches": true,
+    "summary": {
+     "errors": 0,
+     "broken": 0,
+     "forward": 0,
+     "warnings": 0
+    },
+    "errors": 0,
+    "broken": 0,
+    "forward": 0,
+    "pageErrors": 0
+   }
+  }
+ },
+ "four": {
+  "exported": [
+   "four-continents-bundle.json",
+   "four-continents-story-manifest.json",
+   "engine-story.js"
+  ],
+  "bytes": 1055641,
+  "hash": "562a4b2f1ee961dd",
+  "bundleHashMatches": true,
+  "forges": "146:final 147:final 148:final 149:final",
+  "opened": "charter rules art world story",
+  "chapters": 6,
+  "minutes": 780,
+  "unresolved": 0,
+  "loadOrder": [
+   "engine-render.js",
+   "engine-audio.js",
+   "engine-world.js",
+   "engine-battle.js",
+   "engine-story.js"
+  ],
+  "day150": {
+   "keys": [
+    "api",
+    "battle",
+    "bossRule",
+    "bosses",
+    "contract",
+    "effects",
+    "endings",
+    "engines",
+    "golden",
+    "hashRule",
+    "loadOrder",
+    "musicRoles",
+    "newGame",
+    "opening",
+    "proof",
+    "saves",
+    "shell",
+    "start",
+    "summary",
+    "triggers"
+   ],
+   "golden": {
+    "steps": 14,
+    "ending": "end_end_1_delivered_vlh4",
+    "hash": "465dab203c656015"
+   },
+   "endings": 1,
+   "engines": [
+    "engine-render.js 1ad0fc0d07fc",
+    "engine-audio.js 4b77f7e55762",
+    "engine-world.js 146dcdad8330",
+    "engine-battle.js cc091bedd5ac",
+    "engine-story.js 75451b0ee690"
+   ]
+  },
+  "engineStoryMatchesVendored": true,
+  "reopened": {
+   "146": {
+    "matches": true,
+    "summary": {
+     "errors": 0,
+     "broken": 0,
+     "forward": 0,
+     "warnings": 1
+    },
+    "errors": 0,
+    "broken": 0,
+    "forward": 0,
+    "pageErrors": 0
+   },
+   "147": {
+    "matches": true,
+    "summary": {
+     "errors": 0,
+     "broken": 0,
+     "forward": 0,
+     "warnings": 0
+    },
+    "errors": 0,
+    "broken": 0,
+    "forward": 0,
+    "pageErrors": 0
+   },
+   "148": {
+    "matches": true,
+    "summary": {
+     "errors": 0,
+     "broken": 0,
+     "forward": 0,
+     "warnings": 1
+    },
+    "errors": 0,
+    "broken": 0,
+    "forward": 0,
+    "pageErrors": 0
+   },
+   "149": {
+    "matches": true,
+    "summary": {
+     "errors": 0,
+     "broken": 0,
+     "forward": 0,
+     "warnings": 0
+    },
+    "errors": 0,
+    "broken": 0,
+    "forward": 0,
+    "pageErrors": 0
+   }
+  }
+ }
+}

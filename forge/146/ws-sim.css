@@ -1,0 +1,44 @@
+/* === WS:SIM CSS BEGIN === */
+.sim-root { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.sim-root > .panel + .panel, .sim-out > .panel + .panel { margin-top: 0; }
+.sim-out { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.sim-lead { margin: 0 0 10px; color: var(--ink2); }
+.sim-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+.sim-setup h3 { margin: 14px 0 6px; }
+.sim-actions { margin-top: 14px; }
+.sim-progress { margin-top: 12px; }
+.sim-progress[hidden] { display: none; }
+.sim-track { height: 14px; border-radius: 99px; background: var(--bg2); border: 1px solid var(--line2); overflow: hidden; }
+.sim-track i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .12s linear; }
+.sim-progtext { margin-top: 6px; font-size: .88rem; color: var(--muted); font-family: var(--font-mono); overflow-wrap: anywhere; }
+.sim-empty, .sim-error { color: var(--ink2); }
+.sim-empty h3, .sim-error h3 { font-family: var(--font-display); margin: 0 0 6px; color: var(--accent); }
+.sim-empty p, .sim-error p { margin: 0 0 10px; }
+.sim-empty .btn { margin-top: 4px; }
+.sim-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sim-summary .panel-title { margin-bottom: 8px; }
+.sim-tbl th small, .sim-tbl td small { display: block; color: var(--muted); font-size: .72rem; font-weight: 400; }
+.sim-tbl th small.mono { font-family: var(--font-mono); }
+.sim-tbl tr.is-flag { background: var(--accent-soft); }
+.sim-tbl th[scope="row"] { font-weight: 700; min-width: 130px; }
+.sim-fix { white-space: normal; min-width: 220px; }
+.sim-fix .btn { margin: 2px 4px 2px 0; padding: 0 12px; }
+.sim-skipbox { margin-top: 10px; }
+.sim-skiph { margin: 0 0 4px; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink2); }
+.sim-skips { margin: 0; padding-left: 18px; color: var(--ink2); font-size: .92rem; }
+.sim-charts { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 980px) { .sim-charts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sim-pickrow { grid-column: 1 / -1; } }
+.sim-pickrow { max-width: 420px; }
+@media (min-width: 980px) { #simChart1, #simChart3 { height: 300px; } .sim-chartpanel.is-wide { grid-column: 1 / -1; } }
+.sim-chartpanel { min-width: 0; }
+.sim-chartpanel + .sim-chartpanel { margin-top: 0; }
+.sim-charthead .section-h { margin: 0 0 4px; }
+.sim-chart { position: relative; height: 280px; min-width: 0; }
+.sim-chart.is-table { height: auto; }
+.sim-chart canvas { max-width: 100%; }
+.sim-root .btn .lbl, .exp-files .btn .lbl { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+.exp-files { display: flex; flex-direction: column; gap: 8px; }
+.exp-file { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg2); }
+.exp-file-t { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 200px; overflow-wrap: anywhere; }
+.exp-file-t .muted { font-size: .85rem; }
+/* === WS:SIM CSS END === */

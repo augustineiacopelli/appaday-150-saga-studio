@@ -1,0 +1,19 @@
+/* === ART:SHELL CSS BEGIN === */
+.size-btn { padding: 0 8px; }
+.size-btn .chip { pointer-events: none; }
+.store-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 16px; background: color-mix(in srgb, var(--danger) 16%, var(--bg2)); border-bottom: 1px solid var(--danger); color: var(--ink); font-weight: 700; }
+.store-banner[hidden] { display: none; }
+.store-banner span { flex: 1 1 240px; min-width: 0; }
+.a7-hero .btn-row { margin-top: 10px; }
+.a7-grid { margin-top: 14px; margin-bottom: 14px; }
+.a7-grid .card .section-h { margin-top: 0; }
+.a7-prefixes { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.a7-meter { height: 14px; border-radius: 99px; background: var(--bg2); border: 1px solid var(--line2); overflow: hidden; margin: 4px 0 8px; }
+.a7-meter i { display: block; height: 100%; background: var(--ok); }
+.a7-meter.a7-amber i { background: var(--warn); }
+.a7-meter.a7-red i { background: var(--danger); }
+.a7-fixtures { margin: 10px 0 14px; }
+.tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+.brand-title { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+@media (max-width: 520px) { .brand-title { font-size: 1.02rem; letter-spacing: .03em; } .brand-num { display: none; } }
+/* === ART:SHELL CSS END === */

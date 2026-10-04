@@ -1,0 +1,49 @@
+/* === WS:ARENA CSS BEGIN === */
+.ar-wrap { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 980px) { .ar-wrap { grid-template-columns: 330px minmax(0, 1fr); align-items: start; } }
+@media (max-width: 979px) { .ar-stagepanel { order: -1; } }
+.ar-empty .btn { margin-top: 8px; }
+.ar-setup .form-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); }
+.ar-setup h3 { margin: 12px 0 6px; }
+.ar-chars { display: flex; flex-wrap: wrap; gap: 6px; }
+.ar-pick { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line2); background: var(--bg2); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
+.ar-pick[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.ar-pick .dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.ar-cust { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.ar-crow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 8px; align-items: center; }
+.ar-seg { display: inline-flex; border: 1px solid var(--line2); border-radius: 10px; overflow: hidden; }
+.ar-seg button { min-height: 44px; min-width: 52px; padding: 0 12px; border: 0; background: var(--bg2); color: var(--ink2); font: inherit; font-weight: 700; cursor: pointer; }
+.ar-seg button + button { border-left: 1px solid var(--line2); }
+.ar-seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.ar-seedrow { display: flex; gap: 6px; }
+.ar-seedrow .inp { flex: 1; min-width: 0; font-family: var(--font-mono); }
+.ar-note { font-size: .85rem; color: var(--muted); margin: 4px 0 0; }
+.ar-stagepanel { padding: 12px; }
+.ar-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.ar-head .panel-title { margin: 0; }
+.ar-stage { position: relative; display: flex; justify-content: center; background: #07080d; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 0; min-height: 120px; overflow: hidden; }
+.ar-stage canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; touch-action: manipulation; }
+.ar-empty { color: #c9c1ab; text-align: center; padding: 40px 16px; max-width: 420px; }
+.ar-empty h3 { font-family: var(--font-display); margin: 0 0 6px; color: #e3b453; }
+.ar-menu { margin-top: 10px; border: 1px solid var(--line2); border-radius: var(--radius-sm); background: var(--panel2); padding: 10px; }
+.ar-menu[hidden] { display: none; }
+.ar-menu-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; font-weight: 800; }
+.ar-menu-head .who { font-family: var(--font-display); color: var(--accent); letter-spacing: .04em; }
+.ar-menu-grid { display: grid; gap: 6px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
+.ar-menu-grid .btn { justify-content: space-between; white-space: normal; text-align: left; line-height: 1.15; padding: 6px 12px; }
+.ar-menu-grid .btn small { font-weight: 600; color: var(--muted); font-size: .78rem; }
+.ar-menu-grid .btn.limit { border-color: var(--accent); color: var(--accent); }
+.ar-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-items: center; }
+.ar-result { margin-top: 10px; }
+.ar-result[hidden] { display: none; }
+.ar-result .kv { margin-top: 6px; }
+.ar-status { font-size: .88rem; color: var(--muted); }
+.ar-log { display: flex; flex-direction: column; gap: 2px; font-size: .9rem; }
+.ar-log .ln { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 8px; padding: 3px 0; border-bottom: 1px solid var(--line); }
+.ar-log .ln .t { font-family: var(--font-mono); color: var(--muted); font-size: .78rem; text-align: right; }
+.ar-log .ln.k-damage .m { color: var(--danger); }
+.ar-log .ln.k-heal .m { color: var(--ok); }
+.ar-log .ln.k-ko .m, .ar-log .ln.k-end .m { font-weight: 800; }
+.ar-log .ln.k-limitReady .m { color: var(--accent); }
+.ar-code { width: 100%; font-family: var(--font-mono); font-size: .8rem; min-height: 120px; }
+/* === WS:ARENA CSS END === */

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Saga Studio | AppADay 150</title>
+<meta name="description" content="Saga Studio: the four Saga forges in one pipeline, from charter to a playable, exportable game. AppADay 150, in progress.">
+<meta name="theme-color" content="#10121a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;700&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #10121a; --bg2: #181b27; --ink: #ece6d6; --muted: #a9a394; --gold: #d8b25a; --line: #2c3142; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100dvh; display: flex; flex-direction: column; background: radial-gradient(ellipse at top, #1d2133 0%, var(--bg) 60%); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 1.05rem; line-height: 1.55; }
+header, footer { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+footer { border-top: 1px solid var(--line); border-bottom: 0; color: var(--muted); font-size: 0.92rem; }
+h1 { margin: 0; font-family: 'Cinzel', serif; font-size: clamp(1.1rem, 4vw, 1.5rem); letter-spacing: 0.06em; }
+.num { color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.85rem; margin-left: 8px; }
+a { color: var(--gold); min-height: 44px; display: inline-flex; align-items: center; }
+main { flex: 1; display: grid; place-items: center; padding: 24px 16px; }
+.card { width: min(560px, 100%); background: var(--bg2); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+.card h2 { margin: 0 0 8px; font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.15rem; }
+.card p { margin: 0 0 12px; color: var(--muted); }
+ol { margin: 12px 0 0; padding-left: 22px; }
+li { margin: 4px 0; }
+li.done { color: var(--ink); }
+li.done::marker { color: var(--gold); }
+li:not(.done) { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Saga Studio<span class="num">App 150</span></h1>
+  <a href="https://augustineiacopelli.github.io/appaday/">&larr; AppADay</a>
+</header>
+<main>
+  <section class="card" aria-label="Build status">
+    <h2>The forge is being raised</h2>
+    <p>Saga Studio joins the four Saga forges into one pipeline, from charter and rules to art, world, and story, then plays and exports the finished game.</p>
+    <ol>
+      <li class="done">Repository, vendored forges, Final fixtures</li>
+      <li>One page that holds all four forges</li>
+      <li>One store, one import, one project list</li>
+      <li>The pipeline and the unresolved panel</li>
+      <li>The player</li>
+      <li>Test play from any stage</li>
+      <li>Export the game</li>
+      <li>Tests, layout, ship</li>
+    </ol>
+  </section>
+</main>
+<footer>
+  <span>Saga Studio &middot; AppADay 150</span>
+  <a href="https://augustineiacopelli.github.io/appaday/">augustineiacopelli.github.io/appaday</a>
+</footer>
+</body>
+</html>

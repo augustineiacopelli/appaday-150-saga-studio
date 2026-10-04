@@ -1,0 +1,103 @@
+{
+ "phase": 0,
+ "passed": 24,
+ "failed": 0,
+ "results": [
+  {
+   "name": "vendor.js --check: every vendored file is byte equal to its owner and nothing extra is vendored",
+   "ok": true
+  },
+  {
+   "name": "every file in forge/manifest.json exists with its recorded sha256 and size",
+   "ok": true
+  },
+  {
+   "name": "the manifest records the owners' commits for all four forges",
+   "ok": true
+  },
+  {
+   "name": "Day 146's page rebuilds byte for byte from core/, engines/, forge/146/, and the fences left with the owner",
+   "ok": true
+  },
+  {
+   "name": "Day 147's page rebuilds byte for byte from core/, engines/, forge/147/, and the fences left with the owner",
+   "ok": true
+  },
+  {
+   "name": "Day 148's page rebuilds byte for byte from core/, engines/, forge/148/, and the fences left with the owner",
+   "ok": true
+  },
+  {
+   "name": "Day 149's page rebuilds byte for byte from core/, engines/, forge/149/, and the fences left with the owner",
+   "ok": true
+  },
+  {
+   "name": "all 60 vendored scripts parse on their own",
+   "ok": true
+  },
+  {
+   "name": "all 29 vendored stylesheets have balanced braces",
+   "ok": true
+  },
+  {
+   "name": "the five engines load into a bare context in load order and declare exactly ENGINE_RENDER, ENGINE_AUDIO, ENGINE_WORLD, ENGINE_BATTLE, ENGINE_STORY",
+   "ok": true
+  },
+  {
+   "name": "the load order is render, audio, world, battle, story",
+   "ok": true
+  },
+  {
+   "name": "no engine contains </script or <!--, so each inlines byte for byte",
+   "ok": true
+  },
+  {
+   "name": "core/kit.js boots alone in a page, without errors, and exposes Kit",
+   "ok": true
+  },
+  {
+   "name": "demo: the content hash verifies with core/kit.js",
+   "ok": true
+  },
+  {
+   "name": "demo: a Day 149 Final, forges 146 to 149 final, story opened, nothing unresolved",
+   "ok": true
+  },
+  {
+   "name": "demo: the day150 contract's engines match engines/ by file, order, and sha256",
+   "ok": true
+  },
+  {
+   "name": "demo: the bare engines replay the golden path to the manifest's ending and state hash (6 steps)",
+   "ok": true
+  },
+  {
+   "name": "demo: Days 146, 147, 148, and 149 reopen it with a matching hash, no errors, and no broken references",
+   "ok": true
+  },
+  {
+   "name": "four: the content hash verifies with core/kit.js",
+   "ok": true
+  },
+  {
+   "name": "four: a Day 149 Final, forges 146 to 149 final, story opened, nothing unresolved",
+   "ok": true
+  },
+  {
+   "name": "four: the day150 contract's engines match engines/ by file, order, and sha256",
+   "ok": true
+  },
+  {
+   "name": "four: the bare engines replay the golden path to the manifest's ending and state hash (14 steps)",
+   "ok": true
+  },
+  {
+   "name": "four: Days 146, 147, 148, and 149 reopen it with a matching hash, no errors, and no broken references",
+   "ok": true
+  },
+  {
+   "name": "the new Day 150 sources are ASCII clean (11 files)",
+   "ok": true
+  }
+ ]
+}
