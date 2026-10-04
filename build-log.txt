@@ -141,3 +141,62 @@ SESSION 3 / PHASE 3: the pipeline and the unresolved panel
     (the known 147 phase5 difference), vendor.js --check clean.
   NEXT: Phase 4, the player shell.
 
+
+SESSION 4 / PHASE 4: the player shell (Opus)
+  Files: player/player.html, player/player.js (one global, SagaPlayer), player/player.css, test/phase4.js, test/player-bot.js,
+    test/serve.js. Nothing in core/, engines/, or forge/ changed.
+  Kit free by test: no Kit, STORY, WORLD, ART, or WS reference; no network but the ?bundle= development fetch; no API key; a bare
+    page with only the five engines, player.js, and an inline bundle reaches the title and adds exactly SagaPlayer.
+  World: the overworld is always rebuilt with ENGINE_WORLD.overworld.build from the bundle (seed, settings, progression graph,
+    chapter minutes, the climate palette, painted cells), because walking needs its gate, sea, and structure layers. Its paramHash
+    and digest are checked against the map record (both fixtures match byte for byte). Interiors come from ENGINE_WORLD.bake.load
+    when the bake still matches, else from ENGINE_WORLD.interiors.build with Day 148's inSpecs spec (all 31 four continent floors
+    match their record digests). Exits, features, and people always come from the records. Chromium builds the four continent
+    overworld in about 0.3 s; interiors build on first entry.
+  Field: Day 147's createWalker, with canEnter extended to overworld gates (EW.overworld.walkable with the keys held), the sea
+    (walkable with vehicle:ship; a boat is drawn), interior locks, and people. Moving into a site entrance or an exit tile is a
+    transfer. Held keys are the story bindings whose flag is 1 or more, the graph's start gates, and the shell's small keys.
+  DECISION, the story seam: step events fire on arrival on their cell, on a bump into it, or on A facing it (prize chests and boss
+    cells are not standable); talk and dialogue on A facing a person; mapEnter once per arrival; autoruns whenever the player is
+    quiet on their map (deduplicated by state hash). Only moves ENGINE_STORY.host.moves offers are ever played.
+  DECISION, questions wait for a person: the host's hooks are synchronous, so a move is played with the answers in hand; at the
+    first unanswered choice or battle the hook returns nothing (host error undecided), the effects so far are shown, the person
+    answers, and the move is played again from the same state with one more answer, skipping effects already shown. The engine is
+    pure, so the replay cannot drift. The opening of a new game lands on the contract's opening hash for both fixtures.
+  Effects: text (paged window, typing, speaker name and portrait), choice (game window buttons; the line before stays up), fade,
+    wait, music (role, mus_, or stop), sfx, face, moveActor (player or a person, cell by cell), changeMap, vehicle, questStage,
+    giveItem, takeItem, gil, party (toasts), ending, game over, and error (logged, never shown raw).
+  Battle: Day 147 ART:BATTLE session (ATB ticks at the ruleset tickRate, Wait pacing) and WS:BATTLE's command menu as game windows
+    (root, abilities, targets, Auto). Flee is offered only when the story's question allows escape. Outcomes map through Day
+    149's OUTCOMES (win, lose, flee to escape, timeout to lose). Seeds come from the save's step count, so a battle replays the same.
+  Party: Day 146 WSX.buildParty with bestGear, placeMateria, and epsFor (via 147's mirror, identical in logic). The roster is the
+    story's party when it names anyone, else the first four characters by ID. Owned materia is every eps_ materiaSet up to the
+    current chapter. Equip and Materia edits are kept in the shell save and validated each time the party is built; Optimize
+    clears them. Status reads HP, MP, and stats from ENGINE_BATTLE.init (a battle set up, never run).
+  DECISION, v1 menus as recommended: Status, Equip and Materia, Items (gil, items, seals, vehicles, small keys), Journal (quest
+    stages), Airship (once held: fly to the front of any open site), Save, Settings, Return to title. No full materia grid yet.
+  DECISION, shell owned state: dungeon small keys, opened chests, treasure gil, encounter gil, gear edits, position, steps, and
+    play time live in the save's shell block, never in the story state, so the story state stays what the walk proved.
+  Saves: {format saga-save, v 1, game slug, story: ENGINE_STORY.save.toSave, shell} in localStorage under saga150:<slug>:<slot>
+    (auto, 1, 2, 3), plus download and load of save files. A save from another game is refused. Innkeepers offer rest and save.
+  Encounters: Day 148 zones (field by chapter and biome, interior by map), rate per 256 per step on encounter flagged cells, troop
+    by weight, a few safe steps after each fight, never in towns or at sea. Settings can turn them off.
+  Audio: ENGINE_AUDIO created on the first gesture; map music town, dungeon, or field:<continent>; story music overrides until the
+    next map; presenter cues resolved the way Day 147 ART:AUDIO resolves them.
+  Layout: the stage scales by a whole number when it can (desktop) and fills the width on phones; on a phone the stage sits at the
+    top and the touch controller (Day 147's touch skin, sized to the space left) fills the rest. Game windows are HTML buttons, 44 px.
+  Test bot (test/player-bot.js): plays inside the page on a paused clock, walks with the player's own route planner (BFS over map
+    and cell with the walker's rules and transfers), fetches a dungeon's small key when a lock is in the way, answers choices from
+    a script, and lets battles run on auto.
+  Tests: test/phase4.js 50 of 50 in headless Chromium: static rules; the bare page; per fixture the world rebuilt with no warning,
+    the opening hash and first moves equal to the contract, the golden path played to its ending by walking (demo 7 steps in 4
+    game minutes; four continents 19 steps in 15 game minutes, ship and all six bosses through the real ENGINE_BATTLE), no fault;
+    both demo endings by their own choices; slot save, reload, Continue, and finish; a save file in a fresh page; menus; a battle
+    fought through the command menu; a loss to game over and Continue; layout at 390 by 844 and 1280 by 800.
+  FINDING: walking crosses the exit event cells (the gate a chapter opens), so the walk plays exit events directly where the golden
+    path reached them through the next prize's callEvent. The ending is the same; the played list carries both orders.
+  KNOWN, not this phase: test/phase3.js reports 71 of 72 in this environment (the dock row check after a fix); it fails the same
+    with the Phase 4 files absent, so it predates this session. vendor.js --check is clean.
+  NEXT: Phase 5, Test Play from anywhere: the Game stage and a Test Play button open player/player.html in a full screen iframe
+    and post {type: 'saga:play', bundle, save}; a start at chapter N replays the golden path through host.play first. The player
+    already answers saga:play (with an optional save) and posts saga:ready and saga:started.

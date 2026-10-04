@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07070c">
+<title>Saga Player</title>
+<meta name="description" content="Plays a game built in Saga Studio from its Final bundle alone: the five Saga engines and the bundle, nothing else.">
+<link rel="stylesheet" href="player.css">
+</head>
+<body>
+<!-- The game is this page, player.css, player.js, the five engines in contract order, and a bundle. The bundle arrives as
+     an inline <script type="application/json" id="saga-bundle"> (an exported game), a postMessage {type: 'saga:play'}
+     (Saga Studio's Test Play), ?bundle=<url> (development), or a file the player opens. -->
+<script src="../engines/engine-render.js"></script>
+<script src="../engines/engine-audio.js"></script>
+<script src="../engines/engine-world.js"></script>
+<script src="../engines/engine-battle.js"></script>
+<script src="../engines/engine-story.js"></script>
+<script src="player.js"></script>
+</body>
+</html>

@@ -5,3 +5,4 @@ app149/
 test/node_modules
 test/package-lock.json
 test/out/.kit-only.html
+test/out/.bare-player.html

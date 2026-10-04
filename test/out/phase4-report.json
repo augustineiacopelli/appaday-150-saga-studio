@@ -1,0 +1,333 @@
+{
+ "when": "2026-10-04T20:46:34.752Z",
+ "passed": 50,
+ "failed": 0,
+ "results": [
+  {
+   "name": "player.js, player.css, and player.html are pure ASCII",
+   "ok": true
+  },
+  {
+   "name": "no forbidden APIs (roundRect, ellipse, window.confirm, bare remove, eval, new Function, Math.random)",
+   "ok": true
+  },
+  {
+   "name": "nothing from the forges: no Kit, STORY, WORLD, ART, or WS",
+   "ok": true
+  },
+  {
+   "name": "no network but the ?bundle= development fetch, and no API key",
+   "ok": true
+  },
+  {
+   "name": "player.html loads the five engines in contract order, then player.js",
+   "ok": true
+  },
+  {
+   "name": "the contract load order matches the engines folder",
+   "ok": true
+  },
+  {
+   "name": "a page with only the five engines, player.js, and an inline bundle reaches the title",
+   "ok": true
+  },
+  {
+   "name": "the player declares one global, SagaPlayer",
+   "ok": true
+  },
+  {
+   "name": "no page errors on the bare page",
+   "ok": true
+  },
+  {
+   "name": "demo: the overworld rebuilds from the seed exactly as Day 148 recorded it (no warnings)",
+   "ok": true
+  },
+  {
+   "name": "demo: a new game plays the opening and lands on the contract's opening state",
+   "ok": true
+  },
+  {
+   "name": "demo: the first moves are the contract's first moves",
+   "ok": true
+  },
+  {
+   "name": "demo: the golden path plays to its ending by walking the world (6 steps, 5 game minutes)",
+   "ok": true
+  },
+  {
+   "name": "demo: every golden step was played (extra steps the walk crossed are allowed)",
+   "ok": true
+  },
+  {
+   "name": "demo: no runtime fault on the way",
+   "ok": true
+  },
+  {
+   "name": "demo: the ending screen shows",
+   "ok": true
+  },
+  {
+   "name": "four: the overworld rebuilds from the seed exactly as Day 148 recorded it (no warnings)",
+   "ok": true
+  },
+  {
+   "name": "four: a new game plays the opening and lands on the contract's opening state",
+   "ok": true
+  },
+  {
+   "name": "four: the first moves are the contract's first moves",
+   "ok": true
+  },
+  {
+   "name": "four: the golden path plays to its ending by walking the world (14 steps, 15 game minutes)",
+   "ok": true
+  },
+  {
+   "name": "four: every golden step was played (extra steps the walk crossed are allowed)",
+   "ok": true
+  },
+  {
+   "name": "four: no runtime fault on the way",
+   "ok": true
+  },
+  {
+   "name": "four: the ending screen shows",
+   "ok": true
+  },
+  {
+   "name": "demo: ending end_end_1_delivered_vlh4 is reached by its own choices",
+   "ok": true
+  },
+  {
+   "name": "demo: ending end_end_2_kept_6lzb is reached by its own choices",
+   "ok": true
+  },
+  {
+   "name": "saves: a slot save between moves succeeds",
+   "ok": true
+  },
+  {
+   "name": "saves: the title offers Continue after a reload",
+   "ok": true
+  },
+  {
+   "name": "saves: slot 1 restores the same story state, map, and cell",
+   "ok": true
+  },
+  {
+   "name": "saves: a game continued from the save still finishes",
+   "ok": true
+  },
+  {
+   "name": "saves: a downloaded save file loads in a fresh page with empty storage",
+   "ok": true
+  },
+  {
+   "name": "saves: a save from another game is refused",
+   "ok": true
+  },
+  {
+   "name": "menus: Status reads each member from ENGINE_BATTLE (HP, MP, stats)",
+   "ok": true
+  },
+  {
+   "name": "party: buildParty gives every member gear at the chapter's tier and places the chapter's materia",
+   "ok": true
+  },
+  {
+   "name": "menus: an Equip and Materia edit reaches the battle party, and Optimize restores the layout",
+   "ok": true
+  },
+  {
+   "name": "battle: a fight played through the command menu (Attack, then a target) is won",
+   "ok": true
+  },
+  {
+   "name": "battle: a lost fight shows game over with Continue",
+   "ok": true
+  },
+  {
+   "name": "battle: Continue restores the autosave",
+   "ok": true
+  },
+  {
+   "name": "no page errors in the menu and battle run",
+   "ok": true
+  },
+  {
+   "name": "layout 390: no horizontal or vertical page scroll",
+   "ok": true
+  },
+  {
+   "name": "layout 390: title and menu targets are at least 44 px tall",
+   "ok": true
+  },
+  {
+   "name": "layout 390: windows stay on screen",
+   "ok": true
+  },
+  {
+   "name": "layout 390: the touch controller shows on the phone only",
+   "ok": true
+  },
+  {
+   "name": "layout 390: the stage fills the width on the phone or scales by a whole number on the desktop",
+   "ok": true
+  },
+  {
+   "name": "layout 390: no page errors",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: no horizontal or vertical page scroll",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: title and menu targets are at least 44 px tall",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: windows stay on screen",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: the touch controller shows on the phone only",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: the stage fills the width on the phone or scales by a whole number on the desktop",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: no page errors",
+   "ok": true
+  }
+ ],
+ "runs": {
+  "demo": {
+   "wallMs": 27438,
+   "gameMs": 279125,
+   "played": [
+    "chapterStart:evt_evt_open_chp_the_lowlands_auem_7aom",
+    "step:evt_evt_prize_chp_the_lowlands_auem_bp9a",
+    "step:evt_evt_boss_chp_the_lowlands_auem_kkvs",
+    "step:evt_evt_exit_chp_the_lowlands_auem_2248",
+    "step:evt_evt_prize_chp_the_far_shore_izf4_ykaj",
+    "step:evt_evt_boss_chp_the_far_shore_izf4_7bap",
+    "autorun:evt_evt_finale_pfp1"
+   ],
+   "log": [
+    "2 step:evt_evt_prize_chp_the_lowlands_auem_bp9a: fetch the key first, 110 steps",
+    "2 step:evt_evt_prize_chp_the_lowlands_auem_bp9a: 9 steps, then A",
+    "3 step:evt_evt_boss_chp_the_lowlands_auem_kkvs: fetch the key first, 218 steps",
+    "3 step:evt_evt_boss_chp_the_lowlands_auem_kkvs: 7 steps",
+    "4 step:evt_evt_prize_chp_the_far_shore_izf4_ykaj: fetch the key first, 427 steps",
+    "4 step:evt_evt_prize_chp_the_far_shore_izf4_ykaj: fetch the key first, 131 steps",
+    "4 step:evt_evt_prize_chp_the_far_shore_izf4_ykaj: 13 steps, then A",
+    "5 step:evt_evt_boss_chp_the_far_shore_izf4_7bap: fetch the key first, 343 steps",
+    "5 step:evt_evt_boss_chp_the_far_shore_izf4_7bap: 9 steps"
+   ]
+  },
+  "four": {
+   "wallMs": 309145,
+   "gameMs": 906180,
+   "played": [
+    "chapterStart:evt_evt_open_chp_the_lowlands_auem_7aom",
+    "step:evt_evt_prize_chp_the_lowlands_auem_bp9a",
+    "step:evt_evt_boss_chp_the_lowlands_auem_kkvs",
+    "step:evt_evt_exit_chp_the_lowlands_auem_2248",
+    "step:evt_evt_prize_chp_the_marches_m4r2_l1s8",
+    "step:evt_evt_boss_chp_the_marches_m4r2_9gha",
+    "step:evt_evt_exit_chp_the_marches_m4r2_lb3z",
+    "step:evt_evt_prize_chp_the_far_shore_izf4_ykaj",
+    "step:evt_evt_boss_chp_the_far_shore_izf4_7bap",
+    "step:evt_evt_exit_chp_the_far_shore_izf4_732d",
+    "step:evt_evt_prize_chp_the_frost_reach_f7k1_dxgd",
+    "step:evt_evt_boss_chp_the_frost_reach_f7k1_nfmm",
+    "step:evt_evt_exit_chp_the_frost_reach_f7k1_t28v",
+    "step:evt_evt_prize_chp_the_sunken_coast_s2c9_y6gr",
+    "step:evt_evt_boss_chp_the_sunken_coast_s2c9_xksj",
+    "step:evt_evt_exit_chp_the_sunken_coast_s2c9_ftsx",
+    "step:evt_evt_prize_chp_the_last_light_l9t3_qqsd",
+    "step:evt_evt_boss_chp_the_last_light_l9t3_ng9v",
+    "autorun:evt_evt_finale_pfp1"
+   ],
+   "log": [
+    "2 step:evt_evt_prize_chp_the_lowlands_auem_bp9a: fetch the key first, 72 steps",
+    "2 step:evt_evt_prize_chp_the_lowlands_auem_bp9a: 9 steps, then A",
+    "3 step:evt_evt_boss_chp_the_lowlands_auem_kkvs: fetch the key first, 200 steps",
+    "3 step:evt_evt_boss_chp_the_lowlands_auem_kkvs: 7 steps",
+    "4 step:evt_evt_prize_chp_the_marches_m4r2_l1s8: fetch the key first, 224 steps",
+    "4 step:evt_evt_prize_chp_the_marches_m4r2_l1s8: fetch the key first, 90 steps",
+    "4 step:evt_evt_prize_chp_the_marches_m4r2_l1s8: 9 steps, then A",
+    "5 step:evt_evt_boss_chp_the_marches_m4r2_9gha: fetch the key first, 262 steps",
+    "5 step:evt_evt_boss_chp_the_marches_m4r2_9gha: 7 steps",
+    "6 step:evt_evt_prize_chp_the_far_shore_izf4_ykaj: fetch the key first, 450 steps",
+    "6 step:evt_evt_prize_chp_the_far_shore_izf4_ykaj: fetch the key first, 131 steps",
+    "6 step:evt_evt_prize_chp_the_far_shore_izf4_ykaj: 13 steps, then A",
+    "7 step:evt_evt_boss_chp_the_far_shore_izf4_7bap: fetch the key first, 254 steps",
+    "7 step:evt_evt_boss_chp_the_far_shore_izf4_7bap: 71 steps",
+    "8 step:evt_evt_prize_chp_the_frost_reach_f7k1_dxgd: fetch the key first, 425 steps",
+    "8 step:evt_evt_prize_chp_the_frost_reach_f7k1_dxgd: fetch the key first, 108 steps",
+    "8 step:evt_evt_prize_chp_the_frost_reach_f7k1_dxgd: 59 steps, then A",
+    "9 step:evt_evt_boss_chp_the_frost_reach_f7k1_nfmm: fetch the key first, 236 steps",
+    "9 step:evt_evt_boss_chp_the_frost_reach_f7k1_nfmm: 8 steps",
+    "10 step:evt_evt_prize_chp_the_sunken_coast_s2c9_y6gr: fetch the key first, 426 steps",
+    "10 step:evt_evt_prize_chp_the_sunken_coast_s2c9_y6gr: fetch the key first, 96 steps",
+    "10 step:evt_evt_prize_chp_the_sunken_coast_s2c9_y6gr: 14 steps, then A",
+    "11 step:evt_evt_boss_chp_the_sunken_coast_s2c9_xksj: fetch the key first, 278 steps",
+    "11 step:evt_evt_boss_chp_the_sunken_coast_s2c9_xksj: 60 steps",
+    "12 step:evt_evt_prize_chp_the_last_light_l9t3_qqsd: fetch the key first, 304 steps",
+    "12 step:evt_evt_prize_chp_the_last_light_l9t3_qqsd: fetch the key first, 99 steps",
+    "12 step:evt_evt_prize_chp_the_last_light_l9t3_qqsd: 10 steps, then A",
+    "13 step:evt_evt_boss_chp_the_last_light_l9t3_ng9v: fetch the key first, 243 steps",
+    "13 step:evt_evt_boss_chp_the_last_light_l9t3_ng9v: 70 steps"
+   ]
+  }
+ },
+ "layout": {
+  "390": {
+   "t1": {
+    "scrollW": 390,
+    "scrollH": 844,
+    "iw": 390,
+    "ih": 844,
+    "minBtn": 44,
+    "sizes": {
+     "stage": [
+      390,
+      341
+     ],
+     "pad": true,
+     "scale": 1.5234375
+    }
+   },
+   "t2": {
+    "minBtn": 44,
+    "fits": true
+   }
+  },
+  "1280": {
+   "t1": {
+    "scrollW": 1280,
+    "scrollH": 800,
+    "iw": 1280,
+    "ih": 800,
+    "minBtn": 44,
+    "sizes": {
+     "stage": [
+      768,
+      672
+     ],
+     "pad": false,
+     "scale": 3
+    }
+   },
+   "t2": {
+    "minBtn": 44,
+    "fits": true
+   }
+  }
+ }
+}

@@ -7,12 +7,13 @@ Portfolio: https://augustineiacopelli.github.io/appaday/
 
 ## Status
 
-Phases 0 to 3 of 7 are complete: the vendored forges and fixtures, the load sandwich, one store, one import and one project list, and now the gated five stage pipeline with the unresolved references drawer. The player shell arrives in Phase 4. See build-log.txt for the full record.
+Phases 0 to 4 of 7 are complete: the vendored forges and fixtures, the load sandwich, one store, one import and one project list, the gated five stage pipeline with the unresolved references drawer, and now the player shell that plays a finished game from its bundle alone. Test Play from the Studio arrives in Phase 5. See build-log.txt for the full record.
 
 ## Layout
 
 | Path | What it holds |
 | --- | --- |
+| player/ | The game itself: player.html, player.js, player.css. Kit free; loads with the five engines and a bundle only |
 | core/ | KIT:CORE and its CSS (cut once from Day 146), and the Studio's own files: studio.js (the sandwich), idb.js (the store), projects.js (the importer and project list), studio-boot.js |
 | engines/ | The five game engines (render, audio, world, battle, story) in load order |
 | forge/146 to forge/149 | One file per forge fence, copied byte for byte from each forge's shipped page |
@@ -67,3 +68,18 @@ node run-forge-suites.js             # the forges' own suites, inside this page 
 ## Phase 3: the pipeline and the unresolved panel
 
 The shell header shows five stages: Charter and Rules, Art and Audio, World, Story, Game. A stage unlocks when the stage before it is marked Final and its readiness function still returns true against the bundle in memory. A locked stage refuses a click with the reason, and a project opens at the furthest stage that is not locked. Mark stage Final runs the stage's own checks and its own Final export logic (opening its namespace and stamping the hash) and discards the files, so nothing is downloaded and nothing is reimported. Stale badges come only from the stamps the forges already keep: the Charter version, a predecessor that is no longer Final, and Day 149's world stamp. The unresolved drawer (core/unresolved.js) calls Kit.validate plus each reached stage's checks, groups findings by namespace, lists FORWARD references apart as owed (they never block until the owing stage opens), and every Jump switches stage first. The drawer stays open across reloads. Tests: test/phase3.js, 72 checks.
+
+## Phase 4: the player shell
+
+player/player.js and player/player.css are the game. They load with nothing but the five engines and a Final bundle, per Day 149's day150 contract, and declare one global, SagaPlayer. Open player/player.html?bundle=../test/out/demo149-bundle.json (or four149) to play a fixture; an exported game will carry its bundle inline instead.
+
+The overworld and every interior are rebuilt from the seed with ENGINE_WORLD exactly as Day 148 recorded them (the bake is used when it still matches), and the walker from Day 147's playtest turns standing, stepping, entering and talking into the moves ENGINE_STORY.host.moves offers. A choice or a battle needs a person while the story hooks are synchronous, so a move is played with the answers in hand, stops at the first unanswered question, shows the effects so far, and is played again from the same state with one more answer. Battles run ENGINE_BATTLE behind ENGINE_RENDER's presenter with Day 147's command menu, and outcomes map through Day 149's OUTCOMES table (flee only when the story allows escape). The party is Day 146's buildParty (bestGear, placeMateria, epsFor) for the current chapter, and the Equip and Materia screen edits it. Menus are Status, Equip and Materia, Items, Journal, Airship (once held), Save, and Settings. Saves use ENGINE_STORY.save in localStorage under the game's slug, with an autosave, three slots, and download and load of save files. Random encounters come from Day 148's zones. Dungeon small keys and treasure are the shell's own, so the story state stays exactly what the walk proved. Audio starts on the first tap; phones get the touch controller drawn with Day 147's touch skin, desktops the keyboard.
+
+```
+cd test
+node phase4.js        # 50 checks in headless Chromium (Playwright): static rules, a bare engines only page, the opening
+                      # against the contract, both fixtures' golden paths and every demo ending played by walking the
+                      # world, saves, menus, a hand fought battle, game over, layout at 390 and 1280
+```
+
+test/player-bot.js is the bot those runs use: it walks with the player's own route planner, fetches small keys, answers choices, and lets battles run on auto.

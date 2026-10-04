@@ -1,0 +1,243 @@
+/* Saga Studio player (AppADay 150, Phase 4). The game shell: a pixel canvas the engines draw on, game style windows in
+   HTML over it for menus, choices, and battle commands, and a touch controller below it on phones. Kit free: this file,
+   player.js, the five engines, and a bundle are the whole game. The window colors arrive from the bundle's ui:window kit
+   as --win-top, --win-bot, --win-light, and --win-edge. */
+:root {
+  --bg: #07070c;
+  --ink: #ecebf4;
+  --muted: #a3a2b8;
+  --accent: #f0c850;
+  --danger: #ff8a7a;
+  --win-top: #2a4aa8;
+  --win-bot: #0c1450;
+  --win-light: #e8e8f0;
+  --win-edge: #000000;
+  --u: 1.5px;
+  --fs: clamp(14px, calc(var(--u) * 7.2), 22px);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+body {
+  min-height: 100dvh;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: var(--fs);
+  line-height: 1.35;
+  -webkit-text-size-adjust: 100%;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+.sg {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.sg-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sg-stage {
+  position: relative;
+  flex: 0 0 auto;
+  background: #000;
+  box-shadow: 0 0 0 1px #1d1d2a, 0 18px 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  outline: none;
+}
+.sg-cv {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  touch-action: none;
+}
+.sg-layer { position: absolute; inset: 0; pointer-events: none; }
+.sg-layer > * { pointer-events: auto; }
+
+/* ---- the game window, in HTML */
+.sg-win {
+  position: absolute;
+  color: var(--win-light);
+  background: linear-gradient(180deg, var(--win-top) 0%, var(--win-top) 46%, var(--win-bot) 54%, var(--win-bot) 100%);
+  border: calc(var(--u) * 1) solid var(--win-edge);
+  outline: calc(var(--u) * 1) solid var(--win-light);
+  outline-offset: calc(var(--u) * -2.2);
+  border-radius: calc(var(--u) * 2);
+  padding: calc(var(--u) * 5) calc(var(--u) * 6);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.75);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+.sg-win h2, .sg-win h3 { margin: 0 0 calc(var(--u) * 3); font-size: 1em; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; }
+.sg-win p { margin: 0 0 calc(var(--u) * 3); }
+.sg-win .sg-dim { color: var(--muted); }
+.sg-win-full { inset: calc(var(--u) * 4); display: flex; flex-direction: column; }
+.sg-win-full .sg-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding-right: 4px; }
+.sg-win-center { left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(86%, calc(var(--u) * 190)); max-height: calc(100% - var(--u) * 8); display: flex; flex-direction: column; }
+.sg-win-center .sg-scroll { overflow-y: auto; min-height: 0; }
+.sg-win-right { right: calc(var(--u) * 4); bottom: calc(var(--u) * 62); min-width: 44%; max-width: 70%; max-height: calc(100% - var(--u) * 70); display: flex; flex-direction: column; }
+.sg-win-right .sg-scroll { overflow-y: auto; min-height: 0; }
+.sg-win-battle { left: calc(var(--u) * 2); width: 52%; bottom: calc(var(--u) * 2); height: calc(36% - var(--u) * 4); display: flex; flex-direction: column; padding: calc(var(--u) * 3) calc(var(--u) * 4); }
+.sg-win-battle .sg-head { margin-bottom: 2px; }
+.sg-win-battle .sg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.sg-win-battle .sg-back { min-height: 36px; padding: 0 10px; }
+.sg-win-battle .sg-scroll { overflow-y: auto; min-height: 0; }
+
+/* ---- menu items: real buttons, 44px tall, a cursor on the focused one */
+.sg-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.sg-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 8px; }
+.sg-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 8px 6px 26px;
+  margin: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-shadow: inherit;
+  cursor: pointer;
+}
+.sg-item small { color: var(--muted); font-size: 0.82em; white-space: nowrap; }
+.sg-item:hover, .sg-item:focus-visible, .sg-item.is-on { background: rgba(255, 255, 255, 0.10); outline: none; }
+.sg-item:focus-visible::before, .sg-item.is-on::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-top: -6px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 9px solid var(--win-light);
+  filter: drop-shadow(1px 1px 0 #000);
+  animation: sg-bob 0.6s ease-in-out infinite alternate;
+}
+.sg-item[disabled] { opacity: 0.45; cursor: default; }
+.sg-item.sg-sel { color: var(--accent); }
+@keyframes sg-bob { from { transform: translateX(-2px); } to { transform: translateX(1px); } }
+@media (prefers-reduced-motion: reduce) { .sg-item::before { animation: none !important; } }
+
+.sg-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: calc(var(--u) * 3); }
+.sg-head h2 { margin: 0; }
+.sg-back {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  color: inherit;
+  font: inherit;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+.sg-back.sg-sel { border-color: var(--accent); color: var(--accent); background: rgba(240, 200, 80, 0.12); }
+.sg-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sg-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.10); }
+.sg-row:last-child { border-bottom: 0; }
+.sg-kv { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px 10px; font-size: 0.86em; margin: 4px 0 8px; }
+.sg-kv span { display: flex; justify-content: space-between; gap: 6px; }
+.sg-kv b { color: var(--muted); font-weight: 400; }
+.sg-member { padding: 6px 0 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+.sg-member:last-child { border-bottom: 0; }
+.sg-member-top { display: flex; align-items: center; gap: 10px; }
+.sg-member-top strong { font-size: 1.05em; }
+.sg-bar { position: relative; height: 6px; background: rgba(0, 0, 0, 0.45); border-radius: 3px; overflow: hidden; margin: 2px 0 4px; }
+.sg-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, #5fd17a, #b8f070); }
+.sg-bar.mp i { background: linear-gradient(90deg, #4f8ff0, #8fd0ff); }
+.sg-chip { display: inline-block; padding: 1px 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.14); font-size: 0.78em; color: var(--ink); }
+.sg-chip.ok { background: rgba(95, 209, 122, 0.25); }
+.sg-chip.warn { background: rgba(240, 200, 80, 0.25); }
+.sg-select {
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  color: inherit;
+  font: inherit;
+}
+.sg-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.sg-field { display: grid; gap: 4px; margin: 6px 0; }
+.sg-field > span { color: var(--muted); font-size: 0.85em; }
+.sg-range { width: 100%; min-height: 44px; accent-color: var(--accent); }
+.sg-note { color: var(--muted); font-size: 0.82em; margin: 6px 0 0; }
+.sg-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.sg-btns .sg-back { flex: 1 1 auto; }
+
+/* ---- toasts, the loading veil, the screen reader mirror */
+.sg-toast {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--u) * 24);
+  transform: translateX(-50%);
+  max-width: 88%;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(8, 10, 24, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--ink);
+  font-size: 0.86em;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.sg-toast.is-on { opacity: 1; }
+.has-overlay .sg-toast { top: auto; bottom: calc(var(--u) * 4); z-index: 2; }
+.sg-veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  background: #05050a;
+  color: var(--ink);
+  text-align: center;
+}
+.sg-veil strong { color: var(--accent); font-size: 1.1em; }
+.sg-veil .sg-spin { width: 28px; height: 28px; border: 3px solid rgba(255, 255, 255, 0.2); border-top-color: var(--accent); border-radius: 50%; animation: sg-spin 0.9s linear infinite; }
+@keyframes sg-spin { to { transform: rotate(360deg); } }
+.sg-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ---- the title and end screens put their menu low and centered */
+.sg-win-title { left: 50%; bottom: calc(var(--u) * 10); transform: translateX(-50%); width: min(78%, calc(var(--u) * 150)); max-height: 58%; display: flex; flex-direction: column; }
+.sg-win-title .sg-scroll { overflow-y: auto; min-height: 0; }
+.sg-credit { position: absolute; left: 0; right: 0; bottom: 2px; text-align: center; font-size: 11px; color: rgba(255, 255, 255, 0.55); pointer-events: auto; }
+.sg-credit a { color: rgba(255, 255, 255, 0.75); text-decoration: underline; }
+
+/* ---- the touch controller (phones and coarse pointers) */
+.sg-pad { flex: 0 0 auto; width: 100%; display: none; justify-content: center; padding: 6px 0 4px; }
+.sg.has-pad .sg-pad { display: flex; flex: 1 1 auto; align-items: center; }
+.sg.has-pad { justify-content: flex-start; }
+.sg.has-pad .sg-main { flex: 0 0 auto; }
+.sg-pad-cv { display: block; image-rendering: pixelated; touch-action: none; }
+.sg-keys { flex: 0 0 auto; color: #6f6e86; font-size: 12px; padding: 6px 8px 8px; text-align: center; }
+.sg.has-pad .sg-keys { display: none; }
+.sg-keys kbd { display: inline-block; min-width: 1.6em; padding: 0 4px; border: 1px solid #3a3a52; border-radius: 3px; color: #b7b6cc; font: inherit; }
+.sg-keys a { color: #8f8ea8; }
