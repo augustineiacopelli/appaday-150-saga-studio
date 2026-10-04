@@ -1,0 +1,518 @@
+{
+ "pass": 63,
+ "total": 63,
+ "results": [
+  {
+   "name": "vendor.js --check: the vendored files are untouched by Phase 2",
+   "ok": true,
+   "detail": "  engines/engine-story.js 75451b0ee690b40f owner Day 149 | All vendored files are byte for byte what their owners hold. | "
+  },
+  {
+   "name": "the new files are ASCII, plain ES5 (no arrows, let, const, classes, template strings), and use none of the forbidden APIs",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "index.html loads the store and the projects module after every forge, before the boot",
+   "ok": true
+  },
+  {
+   "name": "the page boots with no errors, not native, with the store installed over Kit",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "the store is IndexedDB, and a first run makes one project at the Charter stage",
+   "ok": true,
+   "detail": [
+    {
+     "id": "bnd_zmklml4z0suj",
+     "title": "Untitled Saga",
+     "updatedAt": "2026-10-04T18:52:39.361Z",
+     "stage": "charter",
+     "finals": [],
+     "size": 560
+    }
+   ]
+  },
+  {
+   "name": "the project on screen is the store's current project, and Kit.store.get(kit:draft) answers synchronously from the mirror",
+   "ok": true
+  },
+  {
+   "name": "an edit marks the draft dirty, and Kit.bundle.save (the Save button) writes it to the mirror at once",
+   "ok": true
+  },
+  {
+   "name": "after the queue drains, the database is saga-studio with exactly the stores projects and meta",
+   "ok": true,
+   "detail": [
+    "meta",
+    "projects"
+   ]
+  },
+  {
+   "name": "the projects store holds the bundle as JSON text under its own id, and the meta store the list and the current id",
+   "ok": true,
+   "detail": {
+    "keys": [
+     "bnd_zmklml4z0suj"
+    ],
+    "meta": [
+     "current",
+     "kv:kit:ui",
+     "projects"
+    ]
+   }
+  },
+  {
+   "name": "Kit's own debounced autosave (touch, then a pause) reaches IndexedDB with no explicit save",
+   "ok": true
+  },
+  {
+   "name": "kit:ui and kit:suspend go to the store as kv entries; kit:settings (the shared Claude key) stays in localStorage and never enters IndexedDB",
+   "ok": true
+  },
+  {
+   "name": "Kit.store.usage and Kit.store.keys describe the store",
+   "ok": true,
+   "detail": [
+    "kit:ui",
+    "kit:suspend",
+    "kit:draft",
+    "kit:settings"
+   ]
+  },
+  {
+   "name": "a reload restores the project and its edit, the UI state, and the project list",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "the suspend record survives the reload",
+   "ok": true
+  },
+  {
+   "name": "with no IndexedDB the same two stores live in localStorage under saga-studio:, and the page says which",
+   "ok": true,
+   "detail": [
+    "saga-studio:meta:current",
+    "saga-studio:projects:bnd_ai4ajss3jmas",
+    "saga-studio:meta:projects",
+    "saga-studio:meta:kv:kit:ui"
+   ]
+  },
+  {
+   "name": "a reload from the fallback restores the project",
+   "ok": true
+  },
+  {
+   "name": "a refused write raises the storage banner, and the next write that lands lowers it",
+   "ok": true
+  },
+  {
+   "name": "placement reads kit.forges: a Day 146 Final is at Charter, 147 at Art, 148 at World, 149 at Story, a blank bundle at Charter",
+   "ok": true,
+   "detail": [
+    "charter",
+    "art",
+    "world",
+    "story"
+   ]
+  },
+  {
+   "name": "the single importer takes the d146 Final with no forge gate, verifies its hash, files it at the charter stage and shows that stage",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "stage": "charter",
+    "placed": "charter"
+   }
+  },
+  {
+   "name": "the single importer takes the d147 Final with no forge gate, verifies its hash, files it at the art stage and shows that stage",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "stage": "art",
+    "placed": "art"
+   }
+  },
+  {
+   "name": "the single importer takes the d148 Final with no forge gate, verifies its hash, files it at the world stage and shows that stage",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "stage": "world",
+    "placed": "world"
+   }
+  },
+  {
+   "name": "the single importer takes the demo149 Final with no forge gate, verifies its hash, files it at the story stage and shows that stage",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "stage": "story",
+    "placed": "story"
+   }
+  },
+  {
+   "name": "the Phase 1 gates are gone: a bundle with no locked Charter and no art loads (Day 148 refuses it on its own page)",
+   "ok": true
+  },
+  {
+   "name": "importing four bundles and a blank one raised no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "a bad file is refused with a sentence a person can read (not JSON, not a bundle, a newer schema)",
+   "ok": true,
+   "detail": [
+    "That file is not valid JSON.",
+    "This file is not a Saga Forge bundle.",
+    "This bundle uses schema version 99, which is newer than this Forge supports."
+   ]
+  },
+  {
+   "name": "a refused file changes nothing: the project on screen and the list are as they were",
+   "ok": true
+  },
+  {
+   "name": "importing a bundle whose project id is already here replaces that project (the list does not grow) and says so",
+   "ok": true
+  },
+  {
+   "name": "importing it as a copy files a new project id and a (copy) title, and the original stays",
+   "ok": true
+  },
+  {
+   "name": "Kit.bundle.importText is the one importer too (what the forges' own Import buttons call)",
+   "ok": true
+  },
+  {
+   "name": "the Import button's picker imports a file without asking when the project is new, and moves to its stage",
+   "ok": true
+  },
+  {
+   "name": "when the file is a project already here, the picker asks once; Keep both files a copy",
+   "ok": true,
+   "detail": {
+    "asked": true,
+    "clicked": true,
+    "rk": null,
+    "dialogs": []
+   }
+  },
+  {
+   "name": "Cancel on that question imports nothing",
+   "ok": true
+  },
+  {
+   "name": "a bad file through the picker toasts the sentence and returns nothing",
+   "ok": true
+  },
+  {
+   "name": "Studio.projects.open switches the project on screen and goes to the stage it stands at",
+   "ok": true,
+   "detail": {
+    "stage": "charter",
+    "want": "charter"
+   }
+  },
+  {
+   "name": "duplicate adds a separate project with a new id and a (copy) title",
+   "ok": true
+  },
+  {
+   "name": "create starts an empty project at the Charter stage and shows it",
+   "ok": true
+  },
+  {
+   "name": "deleting a project that is not on screen removes only it",
+   "ok": true
+  },
+  {
+   "name": "deleting the project on screen opens the most recent other one",
+   "ok": true
+  },
+  {
+   "name": "the database agrees with the list: every listed project has its bundle, nothing deleted lingers",
+   "ok": true,
+   "detail": {
+    "list": 6,
+    "projects": 6
+   }
+  },
+  {
+   "name": "the Projects dialog lists every project with its stage label, and offers New project, Import a file and Close",
+   "ok": true,
+   "detail": {
+    "rowsOk": true,
+    "stagesOk": true,
+    "btnsOk": true,
+    "rows": 6,
+    "listed": [
+     "charter",
+     "charter",
+     "charter",
+     "art",
+     "world",
+     "world"
+    ],
+    "foot": [
+     "New project",
+     "Import a file",
+     "Close"
+    ]
+   }
+  },
+  {
+   "name": "the Open button in the dialog opens that project and closes the dialog",
+   "ok": true
+  },
+  {
+   "name": "the Slots button now opens the Projects dialog",
+   "ok": true
+  },
+  {
+   "name": "the leftover scan finds the Day 147 and 148 drafts in localStorage and the Day 149 draft in its IndexedDB database, each with its stage",
+   "ok": true,
+   "detail": [
+    "147:art:localStorage",
+    "148:world:localStorage",
+    "149:story:IndexedDB appaday-149"
+   ]
+  },
+  {
+   "name": "the scan did not create the Day 147 or Day 148 IndexedDB databases that were never there",
+   "ok": true,
+   "detail": [
+    "appaday-149",
+    "saga-studio"
+   ]
+  },
+  {
+   "name": "adding each draft makes a project of its own; the originals stay exactly where they were",
+   "ok": true,
+   "detail": [
+    "bnd_ambj39rvralg",
+    "bnd_u4g7aw9txuwu",
+    "bnd_fourcontinents"
+   ]
+  },
+  {
+   "name": "a draft that is already a project is marked as such, so the dialog does not offer it twice",
+   "ok": true
+  },
+  {
+   "name": "the Projects dialog omits drafts already added",
+   "ok": true
+  },
+  {
+   "name": "with a draft waiting, the dialog says so and offers it with an Add button",
+   "ok": true
+  },
+  {
+   "name": "the story stage exports a Final through the dispatcher: bundle, story manifest, engine file, forge 149 final, hash stamped",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "name": "Kit.buildExport passes to the stage on screen: Charter writes the Day 146 files, Art its manifest, World its manifest",
+   "ok": true,
+   "detail": {
+    "charter": "bundle,engine-battle.js,manifest",
+    "art": "bundle,art-manifest",
+    "world": "bundle,world-manifest"
+   }
+  },
+  {
+   "name": "the export leaves forges 146, 147 and 148 as the fixture had them and opens story (Kit.bundle.open), exactly as Day 149 writes it",
+   "ok": true,
+   "detail": {
+    "146": {
+     "status": "final",
+     "exportedAt": "2026-10-01T18:12:57.142Z",
+     "charterVersion": 1
+    },
+    "147": {
+     "status": "final",
+     "exportedAt": "2026-10-02T12:44:00.761Z",
+     "artVersion": "1.0.0",
+     "charterVersion": 1
+    },
+    "148": {
+     "status": "final",
+     "exportedAt": "2026-10-03T12:24:22.344Z",
+     "worldVersion": "1.0.0",
+     "generatorVersion": "1.0.0",
+     "charterVersion": 1
+    },
+    "149": {
+     "status": "final",
+     "exportedAt": "2026-10-04T18:52:55.459Z",
+     "storyVersion": "1.0.0",
+     "engineVersion": "1.0.0",
+     "charterVersion": 1,
+     "worldGeneratorVersion": "1.0.0"
+    }
+   }
+  },
+  {
+   "name": "Kit.openExport opens the stage's own export dialog (Day 149's, with its game kit option)",
+   "ok": true
+  },
+  {
+   "name": "and from the World stage it opens Day 148's",
+   "ok": true
+  },
+  {
+   "name": "round trip: the Final the Studio exports from the story stage opens in Days 146, 147, 148 and 149 with the hash verified and no errors or broken references",
+   "ok": true,
+   "detail": {
+    "146": {
+     "matches": true,
+     "errors": 0,
+     "broken": 0,
+     "pageErrors": 0,
+     "forges": "146,147,148,149"
+    },
+    "147": {
+     "matches": true,
+     "errors": 0,
+     "broken": 0,
+     "pageErrors": 0,
+     "forges": "146,147,148,149"
+    },
+    "148": {
+     "matches": true,
+     "errors": 0,
+     "broken": 0,
+     "pageErrors": 0,
+     "forges": "146,147,148,149"
+    },
+    "149": {
+     "matches": true,
+     "errors": 0,
+     "broken": 0,
+     "pageErrors": 0,
+     "forges": "146,147,148,149"
+    }
+   }
+  },
+  {
+   "name": "round trip: the drafts the Studio exports from the Art and World stages open in the forges they are for, hash verified",
+   "ok": true,
+   "detail": {
+    "art": {
+     "146": {
+      "matches": true,
+      "errors": 0,
+      "broken": 0,
+      "pageErrors": 0,
+      "forges": "146,147,148,149"
+     },
+     "147": {
+      "matches": true,
+      "errors": 0,
+      "broken": 0,
+      "pageErrors": 0,
+      "forges": "146,147,148,149"
+     }
+    },
+    "world": {
+     "146": {
+      "matches": true,
+      "errors": 0,
+      "broken": 0,
+      "pageErrors": 0,
+      "forges": "146,147,148,149"
+     },
+     "147": {
+      "matches": true,
+      "errors": 0,
+      "broken": 0,
+      "pageErrors": 0,
+      "forges": "146,147,148,149"
+     },
+     "148": {
+      "matches": true,
+      "errors": 0,
+      "broken": 0,
+      "pageErrors": 0,
+      "forges": "146,147,148,149"
+     }
+    }
+   }
+  },
+  {
+   "name": "and back: the Final the Studio exported imports into the Studio as the same project at the Story stage, hash verified",
+   "ok": true
+  },
+  {
+   "name": "the fixture is a Day 146 Final: art, world and story empty",
+   "ok": true
+  },
+  {
+   "name": "loading a Day 146 only bundle (page booted in charter) through the one importer changes nothing outside charter, codex and rules",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "moved": [],
+    "added": [],
+    "opened": true,
+    "forges": true,
+    "errors": 0,
+    "empty": true
+   }
+  },
+  {
+   "name": "loading a Day 146 only bundle (page booted in art) through the one importer changes nothing outside charter, codex and rules",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "moved": [],
+    "added": [],
+    "opened": true,
+    "forges": true,
+    "errors": 0,
+    "empty": true
+   }
+  },
+  {
+   "name": "loading a Day 146 only bundle (page booted in world) through the one importer changes nothing outside charter, codex and rules",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "moved": [],
+    "added": [],
+    "opened": true,
+    "forges": true,
+    "errors": 0,
+    "empty": true
+   }
+  },
+  {
+   "name": "loading a Day 146 only bundle (page booted in story) through the one importer changes nothing outside charter, codex and rules",
+   "ok": true,
+   "detail": {
+    "matches": true,
+    "moved": [],
+    "added": [],
+    "opened": true,
+    "forges": true,
+    "errors": 0,
+    "empty": true
+   }
+  },
+  {
+   "name": "control: entering the story stage still gives the bundle its story namespace, so the gate is not simply switching everything off",
+   "ok": true
+  },
+  {
+   "name": "native mode is opt in: without native: false the page keeps each forge's own storage (the forges' own suites still run), and the store is not installed",
+   "ok": true
+  }
+ ]
+}

@@ -40,6 +40,8 @@ function boot(opts) {
       win.fetch = () => Promise.reject(new Error('offline test'));
       win.HTMLCanvasElement.prototype.getContext = function () { return null; };
       if (opts.stage) win.STUDIO_START = opts.stage;
+      // Phase 1 tests and the forges' own suites run in native mode; Phase 2 tests pass native: false, which is how the page ships.
+      if (opts.native !== false) win.STUDIO_NATIVE = true;
       if (opts.evalEngines) ['render', 'audio', 'world', 'battle', 'story'].forEach((k) => win.eval(fs.readFileSync(path.join(__dirname, '..', 'engines', 'engine-' + k + '.js'), 'utf8')));
       if (opts.setup) opts.setup(win);
     }

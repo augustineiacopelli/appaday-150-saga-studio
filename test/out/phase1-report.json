@@ -60,11 +60,11 @@
    ]
   },
   {
-   "name": "each stage's scripts sit between its own Studio.begin and Studio.end, and studio-boot loads last",
+   "name": "each stage's scripts sit between its own Studio.begin and Studio.end, and the store, the projects module and studio-boot load last",
    "ok": true,
    "detail": {
     "cursor": 71,
-    "total": 72
+    "total": 74
    }
   },
   {
@@ -425,7 +425,7 @@
    "ok": true
   },
   {
-   "name": "live, pipeline mode: a stage is also live for a bundle that carries its namespace and for no other",
+   "name": "live, pipeline mode: a stage is also live for a bundle whose namespace holds something, and for no other (an empty namespace has not been reached)",
    "ok": true
   },
   {

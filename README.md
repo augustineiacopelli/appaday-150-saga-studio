@@ -7,13 +7,13 @@ Portfolio: https://augustineiacopelli.github.io/appaday/
 
 ## Status
 
-Phase 0 of 7 is complete: the repository, the vendored forge sources, and the Day 149 Final fixtures. The Studio shell arrives in Phase 1. See build-log.txt for the full record.
+Phases 0 to 2 of 7 are complete: the vendored forges and fixtures, the load sandwich, and now one store, one import and one project list. The gated pipeline header arrives in Phase 3. See build-log.txt for the full record.
 
 ## Layout
 
 | Path | What it holds |
 | --- | --- |
-| core/ | KIT:CORE and its CSS, cut once from Day 146 and verbatim in every forge |
+| core/ | KIT:CORE and its CSS (cut once from Day 146), and the Studio's own files: studio.js (the sandwich), idb.js (the store), projects.js (the importer and project list), studio-boot.js |
 | engines/ | The five game engines (render, audio, world, battle, story) in load order |
 | forge/146 to forge/149 | One file per forge fence, copied byte for byte from each forge's shipped page |
 | forge/manifest.json | Every vendored file with its sha256, size, load order, and the owners' commits |
@@ -46,3 +46,20 @@ node run-forge-suites.js             # every phase test of Days 147 to 149, unch
 ```
 
 Result: 2039 of 2040 forge checks pass. The one difference is Day 147's phase 5 check that the battle engine declares no global: on its own page Day 146 is absent, here Day 146's Arena legitimately defines ENGINE_BATTLE. test/archive/phase0.js is the retired Phase 0 acceptance (it checked the old built-page vendoring).
+
+## Phase 2: one store, one import, one project list
+
+The Studio keeps every project in IndexedDB (database `saga-studio`: a `projects` store keyed by project id that holds the bundle, and a `meta` store that holds the project list, the current id and Kit's other keys). An in memory mirror keeps Kit's synchronous `Kit.store.get` working, and Kit's own debounced autosave drives the writes. Without IndexedDB the same two stores live in localStorage. `kit:settings` (the Claude key) stays in localStorage on purpose, because every AppADay app on the origin shares it.
+
+One importer takes a bundle from any forge, runs `Kit.bundle.migrate`, reads `kit.forges` and files the project at the furthest stage whose Final is present. The forges' import gates are gone from the Studio; Phase 3 moves them into the pipeline. The Import button asks one question only when the file is a project already here (Replace, Keep both, Cancel). The Projects button (was Slots) opens, duplicates and deletes projects, and offers the drafts the forges left in this browser (`art147:draft`, `world148:draft`, `story149:draft`, in localStorage or in `appaday-149` IndexedDB, plus `kit:draft`), added as projects without moving the originals.
+
+Every export is the stage on screen's own (`Kit.buildExport` and `Kit.openExport` pass to it), so each writes `kit.forges['14N']` exactly as the forge does and a Studio bundle opens in Days 146 to 149.
+
+Native mode (each forge keeps its own storage) is now opt in, for the forges' own phase suites: set `window.STUDIO_NATIVE` before the page loads. test/boot.js does that unless a test passes `native: false`.
+
+```
+cd test
+node phase2.js                       # the Studio's Phase 2 acceptance
+node phase1.js                       # still 63 of 63 (native mode)
+node run-forge-suites.js             # the forges' own suites, inside this page (native mode)
+```

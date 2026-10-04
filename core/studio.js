@@ -55,10 +55,13 @@
   function restoreKit() { Kit.mount = BASE.mount; Kit.on = BASE.on; restoreStoreKit(); }
   // Native mode (Phase 1): while a stage is on screen, its own store, import gate and export functions are put back, so a
   // forge behaves exactly as it does on its own page and its own phase tests can drive it. They were captured clean, each
-  // over the real Kit (never over another forge's), so nothing chains. Phase 2 turns native mode off for good, because one
-  // store, one import and one export replace all four.
-  Studio.native = true;
+  // over the real Kit (never over another forge's), so nothing chains. Phase 2 turns native mode off: the shipped page runs
+  // with one store (core/idb.js), one import and one export dispatcher (core/projects.js). Native mode survives only as an
+  // opt in (window.STUDIO_NATIVE, set by a test before the page loads) so the forges' own phase suites can still be driven
+  // inside this page until Phase 7 ports them.
+  Studio.native = !!window.STUDIO_NATIVE;
   function useStageKit(stageId) {
+    if (!Studio.native) return;
     restoreStoreKit();
     var k = Studio.native && Studio.stages[stageId] && Studio.stages[stageId].kit;
     if (!k) return;
@@ -124,7 +127,9 @@
     if (Studio.stage === stageId) return true;
     if (Studio.native || !st.ns) return false;
     b = bundleOf(b);
-    return !!(b && U.isObj(b[st.ns]));
+    // Kit's migrate gives every bundle an empty art, world and story, so an empty namespace means the bundle has not reached
+    // the stage. A stage that has been entered fills its namespace (its ensure pass), and from then on it is live.
+    return !!(b && U.isObj(b[st.ns]) && Object.keys(b[st.ns]).length);
   };
 
   // ---------------------------------------------------------------- the bracket
@@ -300,6 +305,10 @@
   }
   // Enter a stage: make it the one on screen, then give a bundle that predates it the same load pass the forge would have
   // run on its own page (its ensure and scaffold handlers), so a stage never works on a bundle shaped for a different one.
+  // Makes a stage the one on screen without giving the bundle on hand a load pass. The importer uses it so a bundle loads with
+  // its own placement stage on screen (Kit's load event then reaches that stage's handlers and no other that the bundle has
+  // not reached).
+  Studio.preselect = applyStage;
   Studio.enter = function (stageId) {
     var st = Studio.stages[stageId];
     if (!st || !st.loaded) return false;

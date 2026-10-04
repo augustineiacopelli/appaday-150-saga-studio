@@ -66,3 +66,60 @@ SESSION 0 / PHASE 0 (2026-10-04, Opus): REPO, VENDORING, FIXTURES. COMPLETE.
     body[data-stage]), tested by running the four forges' own phase tests inside the stacked page.
 
 Phase 1: load sandwich built (studio.js, studio-boot.js, scoped CSS, engine text elements). phase1.js 63 of 63; forge suites 2039 of 2040 (known: 147 phase5 ENGINE_BATTLE global, by design). Boot-time debounced meter paints from a stage can still fire up to 300 ms after leaving it.
+
+SESSION 2 / PHASE 2 (2026-10-04, Sonnet): ONE STORE, ONE IMPORT, ONE PROJECT LIST. COMPLETE.
+  New: core/idb.js (the store, 237 lines), core/projects.js (importer, project list, drafts, export dispatcher, 280 lines).
+    Changed: core/studio.js (native mode opt in, live() reads a non empty namespace, Studio.preselect), core/studio-boot.js
+    (Studio.startProject), core/studio.css, index.html (two script tags after the story bracket), test/boot.js, test/phase1.js.
+  Store: database saga-studio, stores projects (key bundleId, value bundle JSON text) and meta (projects list, current id,
+    'kv:<key>' for kit:ui, kit:slots, kit:suspend). Kit.store.get/set/del/usage/keys are rebuilt over an in memory mirror of JSON
+    text, so every Kit call stays synchronous. kit:draft IS the project on screen (its id is kit.bundleId), so Kit.bundle.create,
+    load and the importer need no change, and Kit's debounced autosave is the only write trigger. Writes queue and coalesce per
+    key (last wins); Studio.store.flush() resolves when the queue is empty. No IndexedDB, or one that will not open: the same
+    two stores live in localStorage under saga-studio:. A refused write raises the existing storeBanner; the next write lowers it.
+  DECISION: kit:settings stays in localStorage. It holds the Claude key every AppADay app on this origin shares (Days 147 to 149
+    kept it shared on purpose). Everything else Kit stores moves.
+  DECISION: install after the forges load. Studio.begin refuses to run unless Kit is in its saved state, so Studio.store.install
+    and Studio.projects.install run from studio-boot, after Studio.end('story'). The forges' own store layers still capture the
+    real Kit at load and are simply not used outside native mode.
+  DECISION: native mode is opt in (window.STUDIO_NATIVE). The shipped page runs one store, one importer, one export dispatcher.
+    test/boot.js sets native unless a test passes native: false, so phase1.js and the forges' own suites (which assert each
+    forge's own storage keys and export dialogs) still run unchanged until Phase 7 ports them.
+  Importer: Studio.projects.importText parses, runs Kit.bundle.migrate, hashes, files the project at the furthest stage whose
+    kit.forges['14N'] is final (Charter when none), loads it and returns {bundle, hash, storedHash, matches, placement,
+    replaced}. No forge gate (Days 148 and 149 refuse on their own pages; Phase 3 moves those checks into the pipeline's
+    readiness). Kit.bundle.importText is the same function, so the forges' own Import buttons reach it. The Import button's
+    picker asks only when the file's project id is already here (Replace, Keep both, Cancel).
+  FINDING: Days 146 to 149 are one lineage. The fixtures for each stage carry the same bundleId, so importing a Day 147 Final
+    over a Day 149 Final of the same saga REPLACES that project (the id matches), as a re import in the old forges did.
+    That is what lets one project move through the pipeline; the picker's question guards the manual case.
+  FINDING: Kit's migrate gives every bundle an empty art, world and story. Phase 1's live() treated an empty object as
+    "carries the namespace", which would have run every stage's handlers on a 146 only bundle. live() now needs the namespace
+    to hold something (a stage fills it on its first ensure pass). phase1.js's pipeline mode check was updated to say so.
+  FINDING: Kit re-renders the ACTIVE tab on every bundle load, and a forge tab fills its own namespace as it draws. Importing a
+    146 only bundle while the Story tab was showing therefore added a story namespace to it (caught by the isolation test
+    booted in art, world and story). P.load now moves the active tab to the Charter's own tab first (it touches charter,
+    codex and rules only), preselects the placement stage, loads, and Studio.show goes to the stage afterwards. P.create does
+    the same. This is why the isolation test runs from all four boot stages.
+  FINDING: a draft export from a forge downgrades that forge's own Final (it writes forges['14N'].status draft and closes its
+    namespace), exactly as on the forge's page. The round trip test takes drafts from a fresh copy of the project for that reason.
+  Export: Kit.buildExport and Kit.openExport pass to the stage on screen's own function (kept on the stage by Studio.end, the
+    saved Kit's for Charter), so every export writes kit.forges['14N'] exactly as today.
+  Drafts the forges left: Studio.projects.leftovers() reads art147:draft, world148:draft, story149:draft (localStorage first,
+    then the forge's own IndexedDB database appaday-147, -148, -149, store kv) and kit:draft (Day 146 or the Phase 1 Studio),
+    shows each once, marks one whose project id is already here, and adopt() adds it as a project. Originals are never moved
+    or deleted, and opening a database that does not exist aborts its upgrade so none is created.
+  UI: the Slots button is now Projects (id btnSlots kept). The dialog lists projects with stage label, date and size, with
+    Open, Duplicate, Delete, New project, Import a file, and the forge drafts section.
+  Tests: test/phase2.js 63 of 63 (store on IndexedDB and on the localStorage fallback, mirror, autosave, reload, kit:settings,
+    banner, importer on all four Finals plus a gateless bundle, bad files, replace and copy, picker, project list, dialog,
+    leftover drafts including the IndexedDB one, export dispatch, round trip into Days 146 to 149, isolation from all four boot
+    stages). phase1.js 63 of 63. Forge suites 2039 of 2040 (the one difference is unchanged: 147 phase5, the battle engine
+    declares no global on its own page; here Day 146's Arena defines ENGINE_BATTLE). 147 phase1's timing check (master builds
+    under 60 ms) failed once under two parallel lanes and passes alone.
+  Setup note for a fresh clone: npm install in test/ here and in each forge clone's test/ (the suites run from there).
+  NEXT: Phase 3, the pipeline header and the unresolved panel. The stage bar becomes the five stage header (Charter and Rules,
+    Art and Audio, World, Story, Game) with unlocking by each stage's readiness function and Final mark, "Mark stage Final"
+    without the download, stale badges from the forges' stamps, and the unresolved drawer (Kit.validate plus each opened
+    stage's checks, FORWARD versus BROKEN, Kit.jump retargeted to switch stage first). Studio.projects.placement is the
+    furthest Final; Studio.store and Studio.projects are the one source of truth for project state.

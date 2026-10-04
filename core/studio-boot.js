@@ -1,6 +1,7 @@
 // === STUDIO:BOOT BEGIN ===
 // The Studio's own boot, in the place of each forge's app-boot.js. Wires the shell, restores or creates the project, and
-// enters a stage. Phase 1 keeps Kit's own draft storage; Phase 2 replaces it with one project list.
+// enters a stage. Phase 2: one store (IndexedDB, core/idb.js), one importer and one project list (core/projects.js). With
+// window.STUDIO_NATIVE set (a test, before the page loads) the Phase 1 path runs instead: each forge keeps its own storage.
 (function () {
   'use strict';
   var Kit = window.Kit, Studio = window.Studio;
@@ -11,6 +12,8 @@
     b.addEventListener('click', fn);
   }
   Studio.watchTabs();
+  // One store, one importer, one export dispatcher: swapped in once, after every forge has loaded.
+  if (!Studio.native) { Studio.store.install(); Studio.projects.install(); }
   Kit.theme.apply();
   try { window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function () { if (Kit.theme.get() === 'system') Kit.theme.apply(); }); } catch (e) {}
   wire('btnSettings', 'gear', null, function () { Kit.settings.open(); });
@@ -23,9 +26,9 @@
   wire('btnSize', null, null, function () { var f = stageApi('openSize'); if (f) f(); });
   wire('btnCoverage', null, null, function () { var f = stageApi('openCoverage'); if (f) f(); });
   wire('btnSave', 'save', 'Save', function () { if (Kit.bundle.save()) Kit.ui.toast('Draft saved in this browser.', 'ok'); });
-  wire('btnSlots', 'slots', 'Slots', Kit.openSlots);
+  wire('btnSlots', 'slots', 'Projects', function () { if (Studio.native) Kit.openSlots(); else Studio.projects.openList(); });
   wire('btnImport', 'import', 'Import', function () { var f = document.getElementById('fileImport'); f.value = ''; f.click(); });
-  wire('btnExport', 'export', 'Export', Kit.openExport);
+  wire('btnExport', 'export', 'Export', function () { Kit.openExport(); });
   var fi = document.getElementById('fileImport');
   if (fi) fi.addEventListener('change', function (e) { Kit.importPicked(e.target.files && e.target.files[0]); });
   // The Phase 1 stage bar: one button per stage, no gating yet.
@@ -71,9 +74,34 @@
     });
     return Studio.booted;
   };
-  var ui = Kit.uiState.get(), tab = ui && ui.tab, first = window.STUDIO_START || (tab && tab.indexOf('.') > 0 ? tab.slice(0, tab.indexOf('.')) : 'charter');
-  if (!Studio.stages[first] || !Studio.stages[first].loaded) first = 'charter';
-  Studio.startStage(first);
+  // Phase 2 start: wait for the store's mirror, pick the stage (a test's STUDIO_START, then where the author was, then where the
+  // project stands, then the Charter), make it the stage on screen before the project loads so Kit's load event reaches only
+  // the stages that bundle has reached, restore or create the project, run the stage's ensure pass, open the saved tab.
+  Studio.startProject = function () {
+    Studio.booted = Studio.store.ready().then(function () {
+      Kit.theme.apply();   // the saved theme lives in the store, which was not ready when the shell first painted
+      var entry = Studio.store.list().filter(function (p) { return p.id === Studio.store.currentId(); })[0];
+      var tab = (Kit.uiState.get() || {}).tab, fromTab = tab && tab.indexOf('.') > 0 ? tab.slice(0, tab.indexOf('.')) : null;
+      var stage = window.STUDIO_START || fromTab || (entry && entry.stage) || 'charter';
+      if (!Studio.stages[stage] || !Studio.stages[stage].loaded) stage = 'charter';
+      var st = Studio.stages[stage], api = st.api;
+      Studio.preselect(stage);
+      var b = Kit.bundle.restoreDraft() || Kit.bundle.create('Untitled Saga');
+      if (api && api.ensure) { var changed = api.ensure(b); if (api.registerCodex) changed = api.registerCodex(b) || changed; if (changed) Kit.bundle.touch(st.ns + '-ensure'); }
+      Studio.enter(stage);
+      var local = tab && fromTab === stage ? tab.slice(tab.indexOf('.') + 1) : null;
+      if (!(local && Kit.go(stage + '.' + local, { silent: true }))) Studio.show(stage);
+      else Studio.show(stage, local);
+      if (api && api.paintMeter) api.paintMeter();
+      if (api && api.paintCoverage) api.paintCoverage();
+    });
+    return Studio.booted;
+  };
+  if (Studio.native) {
+    var ui = Kit.uiState.get(), tab = ui && ui.tab, first = window.STUDIO_START || (tab && tab.indexOf('.') > 0 ? tab.slice(0, tab.indexOf('.')) : 'charter');
+    if (!Studio.stages[first] || !Studio.stages[first].loaded) first = 'charter';
+    Studio.startStage(first);
+  } else Studio.startProject();
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') Kit.bundle.suspend.save(); });
   window.addEventListener('pagehide', function () { Kit.bundle.suspend.save(); });
 })();

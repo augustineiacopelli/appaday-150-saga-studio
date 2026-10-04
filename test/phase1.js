@@ -47,7 +47,7 @@ const STAGE_DAY = { charter: '146', art: '147', world: '148', story: '149' };
     while (cursor < tags.length && tags[cursor].indexOf('Studio.end(') < 0) listed.push(day + ':' + tags[cursor++]);
     if (tags[cursor++] !== "Studio.end('" + s + "');") okBrackets = false;
   });
-  check('each stage\'s scripts sit between its own Studio.begin and Studio.end, and studio-boot loads last', okBrackets && tags[cursor] === 'core/studio-boot.js' && cursor === tags.length - 1, { cursor, total: tags.length });
+  check('each stage\'s scripts sit between its own Studio.begin and Studio.end, and the store, the projects module and studio-boot load last', okBrackets && tags.slice(cursor).join() === 'core/idb.js,core/projects.js,core/studio-boot.js', { cursor, total: tags.length });
   const want = [];
   stages.forEach((s) => manifest.files.filter((f) => f.path.indexOf('forge/' + STAGE_DAY[s] + '/') === 0 && /\.js$/.test(f.path)).forEach((f) => want.push(STAGE_DAY[s] + ':' + f.path)));
   const vendor = { '146': ['charter', 'codex', 'rules', 'arena', 'sim'].map((n) => 'forge/146/ws-' + n + '.js') };
@@ -55,7 +55,7 @@ const STAGE_DAY = { charter: '146', art: '147', world: '148', story: '149' };
   check('every vendored forge script is loaded exactly once and none else is', have.length === new Set(have).size && canon(have.slice().sort()) === canon(want.slice().sort()), { have: have.length, want: want.length, missing: want.filter((w) => have.indexOf(w) < 0), extra: have.filter((h) => want.indexOf(h) < 0) });
   const kitFile = fs.readFileSync(path.join(ROOT, 'core', 'kit.js'), 'utf8'), src146 = fs.readFileSync(require('../day146'), 'utf8');
   check('core/kit.js is Day 146\'s KIT:CORE fence verbatim', src146.indexOf(kitFile.trim()) >= 0);
-  const own = ['core/studio.js', 'core/studio-boot.js', 'core/studio.css'].map((f) => fs.readFileSync(path.join(ROOT, f), 'utf8'));
+  const own = ['core/studio.js', 'core/studio-boot.js', 'core/studio.css', 'core/idb.js', 'core/projects.js'].map((f) => fs.readFileSync(path.join(ROOT, f), 'utf8'));
   check('the Studio\'s own files are ASCII, and use none of the forbidden APIs', own.every((t) => !/[^\x00-\x7f]/.test(t)) && own.every((t) => !/ctx\.roundRect|ctx\.ellipse|window\.confirm|[^.\w]\.remove\(\)/.test(t)));
 
   // ---------------------------------------------------------------- 2. boot
@@ -128,8 +128,9 @@ const STAGE_DAY = { charter: '146', art: '147', world: '148', story: '149' };
   check('validators of all stages are registered with Kit, each gated to its own stage', K.validate.list().length === vNames.length, [K.validate.list().length, vNames.length]);
   check('live: a stage is live while on screen; in native mode no other stage is live; charter stage is not live for art', S.live('charter') && !S.live('art') && !S.live('world') && !S.live('story'));
   S.native = false;
-  const probe = { kit: { format: 'saga-bundle', opened: [], forges: {} }, art: {} };
-  check('live, pipeline mode: a stage is also live for a bundle that carries its namespace and for no other', S.live('art', probe) && !S.live('world', probe) && !S.live('story', probe) && S.live('charter', probe));
+  // Phase 2 refined this: Kit's migrate gives every bundle an empty art, world and story, so a namespace counts only once it holds something.
+  const probe = { kit: { format: 'saga-bundle', opened: [], forges: {} }, art: { version: '1.0.0' }, world: {}, story: {} };
+  check('live, pipeline mode: a stage is also live for a bundle whose namespace holds something, and for no other (an empty namespace has not been reached)', S.live('art', probe) && !S.live('world', probe) && !S.live('story', probe) && S.live('charter', probe));
   S.native = true;
 
   // ---------------------------------------------------------------- 6. scoped CSS
@@ -204,7 +205,7 @@ const STAGE_DAY = { charter: '146', art: '147', world: '148', story: '149' };
     check('control: entering the art stage gives it its art namespace', Object.keys(w.Kit.bundle.current().art || {}).length > 0); }
 
   const pass = results.filter((r) => r.ok).length;
-  results.forEach((r) => console.log((r.ok ? 'PASS ' : 'FAIL ') + r.name + (r.ok ? '' : '  ' + JSON.stringify(r.detail).slice(0, 1200))));
+  results.forEach((r) => console.log((r.ok ? 'PASS ' : 'FAIL ') + r.name + (r.ok ? '' : '  ' + (JSON.stringify(r.detail) || '').slice(0, 1200))));
   fs.mkdirSync(path.join(__dirname, 'out'), { recursive: true });
   fs.writeFileSync(path.join(__dirname, 'out', 'phase1-report.json'), JSON.stringify({ pass, total: results.length, results }, null, 1));
   console.log('\n' + pass + ' of ' + results.length + ' passed');

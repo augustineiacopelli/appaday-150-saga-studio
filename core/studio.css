@@ -7,3 +7,10 @@
 .store-banner[hidden] { display: none; }
 .store-banner span { flex: 1 1 240px; min-width: 0; }
 /* === STUDIO:SHELL CSS END === */
+/* === STUDIO:PROJECTS CSS BEGIN === */
+/* The Projects dialog reuses Kit's slot rows. Long titles wrap, and the forge drafts section sits apart from the list. */
+.proj-row .slot-info strong { overflow-wrap: anywhere; }
+.proj-row .btn-row { flex-wrap: wrap; }
+.proj-left { margin-top: 16px; }
+.proj-left .section-h { margin: 0 0 6px; }
+/* === STUDIO:PROJECTS CSS END === */
