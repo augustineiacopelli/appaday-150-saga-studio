@@ -35,7 +35,7 @@
   // ---------------------------------------------------------------- the Game stage
   // The fifth stage has no forge. It is a stage record of its own (not one of Studio.STAGES, which are the vendored forges), with
   // one tab, so the router, the tab bar and Kit.go treat it like any other stage. It shows what Build game will need and
-  // carries Test Play (core/testplay.js, Phase 5); Build game arrives in Phase 6.
+  // carries Build game (core/export.js, Phase 6) and Test Play (core/testplay.js, Phase 5).
   Studio.stages.game = {
     id: 'game', day: null, label: LABEL.game, ns: null, global: null, ws: {}, mounts: ['start'], loaded: true, onLoad: [], onChange: [],
     validators: {}, types: [], typeDefs: {}, prefixes: {}, prefixSnap: null, jumps: [], kit: null, readiness: null, api: null, css: null
@@ -208,7 +208,7 @@
     });
     if (sum) list.appendChild(U.el('div', 'game-row', '<span class="chip ' + (sum.empty ? 'chip-ok' : 'chip-error') + '">' + (sum.empty ? 'Clear' : (sum.blocking + sum.owed) + ' open') + '</span><span>Nothing unresolved</span>'));
     p.appendChild(list);
-    p.appendChild(U.el('p', 'muted', 'Build game arrives in Phase 6. It will ask for every stage Final and an empty unresolved list.'));
+    if (Studio.build) Studio.build.renderPanel(p);
     if (Studio.testplay) Studio.testplay.renderPanel(p);
     host.appendChild(p);
   }

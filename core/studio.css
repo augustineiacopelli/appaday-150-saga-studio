@@ -87,3 +87,17 @@ body.tp-open .overlay { z-index: 70; }
   .tp-go { justify-self: stretch; }
 }
 /* === STUDIO:TESTPLAY CSS END === */
+/* === STUDIO:EXPORT CSS BEGIN === */
+.build-panel { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line); }
+.build-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 6px; }
+.build-actions .btn { min-height: 44px; }
+.build-actions .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.build-actions .btn[aria-busy="true"] { opacity: .75; cursor: progress; }
+.build-actions .btn .ico { width: 18px; height: 18px; }
+.build-result { margin: 4px 0 0; font-size: .92rem; color: var(--ink2); overflow-wrap: anywhere; min-height: 1.2em; }
+.build-result.build-ok { color: var(--ok); }
+.build-result.build-error { color: var(--danger); font-weight: 700; }
+/* Kit hides button labels on narrow screens to keep its header short; these two buttons say what they build, so their labels stay. */
+.build-actions .btn .lbl { position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal; }
+@media (max-width: 599px) { .build-actions .btn { flex: 1 1 100%; justify-content: center; } }
+/* === STUDIO:EXPORT CSS END === */

@@ -232,3 +232,47 @@ SESSION 5 / PHASE 5: Test Play from anywhere (Opus)
   NEXT: Phase 6, Build game: the single HTML file (player.css, the five engines in contract order, player.js, the bundle as an
     application/json script with </ escaped and non ASCII as \uXXXX) and the zip (JSZip from cdnjs, falling back to files), both
     gated on every stage Final and an empty unresolved drawer, both rechecking engine sha256.
+
+
+SESSION 6 / PHASE 6: Build game (Opus)
+  Files: core/export.js (new), core/player-text.js (new, derived by vendor.js), test/phase6.js (new), and patches to vendor.js
+    (derives the player text; asserts player.js and player.css carry no closing tag and every inlined file is ASCII),
+    core/pipeline.js (the Game panel carries Build game), core/studio.css (its section), index.html (two scripts),
+    test/phase1.js and test/phase2.js (script order), test/package.json (jszip for the test), .gitignore (test/out/phase6/).
+    Nothing in kit.js, kit.css, engines/, forge/, or player/.
+  Review first: cloned all four forges beside this repo; vendor.js --check was clean against their current heads (146 2f826a5,
+    147 47882f6, 148 8166c4e, 149 2b7c590), so the Studio still combines exactly what the forges hold. Read Day 149's Day 150
+    contract (story-day150.js and its README) and built to it: five engines in render, audio, world, battle, story order plus
+    the Final bundle, nothing from any forge, no network, no key. No engine or player file has a closing script or style tag
+    or a non ASCII character, so all of them inline byte for byte.
+  Two forms. One HTML file (<slug>.html): player.css, the five engines inline, the bundle as an application/json script, then
+    player.js. A folder as a zip (<slug>-game.zip): <slug>/index.html with the engines loaded from beside it, the five engine
+    files, bundle.json, the story manifest and a README, ready for any static host.
+  DECISION, the gate: every forge stage Final and none stale, and Studio.unresolved.summary().empty (the hook Phase 3 left for
+    this). When the only thing missing is an unrun story check, the buttons run the checks first (Studio.build.ensureChecked)
+    and build if they pass; buildSingle and buildFolder themselves stay strict.
+  DECISION, the player text: Build game writes the player from core/player-text.js (derived by vendor.js, with sha256), not by
+    fetching player/, so it works from disk too. The engines come from core/engine-text.js the same way. Both are rechecked
+    by sha256 before every build, and the manifest's day150 pins and load order must agree.
+  DECISION, escaping: only the bundle is escaped (<, >, & and non ASCII as \uXXXX); built pages are pure ASCII.
+  DECISION, the bundle hash: named in the one file's comment; the folder's engine-story.js carries it on the /* Bundle hash */
+    line under its header, exactly as Day 149's Final does.
+  DECISION, determinism: building copies the bundle and stamps kit.contentHash on the copy, so the project is untouched. Day
+    149's manifest stamps exportedAt with the call time and JSZip stamps a folder it makes with the build time; both now take
+    the project's last saved time (kit.updatedAt), so the same project builds the same bytes in both forms.
+  DECISION, no cdnjs: JSZip loads only on the zip button; if it cannot load in 12 s the same nine files download one by one,
+    page as <slug>.html, bundle as <slug>-bundle.json, README as <slug>-README.md, and the toast says to rename the page.
+  FINDINGS fixed this session: a regex range written as a literal U+FFFF (now escaped); JSZip's implicit folder entry broke
+    determinism; core/export.js held literal closing tags, which ended its script when the jsdom harness inlined it (now built
+    from parts, and phase6 asserts it); Kit hides button labels under 600 px, leaving two identical arrows, so studio.css keeps
+    the Build labels visible.
+  Results: the demo builds a 1.08 MB file and the four chapter fixture a 1.34 MB one. Opened from disk with every request
+    refused, each walks its golden path to the golden ending (demo in about 20 s, four in about 3.5 min of test wall time) and
+    the demo reaches every ending. The unzipped folder plays its opening from disk.
+  Tests: phase6.js 71 of 71 in headless Chromium; phase1 63 of 63, phase2 63 of 63, phase3 72 of 72, phase4 50 of 50, phase5
+    63 of 63, forge suites 2039 of 2040 (the known Day 147 phase5 difference), vendor.js --check clean.
+  KNOWN, not this phase: at 390 px the top bar's "Saga Studio" title runs into the AppADay backlink (pre-existing header).
+  NEXT: Phase 7, tests, layout, ship: phase-player.js (the exported single file in jsdom, golden path and every ending),
+    phase-export.js can lean on phase6.js, compat.js (Studio Finals open in Days 146 to 149 unchanged), Playwright layout audits
+    at 390 and 1280 for the shell and the player (fix the header overlap above), then the six item shipping checklist and the
+    App 150 milestone og image.

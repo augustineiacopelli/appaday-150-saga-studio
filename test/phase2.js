@@ -73,7 +73,7 @@ const studio = (opts) => bootReady(Object.assign({ native: false, evalEngines: t
     own.every(([f, t]) => !/[^\x00-\x7f]/.test(t) && !/=>|\blet\s|\bconst\s|\bclass\s|`/.test(t.replace(/\/\/.*$/gm, '')) && !/ctx\.roundRect|ctx\.ellipse|window\.confirm|[^.\w]\.remove\(\)/.test(t)),
     own.filter(([f, t]) => /[^\x00-\x7f]/.test(t) || /=>|\blet\s|\bconst\s|\bclass\s|`/.test(t.replace(/\/\/.*$/gm, ''))).map(([f]) => f));
   const html = read(path.join(ROOT, 'index.html'));
-  check('index.html loads the store and the projects module after every forge, before the boot', /Studio\.end\('story'\);<\/script>\s*<script src="core\/idb\.js"><\/script>\s*<script src="core\/projects\.js"><\/script>\s*<script src="core\/pipeline\.js"><\/script>\s*<script src="core\/unresolved\.js"><\/script>\s*<script src="core\/testplay\.js"><\/script>\s*<script src="core\/studio-boot\.js"><\/script>/.test(html));
+  check('index.html loads the store and the projects module after every forge, before the boot', /Studio\.end\('story'\);<\/script>\s*<script src="core\/idb\.js"><\/script>\s*<script src="core\/projects\.js"><\/script>\s*<script src="core\/pipeline\.js"><\/script>\s*<script src="core\/unresolved\.js"><\/script>\s*<script src="core\/testplay\.js"><\/script>\s*<script src="core\/player-text\.js"><\/script>\s*<script src="core\/export\.js"><\/script>\s*<script src="core\/studio-boot\.js"><\/script>/.test(html));
 
   // ---------------------------------------------------------------- 1. boot and the store
   const factory = new FI.IDBFactory();

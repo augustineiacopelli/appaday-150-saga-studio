@@ -662,6 +662,13 @@
    "from": "the five engine files as strings, plus the ENGINE:BATTLE fence text Kit.engine.source() returns",
    "bytes": 722192,
    "sha256": "b81d7e701b073cd98dfe7dad38b64670c715a1f2a97e81dbb2d814f32eb152d9"
+  },
+  {
+   "path": "core/player-text.js",
+   "owner": "derived",
+   "from": "player/player.js and player/player.css as strings with their sha256, for Build game",
+   "bytes": 134703,
+   "sha256": "92e2efa76999a1cc0be69705283702c7750815fb8daf95691384f7795dbb5550"
   }
  ]
 }

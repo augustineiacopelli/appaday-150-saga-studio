@@ -60,11 +60,11 @@
    ]
   },
   {
-   "name": "each stage's scripts sit between its own Studio.begin and Studio.end, and the store, the projects module, the pipeline, the unresolved drawer, test play and studio-boot load last",
+   "name": "each stage's scripts sit between its own Studio.begin and Studio.end, and the store, the projects module, the pipeline, the unresolved drawer, test play, the player text, Build game and studio-boot load last",
    "ok": true,
    "detail": {
     "cursor": 71,
-    "total": 77
+    "total": 79
    }
   },
   {

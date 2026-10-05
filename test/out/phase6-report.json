@@ -1,0 +1,306 @@
+{
+ "passed": 71,
+ "total": 71,
+ "report": {
+  "fixtures": {
+   "demo": {
+    "file": "test/out/phase6/demo-demo-saga.html",
+    "bytes": 1083071,
+    "hash": "72eb58bf396f524e8ded063e8508c08ab8a8a8a4681248b47fa1cb30117a510f",
+    "goldenWallMs": 19929
+   },
+   "four": {
+    "file": "test/out/phase6/four-four-continents.html",
+    "bytes": 1336565,
+    "hash": "562a4b2f1ee961dd3528a4dae2d1d137a3f2006569fe9323c544effb74609ba4",
+    "goldenWallMs": 214327
+   }
+  }
+ },
+ "results": [
+  {
+   "name": "core/export.js, core/player-text.js and studio.css are pure ASCII",
+   "ok": true
+  },
+  {
+   "name": "core/export.js and core/player-text.js parse",
+   "ok": true
+  },
+  {
+   "name": "core/export.js is plain ES5 (no arrows, let, const, classes, template strings)",
+   "ok": true
+  },
+  {
+   "name": "core/export.js uses no forbidden API (roundRect, ellipse, confirm, bare remove, eval)",
+   "ok": true
+  },
+  {
+   "name": "core/export.js makes no network call but the JSZip script from cdnjs, and holds no key",
+   "ok": true
+  },
+  {
+   "name": "core/export.js holds no literal closing script or style tag, so it can be inlined anywhere (the jsdom harness does)",
+   "ok": true
+  },
+  {
+   "name": "index.html loads test play, the player text, Build game, then studio-boot",
+   "ok": true
+  },
+  {
+   "name": "core/player-text.js is player/player.js and player/player.css exactly, with their sha256",
+   "ok": true
+  },
+  {
+   "name": "vendor.js --check is clean (owners byte for byte; every inlined file free of closing tags and ASCII)",
+   "ok": true
+  },
+  {
+   "name": "the engines folder still matches its sha256 pins",
+   "ok": true
+  },
+  {
+   "name": "gate: a Day 148 Final (no Final story) is refused with the reason",
+   "ok": true
+  },
+  {
+   "name": "gate: building it directly throws the reason, nothing is built",
+   "ok": true
+  },
+  {
+   "name": "gate: a Final project whose story checks have not run says so, and the buttons will run them first",
+   "ok": true
+  },
+  {
+   "name": "gate: the Game stage shows Build game with both buttons enabled for it",
+   "ok": true
+  },
+  {
+   "name": "gate: a project with a stage no longer Final is refused, naming that stage, and the Story stage is shown stale",
+   "ok": true
+  },
+  {
+   "name": "gate: clicking a refused button downloads nothing and says why",
+   "ok": true
+  },
+  {
+   "name": "gate: before building, the drawer counts the story checks as unchecked",
+   "ok": true
+  },
+  {
+   "name": "demo: clicking One HTML file runs the unrun checks, then downloads <slug>.html",
+   "ok": true
+  },
+  {
+   "name": "demo: the file is pure ASCII",
+   "ok": true
+  },
+  {
+   "name": "demo: the five engines are inline byte for byte, in contract order",
+   "ok": true
+  },
+  {
+   "name": "demo: each inline engine matches its sha256 pin and the contract's",
+   "ok": true
+  },
+  {
+   "name": "demo: the bundle is an application/json script with id saga-bundle, before player.js",
+   "ok": true
+  },
+  {
+   "name": "demo: the bundle parses to the project in memory, stamped with its content hash",
+   "ok": true
+  },
+  {
+   "name": "demo: the bundle text holds no \"<\", \">\" or \"&\" and no non ASCII (escaped as \\uXXXX)",
+   "ok": true
+  },
+  {
+   "name": "demo: player.css is inline byte for byte",
+   "ok": true
+  },
+  {
+   "name": "demo: nothing of the Studio, the forges or an API key in its code: no Kit, STORY, WS, core/ or forge/ paths, anthropic",
+   "ok": true
+  },
+  {
+   "name": "demo: the page names the bundle hash and each engine sha256 in its comment",
+   "ok": true
+  },
+  {
+   "name": "demo: the same project builds the same bytes, and building changes nothing in the project",
+   "ok": true
+  },
+  {
+   "name": "demo: opened from disk with the network refused, the file reaches the title",
+   "ok": true
+  },
+  {
+   "name": "demo: the page title is the game's",
+   "ok": true
+  },
+  {
+   "name": "demo: a new game lands on the contract's opening state",
+   "ok": true
+  },
+  {
+   "name": "demo: the golden path (6 steps) walks to the golden ending in the exported file",
+   "ok": true
+  },
+  {
+   "name": "demo: no fault, no page error, and not one network request on the way",
+   "ok": true
+  },
+  {
+   "name": "four: clicking One HTML file runs the unrun checks, then downloads <slug>.html",
+   "ok": true
+  },
+  {
+   "name": "four: the file is pure ASCII",
+   "ok": true
+  },
+  {
+   "name": "four: the five engines are inline byte for byte, in contract order",
+   "ok": true
+  },
+  {
+   "name": "four: each inline engine matches its sha256 pin and the contract's",
+   "ok": true
+  },
+  {
+   "name": "four: the bundle is an application/json script with id saga-bundle, before player.js",
+   "ok": true
+  },
+  {
+   "name": "four: the bundle parses to the project in memory, stamped with its content hash",
+   "ok": true
+  },
+  {
+   "name": "four: the bundle text holds no \"<\", \">\" or \"&\" and no non ASCII (escaped as \\uXXXX)",
+   "ok": true
+  },
+  {
+   "name": "four: player.css is inline byte for byte",
+   "ok": true
+  },
+  {
+   "name": "four: nothing of the Studio, the forges or an API key in its code: no Kit, STORY, WS, core/ or forge/ paths, anthropic",
+   "ok": true
+  },
+  {
+   "name": "four: the page names the bundle hash and each engine sha256 in its comment",
+   "ok": true
+  },
+  {
+   "name": "four: the same project builds the same bytes, and building changes nothing in the project",
+   "ok": true
+  },
+  {
+   "name": "four: opened from disk with the network refused, the file reaches the title",
+   "ok": true
+  },
+  {
+   "name": "four: the page title is the game's",
+   "ok": true
+  },
+  {
+   "name": "four: a new game lands on the contract's opening state",
+   "ok": true
+  },
+  {
+   "name": "four: the golden path (14 steps) walks to the golden ending in the exported file",
+   "ok": true
+  },
+  {
+   "name": "four: no fault, no page error, and not one network request on the way",
+   "ok": true
+  },
+  {
+   "name": "demo export: ending end_end_1_delivered_vlh4 is reached by its own choices",
+   "ok": true
+  },
+  {
+   "name": "demo export: ending end_end_2_kept_6lzb is reached by its own choices",
+   "ok": true
+  },
+  {
+   "name": "folder: Folder as a .zip downloads <slug>-game.zip through JSZip",
+   "ok": true
+  },
+  {
+   "name": "folder: the zip holds index.html, the five engines, bundle.json, the story manifest and the README, in one folder",
+   "ok": true
+  },
+  {
+   "name": "folder: each engine matches its sha256 pin",
+   "ok": true
+  },
+  {
+   "name": "folder: four engines are byte for byte; engine-story.js differs only by the bundle hash line under its header",
+   "ok": true
+  },
+  {
+   "name": "folder: bundle.json is the project with its content hash",
+   "ok": true
+  },
+  {
+   "name": "folder: index.html loads the five engines from beside it in order, then the inline bundle and player.js",
+   "ok": true
+  },
+  {
+   "name": "folder: the manifest is Day 149's, for this bundle hash, with the Day 150 contract and nothing unresolved",
+   "ok": true
+  },
+  {
+   "name": "folder: the README names every file and the bundle hash, in ASCII",
+   "ok": true
+  },
+  {
+   "name": "folder: the same project zips to the same bytes, twice in a row",
+   "ok": true
+  },
+  {
+   "name": "folder: and those are the downloaded zip's bytes",
+   "ok": true
+  },
+  {
+   "name": "folder: unzipped and opened from disk, index.html loads its engines from beside it and plays the opening",
+   "ok": true
+  },
+  {
+   "name": "no page errors in the Studio",
+   "ok": true
+  },
+  {
+   "name": "fallback: with cdnjs unreachable the zip button downloads the nine game files one by one",
+   "ok": true
+  },
+  {
+   "name": "fallback: and says so, telling the person to rename the page to index.html",
+   "ok": true
+  },
+  {
+   "name": "layout 390: both Build buttons are at least 44 px tall and inside the screen",
+   "ok": true
+  },
+  {
+   "name": "layout 390: no sideways page scroll",
+   "ok": true
+  },
+  {
+   "name": "layout 390: both buttons show their labels (One HTML file, Folder as a .zip)",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: both Build buttons are at least 44 px tall and inside the screen",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: no sideways page scroll",
+   "ok": true
+  },
+  {
+   "name": "layout 1280: both buttons show their labels (One HTML file, Folder as a .zip)",
+   "ok": true
+  }
+ ]
+}

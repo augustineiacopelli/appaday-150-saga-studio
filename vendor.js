@@ -139,6 +139,21 @@ add('core/engine-text.js', 'derived', 'the five engine files as strings, plus th
   '// The game kit table (key, file, global, owner, version, bytes, sha256 per engine, in load order).\n' +
   'window.STUDIO_ENGINE_FILES = ' + JSON.stringify(engineFiles) + ';\n');
 
+// Phase 6: the player as strings, so Build game can write a game from the Studio page alone (also opened from disk, where
+// a browser refuses to read files beside the page). The player is the Studio's own, not vendored, so its source of truth is
+// player/; this derived copy is checked against it like every other derived file. The same permanent assertion as the
+// engines: what Build game inlines must go into a script or style element byte for byte, and be ASCII.
+const playerJs = fs.readFileSync(root('player/player.js'), 'utf8'), playerCss = fs.readFileSync(root('player/player.css'), 'utf8');
+if (/<\/script/i.test(playerJs)) fail('player/player.js contains a closing script tag and could not be inlined byte for byte.');
+if (/<\/style/i.test(playerCss)) fail('player/player.css contains a closing style tag and could not be inlined byte for byte.');
+[['player/player.js', playerJs], ['player/player.css', playerCss]].concat(ENGINES.map((e) => ['engines/' + e.file, engineTexts[e.file]])).forEach((p) => {
+  if (/[^\x00-\x7f]/.test(p[1])) fail(p[0] + ' is not pure ASCII, so it could not be inlined byte for byte.');
+});
+add('core/player-text.js', 'derived', 'player/player.js and player/player.css as strings with their sha256, for Build game',
+  '// Derived by vendor.js from player/. Do not edit. Build game writes the player from these strings and checks each sha256.\n' +
+  'window.STUDIO_PLAYER_TEXT = {\n  js: ' + esc(playerJs) + ',\n  css: ' + esc(playerCss) + ',\n  sha256: ' +
+  JSON.stringify({ js: sha(playerJs), css: sha(playerCss) }) + '\n};\n');
+
 // ---------------------------------------------------------------- write or verify
 const manifest = [];
 files.forEach((f) => {

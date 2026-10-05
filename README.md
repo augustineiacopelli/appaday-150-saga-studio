@@ -7,14 +7,14 @@ Portfolio: https://augustineiacopelli.github.io/appaday/
 
 ## Status
 
-Phases 0 to 5 of 7 are complete: the vendored forges and fixtures, the load sandwich, one store, one import and one project list, the gated five stage pipeline with the unresolved references drawer, the player shell that plays a finished game from its bundle alone, and now Test Play from the Story and Game stages, from the title or from any chapter, map or battle. Build game (the standalone export) arrives in Phase 6. See build-log.txt for the full record.
+Phases 0 to 6 of 7 are complete: the vendored forges and fixtures, the load sandwich, one store, one import and one project list, the gated five stage pipeline with the unresolved references drawer, the player shell that plays a finished game from its bundle alone, Test Play from the Story and Game stages, from the title or from any chapter, map or battle, and now Build game, which writes a finished project out as a game that plays on its own, as one HTML file or as a folder in a zip. Phase 7 (tests across everything, layout audits, ship) is next. See build-log.txt for the full record.
 
 ## Layout
 
 | Path | What it holds |
 | --- | --- |
 | player/ | The game itself: player.html, player.js, player.css. Kit free; loads with the five engines and a bundle only |
-| core/ | KIT:CORE and its CSS (cut once from Day 146), and the Studio's own files: studio.js (the sandwich), idb.js (the store), projects.js (the importer and project list), pipeline.js and unresolved.js (the stages and the drawer), testplay.js (Test Play), studio-boot.js |
+| core/ | KIT:CORE and its CSS (cut once from Day 146), and the Studio's own files: studio.js (the sandwich), idb.js (the store), projects.js (the importer and project list), pipeline.js and unresolved.js (the stages and the drawer), testplay.js (Test Play), export.js (Build game), player-text.js (the player as strings, derived by vendor.js), studio-boot.js |
 | engines/ | The five game engines (render, audio, world, battle, story) in load order |
 | forge/146 to forge/149 | One file per forge fence, copied byte for byte from each forge's shipped page |
 | forge/manifest.json | Every vendored file with its sha256, size, load order, and the owners' commits |
@@ -34,7 +34,7 @@ node make-demo.js          # rebuild the Day 149 Final fixtures (byte identical 
 node phase0.js             # Phase 0 acceptance
 ```
 
-Never edit core/kit.js, core/kit.css, engines/, or forge/ by hand. Change the owning forge, then run node vendor.js.
+Never edit core/kit.js, core/kit.css, engines/, or forge/ by hand. Change the owning forge, then run node vendor.js. After any change to player/, run node vendor.js too: it rederives core/player-text.js, which Build game writes the player from, and vendor.js --check fails until it does.
 
 ## Phase 1: the load sandwich
 
@@ -105,3 +105,22 @@ node phase5.js        # 63 checks in headless Chromium: static rules, the button
                       # starts, test saves kept apart, Restart, Change start, Close, Escape, the Game picker, layout at 390 and 1280
 ```
 
+## Phase 6: Build game
+
+The Game stage's Build game section writes the project out as a game that stands on its own. What a game is comes from Day 149's Day 150 contract: the five engines in load order (render, audio, world, battle, story) and the Final bundle, with nothing from any forge, no Kit, no network and no key. The player is player/player.js, the same file Test Play runs, so what was tested is what ships.
+
+| Button | What it writes |
+| --- | --- |
+| One HTML file | `<slug>.html`: player.css in a style element, the five engines inline byte for byte in contract order, the bundle as a `type="application/json"` script, then player.js. Opens from disk with no network and nothing beside it |
+| Folder as a .zip | `<slug>-game.zip` holding `<slug>/`: index.html (the player and the bundle inline, the engines loaded from beside it), the five engine files, bundle.json, Day 149's story manifest and a README. Upload the folder to any static host, GitHub Pages included. engine-story.js carries the bundle hash on its `/* Bundle hash */` line, as Day 149's Final writes it |
+
+Both buttons need every forge stage Final and none stale, and the unresolved drawer empty. When the only thing missing is a story check that has not run on the project as it is now, the button runs the checks first and builds if they pass. Before writing anything, both forms recheck every engine's sha256 against the game kit table and the player's against core/player-text.js, and check that the manifest's contract asks for the same engines in the same order with the same pins; any mismatch stops the build and names the file. The bundle is the only text escaped (`<`, `>`, `&` and every non ASCII character as `\uXXXX`), so a built page is pure ASCII. Building changes nothing in the project, and the same project builds the same bytes: the manifest's exportedAt and every zip entry carry the project's last saved time. JSZip loads from cdnjs only when the zip button is pressed; when cdnjs cannot be reached, the same nine files download one by one under names that cannot collide, and the toast says to rename the page to index.html.
+
+```
+cd test
+node phase6.js        # 71 checks in headless Chromium: static rules and the player text, the gate (short of Final, stale,
+                      # unchecked), both fixtures built as one file (engines byte for byte and pinned, the bundle exact,
+                      # deterministic, nothing of the Studio inside), each opened from disk with the network refused and
+                      # walked to its golden ending, every demo ending, the zip's contents, pins and bytes, the unzipped folder
+                      # played from disk, the cdnjs fallback, and layout at 390 and 1280
+```
