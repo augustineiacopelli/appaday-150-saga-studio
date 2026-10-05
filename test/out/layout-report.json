@@ -1,0 +1,578 @@
+{
+  "passed": 143,
+  "total": 143,
+  "results": [
+    {
+      "name": "shell 390 new project: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 new project: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 new project: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 390 new project: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 390 new project: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 390 charter stage: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 charter stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 charter stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 390 charter stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 390 charter stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 390 art stage: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 art stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 art stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 390 art stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 390 art stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 390 world stage: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 world stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 world stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 390 world stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 390 world stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 390 story stage: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 story stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 story stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 390 story stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 390 story stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 390 game stage: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 game stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 game stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 390 game stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 390 game stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 390 unresolved drawer: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 unresolved drawer: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 unresolved drawer: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 390 unresolved drawer: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 390 unresolved drawer: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 390 Projects dialog: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 Projects dialog: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 Projects dialog: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 390 Settings dialog: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 Settings dialog: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 Settings dialog: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 390 Test Play picker: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "shell 390 Test Play picker: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 390 Test Play picker: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 390 title: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "player 390 title: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 390 title: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 390 title: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 390 title: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 390 field: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "player 390 field: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 390 field: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 390 field: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 390 field: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 390 menu: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "player 390 menu: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 390 menu: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 390 menu: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 390 menu: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 390: a hand fought battle reaches its command menu",
+      "ok": true
+    },
+    {
+      "name": "player 390 battle: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "player 390 battle: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 390 battle: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 390 battle: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 390 battle: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 390: the demo's finale question is on screen",
+      "ok": true
+    },
+    {
+      "name": "player 390 choice: no sideways scroll (390 in 390)",
+      "ok": true
+    },
+    {
+      "name": "player 390 choice: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 390 choice: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 390 choice: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 390 choice: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 new project: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 new project: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 new project: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 new project: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 new project: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 charter stage: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 charter stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 charter stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 charter stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 charter stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 art stage: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 art stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 art stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 art stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 art stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 world stage: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 world stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 world stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 world stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 world stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 story stage: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 story stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 story stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 story stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 story stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 game stage: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 game stage: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 game stage: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 game stage: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 game stage: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 unresolved drawer: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 unresolved drawer: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 unresolved drawer: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 unresolved drawer: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 unresolved drawer: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 Projects dialog: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 Projects dialog: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 Projects dialog: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 Settings dialog: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 Settings dialog: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 Settings dialog: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 Test Play picker: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 Test Play picker: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "shell 1280 Test Play picker: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 1280 title: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "player 1280 title: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 1280 title: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 1280 title: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 1280 title: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 1280 field: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "player 1280 field: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 1280 field: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 1280 field: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 1280 field: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 1280 menu: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "player 1280 menu: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 1280 menu: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 1280 menu: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 1280 menu: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 1280: a hand fought battle reaches its command menu",
+      "ok": true
+    },
+    {
+      "name": "player 1280 battle: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "player 1280 battle: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 1280 battle: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 1280 battle: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 1280 battle: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "player 1280: the demo's finale question is on screen",
+      "ok": true
+    },
+    {
+      "name": "player 1280 choice: no sideways scroll (1280 in 1280)",
+      "ok": true
+    },
+    {
+      "name": "player 1280 choice: every control is at least 44 px and inside the viewport",
+      "ok": true
+    },
+    {
+      "name": "player 1280 choice: the current stage and the current tab are scrolled into view",
+      "ok": true
+    },
+    {
+      "name": "player 1280 choice: nothing in the header collides and the title is whole",
+      "ok": true
+    },
+    {
+      "name": "player 1280 choice: no text clipped sideways without an ellipsis",
+      "ok": true
+    },
+    {
+      "name": "no page errors in the shell or the player",
+      "ok": true
+    }
+  ]
+}

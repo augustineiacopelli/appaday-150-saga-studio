@@ -7,3 +7,4 @@ test/package-lock.json
 test/out/.kit-only.html
 test/out/.bare-player.html
 test/out/phase6/
+test/out/phase-export/

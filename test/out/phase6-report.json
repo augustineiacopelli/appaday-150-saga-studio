@@ -5,15 +5,15 @@
   "fixtures": {
    "demo": {
     "file": "test/out/phase6/demo-demo-saga.html",
-    "bytes": 1083071,
+    "bytes": 1083249,
     "hash": "72eb58bf396f524e8ded063e8508c08ab8a8a8a4681248b47fa1cb30117a510f",
-    "goldenWallMs": 19929
+    "goldenWallMs": 17663
    },
    "four": {
     "file": "test/out/phase6/four-four-continents.html",
-    "bytes": 1336565,
+    "bytes": 1336743,
     "hash": "562a4b2f1ee961dd3528a4dae2d1d137a3f2006569fe9323c544effb74609ba4",
-    "goldenWallMs": 214327
+    "goldenWallMs": 191058
    }
   }
  },

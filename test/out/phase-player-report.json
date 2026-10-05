@@ -1,0 +1,126 @@
+{
+  "fixtures": {
+    "demo": {
+      "file": "test/out/phase6/demo-demo-saga.html",
+      "bytes": 1083249,
+      "sha256": "c1c042e550e1cecfa4225d783b71eacebd0e9512fc086104e25b410dbd8a61cb",
+      "goldenWallMs": 20827,
+      "goldenGameMs": 279125,
+      "endings": {
+        "end_end_1_delivered_vlh4": {
+          "wallMs": 21088,
+          "gameMs": 279125,
+          "hash": "9437d264bf31da0d"
+        },
+        "end_end_2_kept_6lzb": {
+          "wallMs": 20861,
+          "gameMs": 279125,
+          "hash": "37c65498e7f4f380"
+        }
+      }
+    },
+    "four": {
+      "file": "test/out/phase6/four-four-continents.html",
+      "bytes": 1336743,
+      "sha256": "3a9c4ba33ba8d62ab9f13cdc5e523221feeaf789cbcf7140510375744f34ca4a",
+      "goldenWallMs": 411029,
+      "goldenGameMs": 906180,
+      "endings": {
+        "end_end_1_delivered_vlh4": {
+          "wallMs": 426234,
+          "gameMs": 906180,
+          "hash": "465dab203c656015"
+        }
+      }
+    }
+  },
+  "seconds": 906,
+  "passed": 21,
+  "total": 21,
+  "results": [
+    {
+      "name": "demo: the built page is the current build: player.js, player.css and the five engines byte for byte as they stand",
+      "ok": true
+    },
+    {
+      "name": "demo: the page is pure ASCII and holds no src, href or url( to anywhere",
+      "ok": true
+    },
+    {
+      "name": "four: the built page is the current build: player.js, player.css and the five engines byte for byte as they stand",
+      "ok": true
+    },
+    {
+      "name": "four: the page is pure ASCII and holds no src, href or url( to anywhere",
+      "ok": true
+    },
+    {
+      "name": "demo: in jsdom the file reaches the title with no page error",
+      "ok": true
+    },
+    {
+      "name": "demo: it adds no globals but the five engines and SagaPlayer",
+      "ok": true
+    },
+    {
+      "name": "demo: a new game lands on the contract's opening state",
+      "ok": true
+    },
+    {
+      "name": "demo: a save made in the field, read in a fresh page from the same storage, restores the same state (hash 8eb3250648f0b70f)",
+      "ok": true
+    },
+    {
+      "name": "demo: the golden path (6 steps) walks to the golden ending end_end_1_delivered_vlh4",
+      "ok": true
+    },
+    {
+      "name": "demo: and to the contract's exact end state, hash 9437d264bf31da0d",
+      "ok": true
+    },
+    {
+      "name": "demo: no fault, no page error and not one network request on the way",
+      "ok": true
+    },
+    {
+      "name": "demo: ending end_end_1_delivered_vlh4 is reached by its own choices on its exact end state, hash 9437d264bf31da0d",
+      "ok": true
+    },
+    {
+      "name": "demo: ending end_end_2_kept_6lzb is reached by its own choices on its exact end state, hash 37c65498e7f4f380",
+      "ok": true
+    },
+    {
+      "name": "four: in jsdom the file reaches the title with no page error",
+      "ok": true
+    },
+    {
+      "name": "four: it adds no globals but the five engines and SagaPlayer",
+      "ok": true
+    },
+    {
+      "name": "four: a new game lands on the contract's opening state",
+      "ok": true
+    },
+    {
+      "name": "four: a save made in the field, read in a fresh page from the same storage, restores the same state (hash 01aa17c060368b1c)",
+      "ok": true
+    },
+    {
+      "name": "four: the golden path (14 steps) walks to the golden ending end_end_1_delivered_vlh4",
+      "ok": true
+    },
+    {
+      "name": "four: and to the contract's exact end state, hash 465dab203c656015",
+      "ok": true
+    },
+    {
+      "name": "four: no fault, no page error and not one network request on the way",
+      "ok": true
+    },
+    {
+      "name": "four: ending end_end_1_delivered_vlh4 is reached by its own choices on its exact end state, hash 465dab203c656015",
+      "ok": true
+    }
+  ]
+}

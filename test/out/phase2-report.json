@@ -26,9 +26,9 @@
    "ok": true,
    "detail": [
     {
-     "id": "bnd_1l0w9i7w8zzr",
+     "id": "bnd_21o3pmb1186g",
      "title": "Untitled Saga",
-     "updatedAt": "2026-10-05T00:39:46.362Z",
+     "updatedAt": "2026-10-05T01:54:52.215Z",
      "stage": "charter",
      "finals": [],
      "size": 560
@@ -56,7 +56,7 @@
    "ok": true,
    "detail": {
     "keys": [
-     "bnd_1l0w9i7w8zzr"
+     "bnd_21o3pmb1186g"
     ],
     "meta": [
      "current",
@@ -97,7 +97,7 @@
    "ok": true,
    "detail": [
     "saga-studio:meta:current",
-    "saga-studio:projects:bnd_57htcc9zpo75",
+    "saga-studio:projects:bnd_b7j28zmaz163",
     "saga-studio:meta:projects",
     "saga-studio:meta:kv:kit:ui"
    ]
@@ -297,7 +297,7 @@
    "ok": true,
    "detail": [
     "bnd_ambj39rvralg",
-    "bnd_d0kg6lmmhr2v",
+    "bnd_0626z3v55ywc",
     "bnd_fourcontinents"
    ]
   },
@@ -351,7 +351,7 @@
     },
     "149": {
      "status": "final",
-     "exportedAt": "2026-10-05T00:39:59.460Z",
+     "exportedAt": "2026-10-05T01:56:06.133Z",
      "storyVersion": "1.0.0",
      "engineVersion": "1.0.0",
      "charterVersion": 1,

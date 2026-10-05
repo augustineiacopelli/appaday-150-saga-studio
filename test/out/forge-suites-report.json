@@ -11,7 +11,7 @@
    "passed": 27,
    "total": 27,
    "exit": 0,
-   "seconds": 40,
+   "seconds": 34,
    "fails": [],
    "crash": null
   },
@@ -21,7 +21,7 @@
    "passed": 59,
    "total": 59,
    "exit": 0,
-   "seconds": 29,
+   "seconds": 24,
    "fails": [],
    "crash": null
   },
@@ -31,7 +31,7 @@
    "passed": 67,
    "total": 67,
    "exit": 0,
-   "seconds": 43,
+   "seconds": 37,
    "fails": [],
    "crash": null
   },
@@ -41,7 +41,7 @@
    "passed": 80,
    "total": 80,
    "exit": 0,
-   "seconds": 30,
+   "seconds": 27,
    "fails": [],
    "crash": null
   },
@@ -51,7 +51,7 @@
    "passed": 79,
    "total": 79,
    "exit": 0,
-   "seconds": 38,
+   "seconds": 33,
    "fails": [],
    "crash": null
   },
@@ -61,7 +61,7 @@
    "passed": 98,
    "total": 99,
    "exit": 1,
-   "seconds": 30,
+   "seconds": 26,
    "fails": [
     "FAIL the real engine installs from the Day 146 page and declares no global  {\"loaded\":true,\"version\":\"1.0.0\",\"via\":\"saga\",\"name\":\"Saga Forge\",\"error\":null,\"bytes\":64146,\"loading\":false}"
    ],
@@ -73,7 +73,7 @@
    "passed": 114,
    "total": 114,
    "exit": 0,
-   "seconds": 27,
+   "seconds": 22,
    "fails": [],
    "crash": null
   },
@@ -83,7 +83,7 @@
    "passed": 91,
    "total": 91,
    "exit": 0,
-   "seconds": 28,
+   "seconds": 24,
    "fails": [],
    "crash": null
   },
@@ -93,7 +93,7 @@
    "passed": 86,
    "total": 86,
    "exit": 0,
-   "seconds": 91,
+   "seconds": 75,
    "fails": [],
    "crash": null
   },
@@ -103,7 +103,7 @@
    "passed": 63,
    "total": 63,
    "exit": 0,
-   "seconds": 21,
+   "seconds": 19,
    "fails": [],
    "crash": null
   },
@@ -123,7 +123,7 @@
    "passed": 40,
    "total": 40,
    "exit": 0,
-   "seconds": 9,
+   "seconds": 8,
    "fails": [],
    "crash": null
   },
@@ -133,7 +133,7 @@
    "passed": 61,
    "total": 61,
    "exit": 0,
-   "seconds": 32,
+   "seconds": 29,
    "fails": [],
    "crash": null
   },
@@ -153,7 +153,7 @@
    "passed": 58,
    "total": 58,
    "exit": 0,
-   "seconds": 34,
+   "seconds": 30,
    "fails": [],
    "crash": null
   },
@@ -163,7 +163,7 @@
    "passed": 75,
    "total": 75,
    "exit": 0,
-   "seconds": 34,
+   "seconds": 29,
    "fails": [],
    "crash": null
   },
@@ -173,7 +173,7 @@
    "passed": 68,
    "total": 68,
    "exit": 0,
-   "seconds": 34,
+   "seconds": 28,
    "fails": [],
    "crash": null
   },
@@ -183,7 +183,7 @@
    "passed": 64,
    "total": 64,
    "exit": 0,
-   "seconds": 53,
+   "seconds": 43,
    "fails": [],
    "crash": null
   },
@@ -193,7 +193,7 @@
    "passed": 89,
    "total": 89,
    "exit": 0,
-   "seconds": 37,
+   "seconds": 32,
    "fails": [],
    "crash": null
   },
@@ -203,7 +203,7 @@
    "passed": 85,
    "total": 85,
    "exit": 0,
-   "seconds": 3,
+   "seconds": 2,
    "fails": [],
    "crash": null
   },
@@ -213,7 +213,7 @@
    "passed": 77,
    "total": 77,
    "exit": 0,
-   "seconds": 17,
+   "seconds": 15,
    "fails": [],
    "crash": null
   },
@@ -223,7 +223,7 @@
    "passed": 95,
    "total": 95,
    "exit": 0,
-   "seconds": 16,
+   "seconds": 14,
    "fails": [],
    "crash": null
   },
@@ -233,7 +233,7 @@
    "passed": 70,
    "total": 70,
    "exit": 0,
-   "seconds": 15,
+   "seconds": 14,
    "fails": [],
    "crash": null
   },
@@ -243,7 +243,7 @@
    "passed": 99,
    "total": 99,
    "exit": 0,
-   "seconds": 23,
+   "seconds": 21,
    "fails": [],
    "crash": null
   },
@@ -253,7 +253,7 @@
    "passed": 129,
    "total": 129,
    "exit": 0,
-   "seconds": 24,
+   "seconds": 22,
    "fails": [],
    "crash": null
   },
@@ -263,7 +263,7 @@
    "passed": 97,
    "total": 97,
    "exit": 0,
-   "seconds": 34,
+   "seconds": 31,
    "fails": [],
    "crash": null
   },
@@ -273,7 +273,7 @@
    "passed": 78,
    "total": 78,
    "exit": 0,
-   "seconds": 38,
+   "seconds": 32,
    "fails": [],
    "crash": null
   }

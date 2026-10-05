@@ -5,9 +5,13 @@ Saga Studio unifies the four Saga forges into one pipeline: Charter and Rules (D
 Live: https://augustineiacopelli.github.io/appaday-150-saga-studio/
 Portfolio: https://augustineiacopelli.github.io/appaday/
 
+## Using it
+
+Open the Studio and start a project, or Import a bundle from any of Days 146 to 149. The five stages across the top run in order: Charter and Rules, Art and Audio, World, Story, Game. Each forge's tabs work inside its stage exactly as on its own page, Mark stage Final checks a stage and unlocks the next, and the Unresolved drawer lists anything that still points nowhere, each with a Jump to fix it. From the Story stage on, Test Play opens the game in a full screen frame from the title, any chapter, any map or any battle. On the Game stage, Build game writes the finished project out as one HTML file, or as a folder in a zip for any static host. Either one plays with nothing else: no Studio, no network, no key. Projects live in this browser (IndexedDB), and Export keeps a bundle file that still opens in the four forges.
+
 ## Status
 
-Phases 0 to 6 of 7 are complete: the vendored forges and fixtures, the load sandwich, one store, one import and one project list, the gated five stage pipeline with the unresolved references drawer, the player shell that plays a finished game from its bundle alone, Test Play from the Story and Game stages, from the title or from any chapter, map or battle, and now Build game, which writes a finished project out as a game that plays on its own, as one HTML file or as a folder in a zip. Phase 7 (tests across everything, layout audits, ship) is next. See build-log.txt for the full record.
+Complete: all eight phases (0 to 7) are done and shipped as App 150 on October 4, 2026. The vendored forges and fixtures, the load sandwich, one store, one import and one project list, the gated five stage pipeline with the unresolved references drawer, the player shell that plays a finished game from its bundle alone, Test Play from anywhere, Build game, and, in Phase 7, tests across everything, layout audits at phone and laptop widths with the fixes they called for, and the milestone share cards. See build-log.txt for the full record.
 
 ## Layout
 
@@ -124,3 +128,25 @@ node phase6.js        # 71 checks in headless Chromium: static rules and the pla
                       # walked to its golden ending, every demo ending, the zip's contents, pins and bytes, the unzipped folder
                       # played from disk, the cdnjs fallback, and layout at 390 and 1280
 ```
+
+## Phase 7: tests, layout, ship
+
+Four more suites hold the whole thing together. Run phase6.js first: the two that read built games read the files it writes.
+
+| Test | Where it runs | What it proves |
+| --- | --- | --- |
+| phase-player.js | jsdom, no browser | The exported single file, alone, with every network door trapped: the opening, the golden path walked by scripted input to the golden ending and the contract's exact end state hash, every ending on its own end hash, and a save restored in a fresh page. Both fixtures |
+| phase-export.js | Node and jsdom | The zip's nine files and their dates; every engine pinned three ways (vendor.js, the Day 150 contract, Day 149's own bytes) in both forms; the one file and the zip carry the same bundle and player; the unzipped folder loads its engines from disk with no browser storage and walks the golden path to its ending |
+| compat.js | jsdom | Every stage's Final, marked through the pipeline, on both fixtures, opens in Days 146 to 149 as shipped with the hash verified and nothing broken (32 opens); a built game's bundle opens in all four forges and back in the Studio; no forge source touched |
+| layout.js | Chromium | The shell at every stage, the drawer, the dialogs and Test Play's picker, and the player's title, field, menu, battle and choice, at 390 by 844 and 1280 by 800: no sideways scroll, 44 px controls on screen, the current stage and tab in view, a clean header, no clipped text. Screenshots in test/out/layout/ |
+
+```
+cd test
+node phase6.js          # builds the games the next two read
+node phase-player.js    # about 15 minutes: the four continent golden path and ending walked twice in jsdom
+node phase-export.js
+node compat.js
+node layout.js
+```
+
+The audit found and Phase 7 fixed the phone header (the title ran under the backlink), a stage strip that kept Charter in view on later stages, and three player controls under 44 px. og-image.png is the Studio's share card; og-milestone-150.png is the one-off card for the 150 apps announcement.

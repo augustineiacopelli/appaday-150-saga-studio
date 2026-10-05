@@ -92,7 +92,7 @@ body {
 .sg-win-battle { left: calc(var(--u) * 2); width: 52%; bottom: calc(var(--u) * 2); height: calc(36% - var(--u) * 4); display: flex; flex-direction: column; padding: calc(var(--u) * 3) calc(var(--u) * 4); }
 .sg-win-battle .sg-head { margin-bottom: 2px; }
 .sg-win-battle .sg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.sg-win-battle .sg-back { min-height: 36px; padding: 0 10px; }
+.sg-win-battle .sg-back { min-height: 44px; padding: 0 10px; }
 .sg-win-battle .sg-scroll { overflow-y: auto; min-height: 0; }
 
 /* ---- menu items: real buttons, 44px tall, a cursor on the focused one */
@@ -229,7 +229,7 @@ body {
 .sg-win-title { left: 50%; bottom: calc(var(--u) * 10); transform: translateX(-50%); width: min(78%, calc(var(--u) * 150)); max-height: 58%; display: flex; flex-direction: column; }
 .sg-win-title .sg-scroll { overflow-y: auto; min-height: 0; }
 .sg-credit { position: absolute; left: 0; right: 0; bottom: 2px; text-align: center; font-size: 11px; color: rgba(255, 255, 255, 0.55); pointer-events: auto; }
-.sg-credit a { color: rgba(255, 255, 255, 0.75); text-decoration: underline; }
+.sg-credit a { color: rgba(255, 255, 255, 0.75); text-decoration: underline; display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; }
 
 /* ---- the touch controller (phones and coarse pointers) */
 .sg-pad { flex: 0 0 auto; width: 100%; display: none; justify-content: center; padding: 6px 0 4px; }
@@ -240,4 +240,4 @@ body {
 .sg-keys { flex: 0 0 auto; color: #6f6e86; font-size: 12px; padding: 6px 8px 8px; text-align: center; }
 .sg.has-pad .sg-keys { display: none; }
 .sg-keys kbd { display: inline-block; min-width: 1.6em; padding: 0 4px; border: 1px solid #3a3a52; border-radius: 3px; color: #b7b6cc; font: inherit; }
-.sg-keys a { color: #8f8ea8; }
+.sg-keys a { color: #8f8ea8; display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; vertical-align: middle; }

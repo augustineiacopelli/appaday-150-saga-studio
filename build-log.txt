@@ -276,3 +276,57 @@ SESSION 6 / PHASE 6: Build game (Opus)
     phase-export.js can lean on phase6.js, compat.js (Studio Finals open in Days 146 to 149 unchanged), Playwright layout audits
     at 390 and 1280 for the shell and the player (fix the header overlap above), then the six item shipping checklist and the
     App 150 milestone og image.
+
+
+SESSION 7 / PHASE 7: tests, layout, ship (Opus, 2026-10-04). COMPLETE. App 150 shipped.
+  Files: test/phase-player.js, test/phase-export.js, test/compat.js, test/layout.js (new); og-image.png and
+    og-milestone-150.png (new); patches to core/pipeline.js (the current stage scrolls into view), core/studio.css (the
+    phone header), player/player.css (44 px targets), index.html (og and twitter tags), README.md, .gitignore. vendor.js
+    rederived core/player-text.js and its manifest row. Nothing in kit.js, kit.css, engines/, or forge/.
+  Review first: cloned all four forges beside this repo, at the same heads as Phase 6 (146 2f826a5, 147 47882f6, 148
+    8166c4e, 149 2b7c590); vendor.js --check clean; every phase 1 to 6 suite green before any change.
+  phase-player.js (jsdom, no browser): the single files Build game wrote, opened with every network door trapped (fetch,
+    XMLHttpRequest, WebSocket, EventSource, sendBeacon). Checks the build under test is current (player and engines byte
+    for byte), only the five engines and SagaPlayer become globals, the opening hash, the golden path walked by the bot to
+    the golden ending AND the contract's exact end state hash (demo 9437d264bf31da0d, four 465dab203c656015), every
+    ending the contract lists on its own end hash, and a field save restored in a fresh page from the same storage.
+  DECISION: jsdom gives a file: page no localStorage, so the page gets an origin that cannot resolve
+    (saga-player.invalid); nothing is ever fetched from it and every network door is trapped regardless.
+  phase-export.js (Node and jsdom): leans on phase6's files. One folder of nine files, every zip entry dated with the
+    project's last saved time, all ASCII; every engine pinned three ways that agree (vendor.js, the Day 150 contract, the
+    Day 149 repository's own bytes) in both forms; the one file and the zip carry the same bundle, player.js and
+    player.css; the bundle hash named on engine-story.js, the manifest and the one file; the manifest's contract equals
+    the fixture's; and the unzipped folder, opened from disk in jsdom with browser storage unavailable, loads its engines
+    from the files beside it and walks the whole four continent golden path to the golden ending.
+  FINDING: the four continent golden list holds one chapterStart, so the folder test's "first chapter" is the whole path;
+    the check says so and then requires the golden ending.
+  compat.js: every stage's Final (Charter, Art, World, Story, marked through the pipeline and exported by the stage's own
+    Final export), on both fixtures, opens in Days 146, 147, 148 and 149 as shipped with the hash verified and no error,
+    broken reference or page error (32 opens); the bundle inside each built game (zip and both one files) opens in all
+    four forges the same way and back in the Studio at the Story stage; each forge clone's source untouched.
+  FINDING: running a forge's own suites rewrites its test/out reports, so the clean check ignores test/out/; the runner
+    restores those files afterwards.
+  layout.js (Chromium, 390 by 844 and 1280 by 800): the shell new, at every stage on the four continent fixture, with the
+    drawer open, the Projects and Settings dialogs and Test Play's picker; the player's title, field, menu, a hand fought
+    battle and the demo's finale choice. Rules measured live: no sideways scroll, every control 44 px and on screen (a
+    sideways scroller counts as on screen when it fits), the current stage and tab in view, nothing in the header
+    colliding, no text clipped without an ellipsis (screen reader text excluded). Screenshots in test/out/layout/.
+  FIXED from the audit: the 390 px header (the title ran under the AppADay backlink; studio.css trims the phone header's
+    gaps and the title's size and spacing, overriding kit.css); the stage strip kept Charter in view on later stages
+    (pipeline.js scrolls the current stage into view when the stage changes, never while a person scrolls); the player's
+    credit and keys links were 12 to 14 px tall and the battle Auto button 36 px (all 44 px now).
+  Share cards: og-image.png (Saga Studio, wired in index.html as ?v=1) and og-milestone-150.png (the one-off 150 apps card
+    for the announcement post). Both rendered from a real battle frame of the four continent game, Cinzel and Alegreya
+    Sans embedded. The portal keeps its evergreen og image per the protocol.
+  Portal: App 150's description now covers Test Play and Build game; counts recomputed from the live array (150 entries,
+    001 to 150, no gaps or duplicates, 47 AI, C 19, D 15, E 14, G 19, H 15, I 12, P 23, S 15, U 18), custom features intact.
+  Tests, final run after every change: phase1 63 of 63, phase2 63 of 63, phase3 72 of 72, phase4 50 of 50, phase5 63 of 63,
+    phase6 71 of 71, phase-player 21 of 21 (906 s in jsdom), phase-export 16 of 16, compat 27 of 27, layout 143 of 143,
+    forge suites 2039 of 2040 (the known Day 147 phase5 difference: Day 146's Arena legitimately defines ENGINE_BATTLE
+    here), vendor.js --check clean.
+  FINDING: run alone, every forge suite is clean; run all at once the Day 147 phase4 "every tileset at 64 px under 4 s"
+    timing check can tip over (4.015 s) under the shared CPU. It passed in the final run; it is a timing budget, not a fault.
+  The milestone card's date was first drafted as May 7; App 001 shipped May 8, 2026, and May 8 to October 4 is exactly
+    150 days, so the card says May 8.
+  NEXT: none for Day 150. Later ideas the plan left out of v1: a full FF7 style materia grid in the player, a stamp so an
+    Art stage can show stale against World edits, Action RPG and Tactics builders.

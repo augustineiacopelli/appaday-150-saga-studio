@@ -263,6 +263,17 @@
       btn.setAttribute('aria-label', s.label + ', ' + (s.status === 'locked' ? 'locked. ' + s.lockReason : s.status === 'stale' ? 'stale. ' + s.stale.join(' ') : s.final ? 'Final' : 'in progress'));
       if (chip) { chip.className = 'stage-st chip ' + c.cls; chip.innerHTML = c.html; }
     });
+    // On a phone the steps scroll sideways; bring the current stage into view when the stage changes (never fight a person
+    // who has scrolled the strip themselves while the stage stays the same).
+    if (cur !== els.scrolledFor) {
+      var curBtn = els.steps.querySelector('[data-stage-btn="' + cur + '"]');
+      if (curBtn && els.steps.scrollWidth > els.steps.clientWidth) {
+        var sr = els.steps.getBoundingClientRect(), br = curBtn.getBoundingClientRect();
+        if (br.left < sr.left) els.steps.scrollLeft -= sr.left - br.left + 8;
+        else if (br.right > sr.right) els.steps.scrollLeft += br.right - sr.right + 8;
+      }
+      els.scrolledFor = cur;
+    }
     if (!els.mark) return;
     var markable = !!now && now.id !== 'game';
     els.mark.hidden = !markable;

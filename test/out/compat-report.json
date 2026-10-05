@@ -1,0 +1,498 @@
+{
+  "stages": {
+    "demo charter Final": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    },
+    "demo art Final": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    },
+    "demo world Final": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    },
+    "demo story Final": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    },
+    "four charter Final": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    },
+    "four art Final": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    },
+    "four world Final": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    },
+    "four story Final": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    }
+  },
+  "game": {
+    "four game zip bundle.json": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    },
+    "demo one file bundle": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    },
+    "four one file bundle": {
+      "146": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "147": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "148": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      },
+      "149": {
+        "matches": true,
+        "errors": 0,
+        "broken": 0,
+        "pageErrors": 0,
+        "firstError": null
+      }
+    }
+  },
+  "back": {
+    "demo story Final": {
+      "matches": true,
+      "stage": "story",
+      "err": null
+    },
+    "four story Final": {
+      "matches": true,
+      "stage": "story",
+      "err": null
+    },
+    "four game zip bundle.json": {
+      "matches": true,
+      "stage": "story",
+      "err": null
+    },
+    "demo one file bundle": {
+      "matches": true,
+      "stage": "story",
+      "err": null
+    },
+    "four one file bundle": {
+      "matches": true,
+      "stage": "story",
+      "err": null
+    }
+  },
+  "forges": [
+    {
+      "day": "146",
+      "head": "2f826a5",
+      "dirty": ""
+    },
+    {
+      "day": "147",
+      "head": "47882f6",
+      "dirty": ""
+    },
+    {
+      "day": "148",
+      "head": "8166c4e",
+      "dirty": ""
+    },
+    {
+      "day": "149",
+      "head": "2b7c590",
+      "dirty": ""
+    }
+  ],
+  "seconds": 85,
+  "passed": 27,
+  "total": 27,
+  "results": [
+    {
+      "name": "demo charter: Mark stage Final passes and the stage's own Final export writes forge 146 as final, hash stamped",
+      "ok": true
+    },
+    {
+      "name": "demo art: Mark stage Final passes and the stage's own Final export writes forge 147 as final, hash stamped",
+      "ok": true
+    },
+    {
+      "name": "demo world: Mark stage Final passes and the stage's own Final export writes forge 148 as final, hash stamped",
+      "ok": true
+    },
+    {
+      "name": "demo story: Mark stage Final passes and the stage's own Final export writes forge 149 as final, hash stamped",
+      "ok": true
+    },
+    {
+      "name": "four charter: Mark stage Final passes and the stage's own Final export writes forge 146 as final, hash stamped",
+      "ok": true
+    },
+    {
+      "name": "four art: Mark stage Final passes and the stage's own Final export writes forge 147 as final, hash stamped",
+      "ok": true
+    },
+    {
+      "name": "four world: Mark stage Final passes and the stage's own Final export writes forge 148 as final, hash stamped",
+      "ok": true
+    },
+    {
+      "name": "four story: Mark stage Final passes and the stage's own Final export writes forge 149 as final, hash stamped",
+      "ok": true
+    },
+    {
+      "name": "demo charter Final: opens in Days 146, 147, 148 and 149 as shipped, hash verified, no errors, no broken references, no page errors",
+      "ok": true
+    },
+    {
+      "name": "demo art Final: opens in Days 146, 147, 148 and 149 as shipped, hash verified, no errors, no broken references, no page errors",
+      "ok": true
+    },
+    {
+      "name": "demo world Final: opens in Days 146, 147, 148 and 149 as shipped, hash verified, no errors, no broken references, no page errors",
+      "ok": true
+    },
+    {
+      "name": "demo story Final: opens in Days 146, 147, 148 and 149 as shipped, hash verified, no errors, no broken references, no page errors",
+      "ok": true
+    },
+    {
+      "name": "four charter Final: opens in Days 146, 147, 148 and 149 as shipped, hash verified, no errors, no broken references, no page errors",
+      "ok": true
+    },
+    {
+      "name": "four art Final: opens in Days 146, 147, 148 and 149 as shipped, hash verified, no errors, no broken references, no page errors",
+      "ok": true
+    },
+    {
+      "name": "four world Final: opens in Days 146, 147, 148 and 149 as shipped, hash verified, no errors, no broken references, no page errors",
+      "ok": true
+    },
+    {
+      "name": "four story Final: opens in Days 146, 147, 148 and 149 as shipped, hash verified, no errors, no broken references, no page errors",
+      "ok": true
+    },
+    {
+      "name": "the built games are here to read (run node phase6.js first)",
+      "ok": true
+    },
+    {
+      "name": "four game zip bundle.json: a finished game's bundle opens in Days 146 to 149, hash verified, no errors, no broken references",
+      "ok": true
+    },
+    {
+      "name": "demo one file bundle: a finished game's bundle opens in Days 146 to 149, hash verified, no errors, no broken references",
+      "ok": true
+    },
+    {
+      "name": "four one file bundle: a finished game's bundle opens in Days 146 to 149, hash verified, no errors, no broken references",
+      "ok": true
+    },
+    {
+      "name": "demo story Final: opens back in the Studio as a project at the Story stage, hash verified",
+      "ok": true
+    },
+    {
+      "name": "four story Final: opens back in the Studio as a project at the Story stage, hash verified",
+      "ok": true
+    },
+    {
+      "name": "four game zip bundle.json: opens back in the Studio as a project at the Story stage, hash verified",
+      "ok": true
+    },
+    {
+      "name": "demo one file bundle: opens back in the Studio as a project at the Story stage, hash verified",
+      "ok": true
+    },
+    {
+      "name": "four one file bundle: opens back in the Studio as a project at the Story stage, hash verified",
+      "ok": true
+    },
+    {
+      "name": "vendor.js --check: every vendored file is byte for byte what its owner holds",
+      "ok": true
+    },
+    {
+      "name": "each forge clone's source is clean, at 146 2f826a5, 147 47882f6, 148 8166c4e, 149 2b7c590 (no tracked file outside its test reports changed)",
+      "ok": true
+    }
+  ]
+}

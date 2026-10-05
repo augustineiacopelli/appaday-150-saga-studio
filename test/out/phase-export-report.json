@@ -1,0 +1,118 @@
+{
+  "engines": [
+    {
+      "f": "engine-render.js",
+      "zip": "1ad0fc0d07fcb10a4917cc5550822860c6e3aac4a0414d050625ba906fad3281",
+      "one": "1ad0fc0d07fcb10a4917cc5550822860c6e3aac4a0414d050625ba906fad3281",
+      "vendor": "1ad0fc0d07fcb10a4917cc5550822860c6e3aac4a0414d050625ba906fad3281",
+      "contract": "1ad0fc0d07fcb10a4917cc5550822860c6e3aac4a0414d050625ba906fad3281",
+      "owner": "1ad0fc0d07fcb10a4917cc5550822860c6e3aac4a0414d050625ba906fad3281",
+      "studio": "1ad0fc0d07fcb10a4917cc5550822860c6e3aac4a0414d050625ba906fad3281"
+    },
+    {
+      "f": "engine-audio.js",
+      "zip": "4b77f7e557628e21330c7ca742cfb6664f0fd615f33bb40a9e5b16fb6751207a",
+      "one": "4b77f7e557628e21330c7ca742cfb6664f0fd615f33bb40a9e5b16fb6751207a",
+      "vendor": "4b77f7e557628e21330c7ca742cfb6664f0fd615f33bb40a9e5b16fb6751207a",
+      "contract": "4b77f7e557628e21330c7ca742cfb6664f0fd615f33bb40a9e5b16fb6751207a",
+      "owner": "4b77f7e557628e21330c7ca742cfb6664f0fd615f33bb40a9e5b16fb6751207a",
+      "studio": "4b77f7e557628e21330c7ca742cfb6664f0fd615f33bb40a9e5b16fb6751207a"
+    },
+    {
+      "f": "engine-world.js",
+      "zip": "146dcdad83307655b3e28288078dfb6fca7de86842ed9ecd13c6f3a61b39180f",
+      "one": "146dcdad83307655b3e28288078dfb6fca7de86842ed9ecd13c6f3a61b39180f",
+      "vendor": "146dcdad83307655b3e28288078dfb6fca7de86842ed9ecd13c6f3a61b39180f",
+      "contract": "146dcdad83307655b3e28288078dfb6fca7de86842ed9ecd13c6f3a61b39180f",
+      "owner": "146dcdad83307655b3e28288078dfb6fca7de86842ed9ecd13c6f3a61b39180f",
+      "studio": "146dcdad83307655b3e28288078dfb6fca7de86842ed9ecd13c6f3a61b39180f"
+    },
+    {
+      "f": "engine-battle.js",
+      "zip": "cc091bedd5acb06baf6cf5ef39ce8f3a3a9d02275bb479f4e24b8cde2b80177e",
+      "one": "cc091bedd5acb06baf6cf5ef39ce8f3a3a9d02275bb479f4e24b8cde2b80177e",
+      "vendor": "cc091bedd5acb06baf6cf5ef39ce8f3a3a9d02275bb479f4e24b8cde2b80177e",
+      "contract": "cc091bedd5acb06baf6cf5ef39ce8f3a3a9d02275bb479f4e24b8cde2b80177e",
+      "owner": "cc091bedd5acb06baf6cf5ef39ce8f3a3a9d02275bb479f4e24b8cde2b80177e",
+      "studio": "cc091bedd5acb06baf6cf5ef39ce8f3a3a9d02275bb479f4e24b8cde2b80177e"
+    },
+    {
+      "f": "engine-story.js",
+      "zip": "75451b0ee690b40fdc5658d4f0dfc29c572788d2262622bbff3f1b40284c3786",
+      "one": "75451b0ee690b40fdc5658d4f0dfc29c572788d2262622bbff3f1b40284c3786",
+      "vendor": "75451b0ee690b40fdc5658d4f0dfc29c572788d2262622bbff3f1b40284c3786",
+      "contract": "75451b0ee690b40fdc5658d4f0dfc29c572788d2262622bbff3f1b40284c3786",
+      "owner": "75451b0ee690b40fdc5658d4f0dfc29c572788d2262622bbff3f1b40284c3786",
+      "studio": "75451b0ee690b40fdc5658d4f0dfc29c572788d2262622bbff3f1b40284c3786"
+    }
+  ],
+  "folderStorage": "unavailable (TypeError)",
+  "passed": 16,
+  "total": 16,
+  "results": [
+    {
+      "name": "zip: one folder, named for the game (four-continents), holding exactly the nine game files",
+      "ok": true
+    },
+    {
+      "name": "zip: every entry carries the project's last saved time, so the same project zips to the same bytes",
+      "ok": true
+    },
+    {
+      "name": "zip: every file is pure ASCII",
+      "ok": true
+    },
+    {
+      "name": "engines: in the zip and in the one file, each matches vendor.js's pin, the Day 150 contract's pin and the Day 149 repository's own bytes",
+      "ok": true
+    },
+    {
+      "name": "engines: the contract's load order is render, audio, world, battle, story, and both forms load them in that order",
+      "ok": true
+    },
+    {
+      "name": "forms: the one file's inline bundle is the zip's bundle.json",
+      "ok": true
+    },
+    {
+      "name": "forms: player.js is the same bytes in both, and is player/player.js",
+      "ok": true
+    },
+    {
+      "name": "forms: player.css is the same bytes in both, and is player/player.css",
+      "ok": true
+    },
+    {
+      "name": "forms: the bundle hash 562a4b2f1ee961dd3528a4dae2d1d137a3f2006569fe9323c544effb74609ba4 is named on engine-story.js, in the story manifest and in the one file's comment",
+      "ok": true
+    },
+    {
+      "name": "forms: apart from the content hash Build game stamps, the bundle is the Day 149 Final fixture it was built from",
+      "ok": true
+    },
+    {
+      "name": "manifest: the Day 150 contract is the fixture's (opening, golden path, endings, engines, load order)",
+      "ok": true
+    },
+    {
+      "name": "manifest: nothing unresolved, and exportedAt is the project's last saved time",
+      "ok": true
+    },
+    {
+      "name": "README: names every file and the bundle hash",
+      "ok": true
+    },
+    {
+      "name": "folder: opened from disk, index.html loads the five engines from the files beside it and reaches the title (browser storage unavailable (TypeError))",
+      "ok": true
+    },
+    {
+      "name": "folder: a new game lands on the contract's opening state",
+      "ok": true
+    },
+    {
+      "name": "folder: the whole golden path (14 steps) walks to the golden ending with no fault and no request, storage or not",
+      "ok": true
+    }
+  ]
+}

@@ -667,8 +667,8 @@
    "path": "core/player-text.js",
    "owner": "derived",
    "from": "player/player.js and player/player.css as strings with their sha256, for Build game",
-   "bytes": 134703,
-   "sha256": "92e2efa76999a1cc0be69705283702c7750815fb8daf95691384f7795dbb5550"
+   "bytes": 134881,
+   "sha256": "4222d799a244ab49c613aa9a1cbb01e723b5faa850cc348892b36ef3e30f79cf"
   }
  ]
 }

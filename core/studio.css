@@ -6,6 +6,15 @@
 .store-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 16px; background: color-mix(in srgb, var(--danger) 16%, var(--bg2)); border-bottom: 1px solid var(--danger); color: var(--ink); font-weight: 700; }
 .store-banner[hidden] { display: none; }
 .store-banner span { flex: 1 1 240px; min-width: 0; }
+/* Phase 7: on a phone Kit's header puts the title and the AppADay backlink side by side with three icon buttons, and at 390 px
+   the title ran under the backlink. The title gives up some letter spacing and size, and the header its wide gaps, so all
+   five fit with their full text. (kit.css is vendored and never edited; this overrides it.) */
+@media (max-width: 600px) {
+  .app-head { gap: 4px; padding: 6px 8px 6px 12px; }
+  .app-head .brand { flex: 1 1 auto; min-width: 0; }
+  .app-head .brand-title { font-size: 1.05rem; letter-spacing: .03em; }
+  .app-head .backlink { padding: 0 6px; font-size: .85rem; }
+}
 /* === STUDIO:SHELL CSS END === */
 /* === STUDIO:PROJECTS CSS BEGIN === */
 /* The Projects dialog reuses Kit's slot rows. Long titles wrap, and the forge drafts section sits apart from the list. */
