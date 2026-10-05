@@ -25,6 +25,9 @@
   .app-head .guide-link { min-width: 44px; justify-content: center; }
   .app-head { gap: 2px; padding-left: 8px; }
 }
+/* The size and coverage chips are painted by the Art, World, and Story forges only. On the Charter stage nothing fills them,
+   so they showed as two empty boxes in the project bar. Hide each one while it has no content. */
+.topbar .size-btn:empty, .topbar .size-btn[hidden] { display: none; }
 /* === STUDIO:SHELL CSS END === */
 /* === STUDIO:PROJECTS CSS BEGIN === */
 /* The Projects dialog reuses Kit's slot rows. Long titles wrap, and the forge drafts section sits apart from the list. */
