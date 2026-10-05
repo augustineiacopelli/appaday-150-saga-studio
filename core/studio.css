@@ -14,6 +14,16 @@
   .app-head .brand { flex: 1 1 auto; min-width: 0; }
   .app-head .brand-title { font-size: 1.05rem; letter-spacing: .03em; }
   .app-head .backlink { padding: 0 6px; font-size: .85rem; }
+  /* Day 150 followup: the Guide link joined the header, so the title and links tighten once more. */
+  .app-head .brand-title { font-size: .95rem; letter-spacing: 0; }
+  .app-head .backlink { padding: 0 3px; font-size: .8rem; }
+  .app-head .guide-link { min-width: 44px; justify-content: center; }
+}
+@media (max-width: 380px) {
+  .app-head .brand-title { font-size: .82rem; }
+  .app-head .backlink { padding: 0 2px; font-size: .74rem; }
+  .app-head .guide-link { min-width: 44px; justify-content: center; }
+  .app-head { gap: 2px; padding-left: 8px; }
 }
 /* === STUDIO:SHELL CSS END === */
 /* === STUDIO:PROJECTS CSS BEGIN === */

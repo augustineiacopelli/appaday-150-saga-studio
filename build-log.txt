@@ -330,3 +330,10 @@ SESSION 7 / PHASE 7: tests, layout, ship (Opus, 2026-10-04). COMPLETE. App 150 s
     150 days, so the card says May 8.
   NEXT: none for Day 150. Later ideas the plan left out of v1: a full FF7 style materia grid in the player, a stamp so an
     Art stage can show stale against World edits, Action RPG and Tactics builders.
+
+DAY 150 FOLLOWUP (October 5, 2026): Creator's Guide
+  Added guide.html (linked from the Studio header as Guide) and GUIDE.md, generated from one content source in tools/guide so they
+  cannot drift. Covers planning before the keyboard, a tour of the Studio, and every stage, tab, field, and button, plus reference.
+  Notes found while writing: the Start tab Load the demo buttons do nothing in the Studio (it ships no demo); the Charter save
+  policy fields are not used by the player, which always offers autosave plus three slots; the player caps active party at four.
+  Layout test still 143 of 143 with the new header link. The live Pages deployment was not checked from the workspace.
