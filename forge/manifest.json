@@ -23,7 +23,7 @@
    "file": "engines/engine-battle.js",
    "global": "ENGINE_BATTLE",
    "owner": "146",
-   "sha256": "cc091bedd5acb06baf6cf5ef39ce8f3a3a9d02275bb479f4e24b8cde2b80177e"
+   "sha256": "2f522032c65afb8b9497a4d79b388766a42e0691fd612a2e3ce835caf46b67fa"
   },
   {
    "file": "engines/engine-story.js",
@@ -639,8 +639,8 @@
    "path": "engines/engine-battle.js",
    "owner": "149",
    "from": "repository root engine-battle.js",
-   "bytes": 64214,
-   "sha256": "cc091bedd5acb06baf6cf5ef39ce8f3a3a9d02275bb479f4e24b8cde2b80177e"
+   "bytes": 64358,
+   "sha256": "2f522032c65afb8b9497a4d79b388766a42e0691fd612a2e3ce835caf46b67fa"
   },
   {
    "path": "engines/engine-story.js",
@@ -660,8 +660,8 @@
    "path": "core/engine-text.js",
    "owner": "derived",
    "from": "the five engine files as strings, plus the ENGINE:BATTLE fence text Kit.engine.source() returns",
-   "bytes": 722192,
-   "sha256": "b81d7e701b073cd98dfe7dad38b64670c715a1f2a97e81dbb2d814f32eb152d9"
+   "bytes": 722480,
+   "sha256": "7f017200d58d4888016b772ff9b5fac7a64a7acd12a2923735f14fd36c62d089"
   },
   {
    "path": "core/player-text.js",
