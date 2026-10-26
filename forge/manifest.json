@@ -156,8 +156,8 @@
    "path": "forge/147/art-sprites.js",
    "owner": "147",
    "from": "src/art-sprites.js",
-   "bytes": 32171,
-   "sha256": "4a56cb9136a61b28b3cb17c4549e9c5d44a21f08b378b6028cb5fa3ea2969470"
+   "bytes": 34302,
+   "sha256": "986e93bd7856ef1aa58c0dc7b3c50bd61ec541e7ea1047bff83584b068e02128"
   },
   {
    "path": "forge/147/art-pixed.js",
@@ -170,8 +170,8 @@
    "path": "forge/147/ws-sprites.js",
    "owner": "147",
    "from": "src/ws-sprites.js",
-   "bytes": 41892,
-   "sha256": "71818ef6b3e428dbcceacaae00b9fe8605344f31c2a47020e64c03d7783f25fb"
+   "bytes": 41751,
+   "sha256": "fa716b68289e062dc2b5b1c87efa7cdbbdd48f23dc87c8b686b4138bfcca0b04"
   },
   {
    "path": "forge/147/ws-interface.js",
@@ -262,7 +262,7 @@
    "owner": "147",
    "from": "src/art-ai.js",
    "bytes": 82718,
-   "sha256": "f60b683131a97fcd87f776da6fcb4be2915d3754a6da3f353c3b92ecf013d9e4"
+   "sha256": "0f7963fe4cbd00f12bc98d8370a68ac54c47d613bb246461518c333850334338"
   },
   {
    "path": "forge/147/art-coverage.js",
