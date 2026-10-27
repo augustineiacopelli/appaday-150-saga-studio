@@ -56,7 +56,7 @@ module.exports = [
     { t: 'h3', x: 'Settings' },
     { t: 'p', x: 'The gear in the header opens **Settings**.' },
     { t: 'table', head: ['Field', 'What it does'], rows: [
-      ['Claude API key', 'Optional. Switches on the AI helpers. Stored only in this browser and shared with other AppADay apps on the same site. Use **Show or hide key** to check it, **Test Key** to verify it, and **Clear key** to remove it.'],
+      ['Claude API key', 'Optional. Switches on the AI helpers. Stored only in this browser and shared with other AppADay apps on the same site. Use the key manager in Settings to enter, check, back up, or forget it.'],
       ['Session name', 'A label for your own reference, kept with your settings. For example "Saga weekend build".'],
       ['Theme', 'Match system, Night, or Parchment.'],
       ['Model tiers (haiku, sonnet, opus, fable)', 'Which Claude model each helper uses. Leave blank to use the portfolio default. You normally never change these.'],

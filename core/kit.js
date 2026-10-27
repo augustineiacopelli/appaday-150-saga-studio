@@ -243,51 +243,30 @@
         var s = Kit.store.get(SETTINGS_KEY, {});
         if (!U.isObj(s)) s = {};
         var tiers = U.isObj(s.tiers) ? s.tiers : {};
-        settingsCache = { key: typeof s.key === 'string' ? s.key : '', session: typeof s.session === 'string' ? s.session : '', tiers: {} };
+        settingsCache = { key: '', session: typeof s.session === 'string' ? s.session : '', tiers: {} };
         TIERS.forEach(function (t) { settingsCache.tiers[t] = typeof tiers[t] === 'string' ? tiers[t] : ''; });
       }
       return settingsCache;
     },
     set: function (patch) {
       var s = Kit.settings.get();
-      if (patch.key !== undefined) s.key = String(patch.key).trim();
       if (patch.session !== undefined) s.session = String(patch.session).trim();
       if (U.isObj(patch.tiers)) TIERS.forEach(function (t) { if (patch.tiers[t] !== undefined) s.tiers[t] = String(patch.tiers[t]).trim(); });
       Kit.store.set(SETTINGS_KEY, s);
       Kit.emit('settings', s);
       return s;
     },
-    hasKey: function () { return !!Kit.settings.get().key; },
+    hasKey: function () { return !!(window.AppKeys && window.AppKeys.has()); },
     open: function () { openSettings(); }
   };
 
   // ---------------------------------------------------------------- models
-  var MODEL_FALLBACK = { haiku: 'claude-haiku-4-5-20251001', sonnet: 'claude-sonnet-5-5', opus: 'claude-opus-5-5', fable: 'claude-fable-5-1' };
-  var configPromise = null;
-  function loadConfig() {
-    if (!configPromise) {
-      configPromise = (async function () {
-        var urls = ['../config.json', 'https://augustineiacopelli.github.io/appaday/config.json'];
-        for (var i = 0; i < urls.length; i++) {
-          try {
-            var r = await fetch(urls[i], { cache: 'no-cache' });
-            if (!r.ok) continue;
-            var c = await r.json();
-            if (c && c.models) return c;
-          } catch (e) { /* try next */ }
-        }
-        return null;
-      })();
-    }
-    return configPromise;
-  }
-  // Standard AppADay getModel(tier): Settings override, then ../config.json, then fallback.
+  // Standard AppADay getModel(tier): Settings override, then the portal models.js (config.json).
   async function getModel(tier) {
     tier = tier || 'sonnet';
     var override = Kit.settings.get().tiers[tier];
     if (override) return override;
-    try { var c = await loadConfig(); if (c && c.models && c.models[tier]) return c.models[tier]; } catch (e) {}
-    return MODEL_FALLBACK[tier] || MODEL_FALLBACK.sonnet;
+    return window.AppModels ? window.AppModels.get(tier) : '';
   }
   Kit.getModel = getModel;
 
@@ -378,7 +357,8 @@
 
   Kit.claude = async function (opts) {
     opts = opts || {};
-    var key = Kit.settings.get().key;
+    var key = null;
+    if (window.AppKeys) key = (opts.silent && !window.AppKeys.has()) ? null : await window.AppKeys.get();
     if (!key) {
       var nk = new Error(NO_KEY_MSG); nk.code = 'NO_KEY';
       if (!opts.silent) Kit.ui.toast(NO_KEY_MSG, 'warn');
@@ -2040,28 +2020,24 @@
       body: function (b) {
         b.innerHTML =
           '<div class="form-grid">' +
-          '<div class="field span-all"><label class="field-label" for="setKey">Claude API key</label>' +
-          '<div class="ref-row"><input class="inp mono" id="setKey" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-...">' +
-          '<button class="btn btn-icon" type="button" id="setKeyShow" aria-label="Show or hide key" title="Show or hide">' + Kit.icon('key') + '</button></div>' +
-          '<div class="field-help">Stored only in this browser. AI features are optional; everything else works without a key.</div></div>' +
+          '<div class="field span-all" id="setKeyMount"></div>' +
           '<div class="field span-all"><div class="btn-row"><button class="btn" type="button" id="setTest">' + Kit.icon('spark') + '<span>Test Key</span></button><span class="settings-test" id="setTestOut" aria-live="polite"></span></div></div>' +
           '<div class="field span-all"><label class="field-label" for="setSession">Session name</label><input class="inp" id="setSession" type="text" placeholder="e.g. Saga weekend build"><div class="field-help">A label for your own reference, kept with your settings.</div></div>' +
           '<div class="field"><label class="field-label" for="setTheme">Theme</label><select class="inp" id="setTheme"><option value="system">Match system</option><option value="night">Night</option><option value="parchment">Parchment</option></select></div>' +
           '</div>' +
-          '<h3 class="section-h">Model tiers</h3><p class="field-help">Leave blank to use the portfolio config.json, then the built-in default.</p>' +
+          '<h3 class="section-h">Model tiers</h3><p class="field-help">Leave blank to use the portfolio default for that tier.</p>' +
           '<div class="form-grid" id="setTiers"></div>' +
           '<h3 class="section-h">Storage</h3><p class="muted" id="setUsage"></p>';
-        refs.key = b.querySelector('#setKey'); refs.key.value = s.key;
+        if (window.AppKeys) window.AppKeys.mountSettings(b.querySelector('#setKeyMount'));
         refs.session = b.querySelector('#setSession'); refs.session.value = s.session;
         refs.theme = b.querySelector('#setTheme'); refs.theme.value = ui.theme || 'system';
         refs.out = b.querySelector('#setTestOut');
-        b.querySelector('#setKeyShow').addEventListener('click', function () { refs.key.type = refs.key.type === 'password' ? 'text' : 'password'; });
         refs.theme.addEventListener('change', function () { Kit.theme.set(refs.theme.value); });
         var tg = b.querySelector('#setTiers');
         refs.tiers = {};
         TIERS.forEach(function (t) {
           var f = U.el('div', 'field');
-          f.innerHTML = '<label class="field-label" for="setTier_' + t + '">' + t + '</label><input class="inp mono" id="setTier_' + t + '" type="text" spellcheck="false" placeholder="' + MODEL_FALLBACK[t] + '">';
+          f.innerHTML = '<label class="field-label" for="setTier_' + t + '">' + t + '</label><input class="inp mono" id="setTier_' + t + '" type="text" spellcheck="false" placeholder="' + (window.AppModels ? window.AppModels.id(t) : '') + '">';
           tg.appendChild(f);
           refs.tiers[t] = f.querySelector('input'); refs.tiers[t].value = s.tiers[t] || '';
         });
@@ -2081,14 +2057,13 @@
         });
       },
       actions: [
-        { label: 'Clear key', kind: 'ghost', onClick: function () { refs.key.value = ''; save(); Kit.ui.toast('API key removed from this browser.', 'ok'); return false; } },
         { label: 'Save', kind: 'primary', onClick: function () { save(); Kit.ui.toast('Settings saved.', 'ok'); } }
       ]
     });
     function save() {
       var tiers = {};
       TIERS.forEach(function (t) { tiers[t] = refs.tiers[t].value; });
-      Kit.settings.set({ key: refs.key.value, session: refs.session.value, tiers: tiers });
+      Kit.settings.set({ session: refs.session.value, tiers: tiers });
     }
   }
 

@@ -37,8 +37,8 @@
    "path": "core/kit.js",
    "owner": "146",
    "from": "index.html KIT:CORE fence",
-   "bytes": 139592,
-   "sha256": "21064ac2075372beea351f9dd35ca8c86b424ebeb623ea1907718bd7d49ab4dc"
+   "bytes": 137958,
+   "sha256": "785bdfa211c6ca35dd762bc422dd23deef800d8612aec6f41ba19ea72ac89172"
   },
   {
    "path": "core/kit.css",

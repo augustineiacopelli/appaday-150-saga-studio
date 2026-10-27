@@ -12,7 +12,7 @@ const PAGE = path.join(__dirname, '..', 'index.html');
 // a browser's script files look like to the page (their text cannot be read back from the DOM). The shipped page is this case.
 function inline(file, evalEngines) {
   const dir = path.dirname(file);
-  return fs.readFileSync(file, 'utf8').replace(/<script src="([^"]+)"><\/script>/g, (m, src) => (evalEngines && /^engines\//.test(src)) ? '' : '<script>\n' + fs.readFileSync(path.join(dir, src), 'utf8') + '\n</script>');
+  return fs.readFileSync(file, 'utf8').replace(/<script src="([^"]+)"><\/script>/g, (m, src) => /^https?:/.test(src) ? m : (evalEngines && /^engines\//.test(src)) ? '' : '<script>\n' + fs.readFileSync(path.join(dir, src), 'utf8') + '\n</script>');
 }
 
 // boot(opts) returns { dom, win, errors } at once, like each forge's own test boot. Every script has already run when it

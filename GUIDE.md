@@ -288,7 +288,7 @@ The gear in the header opens **Settings**.
 
 | Field | What it does |
 | --- | --- |
-| Claude API key | Optional. Switches on the AI helpers. Stored only in this browser and shared with other AppADay apps on the same site. Use **Show or hide key** to check it, **Test Key** to verify it, and **Clear key** to remove it. |
+| Claude API key | Optional. Switches on the AI helpers. Stored only in this browser and shared with other AppADay apps on the same site. Use the key manager in Settings to enter, check, back up, or forget it. |
 | Session name | A label for your own reference, kept with your settings. For example "Saga weekend build". |
 | Theme | Match system, Night, or Parchment. |
 | Model tiers (haiku, sonnet, opus, fable) | Which Claude model each helper uses. Leave blank to use the portfolio default. You normally never change these. |
@@ -1057,7 +1057,7 @@ Every record has an ID made of a short prefix and a number. When the Studio repo
 | Story will not open | The world is not Final or does not validate. | Fix World Validation. |
 | The 12 hour floor fails | Chapter target minutes add up to less than 720. | Raise chapter targets in the Charter, or add a chapter. |
 | A boss has no troop | An Empty boss slot in Events or Encounters. | Pick a troop for it. |
-| Claude buttons do nothing | No API key saved. | Open Settings, paste your key, and press Test Key. |
+| Claude buttons do nothing | No API key saved. | Open Settings, enter your key in the key manager, and try again. |
 | A save failed with a storage banner | The browser is full. | Press Export now, then clear space. |
 | Load the demo does nothing | The Studio ships no demo game. | Use Projects and Import instead. |
 
