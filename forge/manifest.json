@@ -142,15 +142,15 @@
    "path": "forge/147/art-palette.js",
    "owner": "147",
    "from": "src/art-palette.js",
-   "bytes": 19894,
-   "sha256": "102f2acac5c9620ec80ad5b920c8e3c8e3ae324014eb28838981bbaf60595a4c"
+   "bytes": 22486,
+   "sha256": "5215c4961111bb06f7535c86f06248d4425cfcddbf5f5aacb5ee3c2c5e49aa63"
   },
   {
    "path": "forge/147/ws-palette.js",
    "owner": "147",
    "from": "src/ws-palette.js",
-   "bytes": 24857,
-   "sha256": "9670fa58bffbd1e62612c564b22d7e7d3d7c7e20f03912716e7bd3eae03badc9"
+   "bytes": 25136,
+   "sha256": "912ec294a3b570c6793063e09ce26bf82f0fe1607cf9238e3441a5ec484b90b0"
   },
   {
    "path": "forge/147/art-sprites.js",
@@ -191,8 +191,8 @@
    "path": "forge/147/ws-motion.js",
    "owner": "147",
    "from": "src/ws-motion.js",
-   "bytes": 48504,
-   "sha256": "8896d4a72d23253387ed6c7eb4a30b5447467fb7071d394f6c70694cd71ed410"
+   "bytes": 50227,
+   "sha256": "4102b5009df7800eb8b391477c843ce0673f341feac5428572ae5aa712ec7d20"
   },
   {
    "path": "forge/147/art-tiles.js",

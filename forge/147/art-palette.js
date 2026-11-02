@@ -226,6 +226,45 @@
   P.SHAPES = SHAPES;
   P.SCREENS = ['none', 'wave', 'shake', 'darken'];
 
+  // ---------------------------------------------------------------- freestanding effects
+  // An effect that belongs to no element (Ice, Lightning) is an efx_ record with subject role effect:<slug>. Quick Build,
+  // coverage, and the element fallback only look at element subjects, so these are never generated, refreshed, or
+  // required; an ability animation reaches one only through its impact.fx, which the engines already resolve by ID.
+  P.isElementEffect = function (r) { return !!(r && r.subject && r.subject.kind === 'element'); };
+  P.effectSlug = function (name) { return U.slug(String(name || '').replace(/\s+effect\s*$/i, '')); };
+  P.findEffectByName = function (name, b) {
+    var k = P.effectSlug(name);
+    return k ? P.effects(b).filter(function (r) { return P.effectSlug(r.name) === k || (r.subject && r.subject.ref === 'effect:' + k); })[0] || null : null;
+  };
+  P.addEffect = function (name, b, from) {
+    b = b || cur();
+    var label = String(name || '').trim(), k = P.effectSlug(label);
+    if (!k) throw new Error('An effect needs a name.');
+    if (P.findEffectByName(label, b)) throw new Error('An effect with that name already exists.');
+    var src = from ? ART.records.get(from, b) : null, nu = P.entries(b), last = Math.max(0, nu.length - 1);
+    var full = /\s+effect\s*$/i.test(label) ? label : label + ' effect';
+    var r = ART.envelope('efx_', full, { kind: 'role', ref: 'effect:' + k }, 'user', H('efx|role|' + k), {
+      palette: src && Array.isArray(src.palette) ? src.palette.slice() : [Math.min(2, last), Math.min(3, last), Math.min(4, last), last],
+      flash: src && typeof src.flash === 'number' ? src.flash : last,
+      tint: src && typeof src.tint === 'number' ? src.tint : Math.min(3, last),
+      particle: src && U.isObj(src.particle) ? U.clone(src.particle) : { shape: 'spark', count: 12, life: 420, gravity: 0, spread: 1, speed: 1 },
+      screen: src && src.screen ? src.screen : 'none'
+    });
+    ART.records.put(r, b);
+    return r;
+  };
+  // Removes a freestanding effect and points every ability animation that used it back at its element's effect.
+  P.removeEffect = function (id, b) {
+    b = b || cur();
+    var r = ART.records.get(id, b);
+    if (!r || P.isElementEffect(r)) return -1;
+    var n = 0;
+    ART.records.list('anm_', b).forEach(function (a) { if (a.impact && a.impact.fx === id) { a.impact.fx = null; n++; } });
+    ART.records.del(id, b);
+    return n;
+  };
+  P.effectUsers = function (id, b) { return ART.records.list('anm_', b || cur()).filter(function (a) { return a.impact && a.impact.fx === id; }); };
+
   // Which records use each master index (for the editor and for safe edits).
   P.usage = function (b) {
     b = b || cur();

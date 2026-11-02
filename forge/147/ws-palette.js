@@ -317,7 +317,7 @@
     var b = cur(), entries = P.entries(b), fx = P.effects(b);
     var els = (b.charter.ruleset && b.charter.ruleset.elements) || [];
     var intro = el('section', 'panel');
-    intro.innerHTML = '<h3 class="section-h">Element palettes</h3><p class="muted">Four steps per element (dark, base, light, hot), plus a flash and a tint, fitted from the Charter\'s element color. Particle shape and screen behavior give each element its identity even when the palette cannot.</p>' +
+    intro.innerHTML = '<h3 class="section-h">Element palettes</h3><p class="muted">Four steps per element (dark, base, light, hot), plus a flash and a tint, fitted from the Charter\'s element color. Particle shape and screen behavior give each element its identity even when the palette cannot. Custom effects, added on the Motion tab, are listed here too and are never refitted.</p>' +
       (entries.length <= 2 ? '<p class="msg msg-warning">At two colors every element palette is identical. Shape and screen carry the difference.</p>' : '');
     host.appendChild(intro);
     if (!fx.length) { intro.appendChild(el('div', 'empty-line', els.length ? 'No element palettes yet. Run Quick Build.' : 'The Charter defines no elements.')); return; }
@@ -325,10 +325,11 @@
     fx.forEach(function (r) {
       var e = els.filter(function (x) { return x.key === (r.subject || {}).ref; })[0];
       var row = rowFor(r);
-      var dot = el('span', 'a7-big a7-big-s'); dot.style.background = (e && e.color) || '#888'; dot.setAttribute('role', 'img'); dot.setAttribute('aria-label', 'Charter color ' + ((e && e.color) || 'none'));
+      var custom = !P.isElementEffect(r);
+      var dot = el('span', 'a7-big a7-big-s'); dot.style.background = custom ? (entries[r.tint] || '#888') : (e && e.color) || '#888'; dot.setAttribute('role', 'img'); dot.setAttribute('aria-label', custom ? 'Custom effect, tint ' + (entries[r.tint] || 'none') : 'Charter color ' + ((e && e.color) || 'none'));
       row.appendChild(dot);
       var mid = el('div', 'a7-grow');
-      mid.innerHTML = '<div class="a7-name"><strong>' + esc(r.name) + '</strong> ' + originChip(r) + '</div>';
+      mid.innerHTML = '<div class="a7-name"><strong>' + esc(r.name) + '</strong> ' + originChip(r) + (custom ? ' ' + chip('custom', 'accent') : '') + '</div>';
       var sw = el('div', 'a7-steps');
       function slotBtn(label, get, set) {
         var idx = get();

@@ -337,3 +337,11 @@ DAY 150 FOLLOWUP (October 5, 2026): Creator's Guide
   Notes found while writing: the Start tab Load the demo buttons do nothing in the Studio (it ships no demo); the Charter save
   policy fields are not used by the player, which always offers autosave plus three slots; the player caps active party at four.
   Layout test still 143 of 143 with the new header link. The live Pages deployment was not checked from the workspace.
+
+DAY 150 FOLLOWUP (November 1, 2026): custom effects
+  Vendored Day 147 session 10 (appaday-147-art-and-audio-forge 4609cbd): Motion, Effects can now create custom effects that
+  belong to no element (Ice, Lightning), pick them in an ability animation's Effect list, and delete them. Changed files:
+  forge/147/art-palette.js, ws-motion.js, ws-palette.js, and forge/manifest.json. Engines unchanged. vendor.js --check clean.
+  Tests: inside this page Day 147 phases 0 to 6 and 8 pass apart from the known phase5 global check; phase7 has no result,
+  as before. Studio phase1, 2 and 3 show the same failures as before this change (script order after the models.js move,
+  the kv entry check, and the dock refresh), none touching art.

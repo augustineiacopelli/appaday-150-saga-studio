@@ -487,16 +487,20 @@
   function viewEffects(host, repaint) {
     var b = cur(), fx = P.effects(b);
     var intro = el('section', 'panel');
-    intro.innerHTML = '<h3 class="section-h">Element effects</h3><p class="muted">Each element bursts in its own particle shape and moves the screen its own way, so elements stay distinct even in a two color palette. Colors come from the element palette on the Palette tab.</p>';
+    intro.innerHTML = '<h3 class="section-h">Effects</h3><p class="muted">Each element bursts in its own particle shape and moves the screen its own way, so elements stay distinct even in a two color palette. A custom effect belongs to no element (Ice, Lightning) and is picked by name in an ability animation\'s Effect list. Colors come from the Palette tab.</p>';
     host.appendChild(intro);
     if (!fx.length) { needMaster(host); return; }
+    var irow = el('div', 'btn-row');
+    irow.appendChild(W.button('New effect', 'spark', '', function () { newEffect(repaint); }));
+    intro.appendChild(irow);
     var p = el('section', 'panel');
     fx.forEach(function (r) {
       var row = rowFor(r);
       row.appendChild(effectStage(b, r, r.name + ' preview'));
       var pt = r.particle || {};
       var mid = el('div', 'a7-grow');
-      mid.innerHTML = '<div class="a7-name"><strong>' + esc(r.name) + '</strong> ' + W.origin(r) + '</div><div class="muted a7-small">' + esc((pt.shape || 'spark') + ', ' + (pt.count || 12) + ' particles, screen ' + (r.screen || 'none')) + '</div>';
+      var custom = !P.isElementEffect(r), users = custom ? P.effectUsers(r.id, b).length : 0;
+      mid.innerHTML = '<div class="a7-name"><strong>' + esc(r.name) + '</strong> ' + W.origin(r) + (custom ? ' ' + W.chip('custom', 'accent') : '') + '</div><div class="muted a7-small">' + esc((pt.shape || 'spark') + ', ' + (pt.count || 12) + ' particles, screen ' + (r.screen || 'none') + (custom ? ', used by ' + users + ' animation' + (users === 1 ? '' : 's') : '')) + '</div>';
       row.appendChild(mid);
       var acts = el('div', 'a7-acts');
       acts.appendChild(W.button('Edit', 'edit', '', function () { openEffect(r.id, repaint); }));
@@ -530,11 +534,32 @@
           body.appendChild(c2);
           var frow = el('div', 'btn-row');
           frow.appendChild(W.button('Edit colors on the Palette tab', 'chart', 'btn-ghost', function () { h.close(); Kit.jump(r.id); }));
-          if (ART.ai) frow.appendChild(ART.ai.button('effect', r.id, function () { paint(); if (repaintList) repaintList(); }));
+          if (ART.ai && P.isElementEffect(r)) frow.appendChild(ART.ai.button('effect', r.id, function () { paint(); if (repaintList) repaintList(); }));
+          if (!P.isElementEffect(r)) frow.appendChild(W.button('Delete', 'x', 'btn-ghost', function () {
+            var n = P.effectUsers(r.id).length;
+            Kit.ui.confirm({ title: 'Delete ' + r.name + '?', message: n ? n + ' ability animation' + (n === 1 ? ' uses' : 's use') + ' it and will fall back to the element effect.' : 'No ability animation uses it.', okLabel: 'Delete', danger: true }).then(function (ok) {
+              if (!ok) return;
+              P.removeEffect(r.id); touch('fx-delete'); h.close(); if (repaintList) repaintList();
+            });
+          }));
           body.appendChild(frow);
         }
         paint();
       }
+    });
+  }
+  function newEffect(repaint) {
+    var fx = P.effects(cur());
+    Kit.ui.prompt({ title: 'New effect', label: 'Effect name', value: '', placeholder: 'for example Ice', validate: function (v) {
+      if (!P.effectSlug(v)) return 'Enter a name.';
+      if (P.findEffectByName(v, cur())) return 'An effect with that name already exists.';
+      return null;
+    } }).then(function (v) {
+      if (!v) return;
+      var r = P.addEffect(v, cur(), fx.length ? fx[0].id : null);
+      touch('fx-add'); repaint();
+      Kit.ui.toast('Added ' + r.name + '. Set its colors on the Palette tab.', 'ok');
+      openEffect(r.id, repaint);
     });
   }
 
