@@ -399,7 +399,7 @@
   function abilityRows(b) {
     var rows = [], abls = b.rules && U.isObj(b.rules.abl_) ? b.rules.abl_ : {};
     M.DEFAULT_ABILITIES.forEach(function (d) { var r = M.defaultAbility(b, d.key); if (r) rows.push({ anm: r, label: d.label + ' (default)', note: 'Used when an ability has no animation of its own.' }); });
-    Object.keys(abls).forEach(function (id) { var r = M.abilityAnim(b, id); if (r) rows.push({ anm: r, label: abls[id].name || id, note: (abls[id].kind || '') + (abls[id].element ? ', ' + abls[id].element : '') }); });
+    Object.keys(abls).forEach(function (id) { var r = M.abilityAnim(b, id); if (r) rows.push({ anm: r, label: abls[id].name || id, note: (abls[id].kind || '') + (function () { var fx = r.impact && r.impact.fx ? P.effects(b).filter(function (f) { return f.id === r.impact.fx; })[0] : null; return fx ? ', ' + fx.name : (abls[id].element ? ', ' + abls[id].element : ''); })() }); });
     M.anims(b).filter(function (a) { return a.kind === 'ability' && rows.every(function (x) { return x.anm !== a; }); }).forEach(function (a) { rows.push({ anm: a, label: a.name, note: 'Not linked to an ability' }); });
     return rows;
   }
